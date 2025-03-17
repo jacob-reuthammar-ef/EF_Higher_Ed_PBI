@@ -1,2 +1,2 @@
-# EF_Higher_Ed_PBI
+# EF Higher Ed PBI
 Power BI Repo for EF Higher Education (Study Abroad and Gap Year)
