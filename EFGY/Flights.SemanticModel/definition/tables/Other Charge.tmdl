@@ -1,0 +1,53 @@
+table 'Other Charge'
+	lineageTag: 5ca2b2a0-af65-4765-ad5b-3486e5c4ec4b
+
+	column Id
+		dataType: string
+		lineageTag: 42be2360-1435-4cb0-a715-ee82cc807ddc
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment__c
+		dataType: string
+		lineageTag: b45d51c2-ad42-4c79-8701-0f7be83a900a
+		summarizeBy: none
+		sourceColumn: Enrollment__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Charge_Type__c
+		dataType: string
+		lineageTag: a6f0bb6e-b576-47df-bb84-3321e97a1463
+		summarizeBy: none
+		sourceColumn: Charge_Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Charge = ```
+			RELATED('Charge Type'[Name]) 
+			```
+		lineageTag: 62f0c80a-a48a-4efc-a9d3-c9164fdf00f3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Sem' = IF('Other Charge'[Charge_Type__c] = "a0P1I000001XGbJUAW", "YES", "")
+		lineageTag: 7e3aef2a-1c1b-42b8-a4f7-07db6c0f3a25
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Other Charge-40546cf6-e77c-4ef0-a7a4-053405907647' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data(),
+				    Other_Charge__c = Source{[Name="Other_Charge__c"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Other_Charge__c,{"Id", "Enrollment__c", "Charge_Type__c"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+

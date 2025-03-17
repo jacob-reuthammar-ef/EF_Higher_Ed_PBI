@@ -1,0 +1,72 @@
+table 'Component Enrollment IDs'
+	lineageTag: 2d1d808d-4ef4-48ef-a663-800c085f253b
+
+	column Enrollment__c
+		dataType: string
+		lineageTag: 5bb318a4-e203-412a-95ce-b7351c2e9346
+		summarizeBy: none
+		sourceColumn: Enrollment__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 1 ID'
+		dataType: string
+		lineageTag: 0d84b152-3829-4648-b752-00d7c87a16c9
+		summarizeBy: none
+		sourceColumn: Mod 1 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 2 ID'
+		dataType: string
+		lineageTag: c8422989-3af9-494b-813e-bbc8012774ca
+		summarizeBy: none
+		sourceColumn: Mod 2 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 3 ID'
+		dataType: string
+		lineageTag: d9769a7d-0748-424a-83d3-b9e23a0f5fc6
+		summarizeBy: none
+		sourceColumn: Mod 3 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: ea36f51e-d435-4544-8dbf-cae8136fc3de
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Component Enrollment IDs-d6622727-6b1d-4aa8-9b17-61043d20aec6' = m
+		mode: import
+		source = ```
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+				    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+				
+				    //Filtering out only component enrollments in status Confirmed
+				    #"Filtered Rows" = Table.SelectRows(Program_Component__c, each ([Status__c] = "Confirmed")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Enrollment__c", "Component__c", "Component_Number__c"}),
+				
+				    //Pivoting component numbers as columns, keeping enrollment id as rows. 
+				    #"Pivoted Column" = Table.Pivot(#"Removed Other Columns", List.Distinct(#"Removed Other Columns"[Component_Number__c]), "Component_Number__c", "Component__c"),
+				    
+				    #"Removed Columns" = Table.RemoveColumns(#"Pivoted Column",{"4", "5"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"1", "Mod 1 ID"}, {"2", "Mod 2 ID"}, {"3", "Mod 3 ID"}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns", "Index", 0, 1, Int64.Type),
+				
+				    //If an enrollment id has multiple component enrollments for the same component number, return "Multiple Enrollments"
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Added Index", {{"Mod 1 ID", "Multiple Enrollments"}}),
+				    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Replaced Errors", {{"Mod 2 ID", "Multiple Enrollments"}}),
+				    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Replaced Errors1", {{"Mod 3 ID", "Multiple Enrollments"}})
+				in
+				    #"Replaced Errors2"
+				```
+
+	annotation PBI_ResultType = Table
+

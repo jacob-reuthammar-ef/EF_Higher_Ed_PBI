@@ -1,0 +1,39 @@
+table 'Charge Type'
+	lineageTag: 66a81578-9d1c-4e1d-95d4-4caafb104a61
+
+	column Id
+		dataType: string
+		lineageTag: ea3b4478-235e-4599-9561-aa31bfb89b70
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 84eb31e8-3fa0-4423-937a-8bacde5c01d0
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type__c
+		dataType: string
+		lineageTag: 5d4e6432-467d-4ccc-8654-6a7b922e5ce8
+		summarizeBy: none
+		sourceColumn: Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Charge Type-02d2f7d1-ee81-437a-a565-6ae5c83ca1b6' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data(),
+				    Charge_Type__c = Source{[Name="Charge_Type__c"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Charge_Type__c,{"Id", "Name", "Type__c"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+

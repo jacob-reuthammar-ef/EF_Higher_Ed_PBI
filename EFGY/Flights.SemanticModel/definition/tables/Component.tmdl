@@ -1,0 +1,130 @@
+table Component
+	lineageTag: 8a40e235-f952-4d8c-a1ea-ad3de8a441d8
+
+	column Id
+		dataType: string
+		lineageTag: fb6ac084-9d58-4971-906f-f0a485d3284d
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ComponentName
+		dataType: string
+		lineageTag: 9c2281f4-61ba-4d27-b931-3c2f7a135b2d
+		summarizeBy: none
+		sourceColumn: ComponentName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e501fc49-7455-4960-949a-25ac2cc1a074
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		variation Variation
+			isDefault
+			relationship: 65671761-9ba0-409d-9f35-27f22c9cf1a8
+			defaultHierarchy: LocalDateTable_d1f70e5a-348a-45e2-9261-5f3f2e24e609.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Type
+		dataType: string
+		lineageTag: 8d92be2f-7fcb-4c71-b91d-1fad34b7f945
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: baab8e2b-e128-48b2-b8b6-aceaa6ce15ea
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9fa1a8bb-2067-4d59-bb37-0730516b7887
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		variation Variation
+			isDefault
+			relationship: 4235f798-1f7e-495e-b8ab-6d09654aa718
+			defaultHierarchy: LocalDateTable_2b1e0825-329f-46ae-81e0-496cd35ed2e4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Module_Option__c
+		dataType: string
+		lineageTag: a565319d-38bb-4e87-ae3e-b557cf1efe56
+		summarizeBy: none
+		sourceColumn: Module_Option__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component_Code__c
+		dataType: string
+		lineageTag: 899f4e02-e505-4507-bc3d-23ca3de8aeb1
+		summarizeBy: none
+		sourceColumn: Component_Code__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EUR Imm Prod'
+		dataType: string
+		lineageTag: fc63e982-2b55-48df-a65e-ed601745320d
+		summarizeBy: none
+		sourceColumn: EUR Imm Prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column OwnerId
+		dataType: string
+		lineageTag: 1e07ccd0-7ef4-47c7-b1cf-cc22d8de0f3d
+		summarizeBy: none
+		sourceColumn: OwnerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location__c
+		dataType: string
+		lineageTag: a5a477a1-b68f-464a-99f5-cacb93372c79
+		summarizeBy: none
+		sourceColumn: Location__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prod_ID__c
+		dataType: string
+		lineageTag: 0f4666a7-7fdf-437f-87e1-45097a9bed3d
+		summarizeBy: none
+		sourceColumn: Prod_ID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Component-5f59e116-bbed-4d8a-8d1b-1b9c9ce91e6b = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+				    Component__c = Source{[Name="Component__c"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Component__c,{"Id", "OwnerId", "Name", "Start_Date__c", "Type__c", "Component_Code__c", "Module_Option__c", "Location__c", "Program__c", "End_Date__c", "Prod_ID__c"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Start_Date__c", "StartDate"}, {"Type__c", "Type"}, {"Program__c", "Program"}, {"End_Date__c", "EndDate"}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Name", "ComponentName"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns1", "EUR Imm Prod", each if Text.Contains([ComponentName], "European") then [Component_Code__c] else if Text.Contains([ComponentName], "Orientation Tour - Europe") then [Component_Code__c] else if Text.Contains([ComponentName], "Orientation Tour - Japan") then [Component_Code__c] else null)
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+

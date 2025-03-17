@@ -1,0 +1,70 @@
+table 'Booking Sheets'
+	lineageTag: 27b86338-c967-480f-9280-9b7552cb6588
+
+	column 'Program Sheet'
+		dataType: string
+		lineageTag: 9e094145-b7b4-4471-93cd-900c0386abfc
+		summarizeBy: none
+		sourceColumn: Program Sheet
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date modified'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e856a919-1804-446e-89e2-4900f0f34503
+		summarizeBy: none
+		sourceColumn: Date modified
+
+		variation Variation
+			isDefault
+			relationship: 279e4827-5d23-4e8d-bb56-dc146b5c3842
+			defaultHierarchy: LocalDateTable_e258748a-55b2-4558-944f-2f89773f27f9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date created'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eda5340b-a6b0-49a4-a0d6-ebe71d0be7ee
+		summarizeBy: none
+		sourceColumn: Date created
+
+		variation Variation
+			isDefault
+			relationship: 9ad014b3-6631-445b-be29-525ab6ce41a1
+			defaultHierarchy: LocalDateTable_425a3d17-7fc5-4ad9-93a9-5d65f5565de2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Path'
+		dataType: string
+		lineageTag: 530d0f1b-dc08-49cc-aeef-5a24716f6258
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Folder Path
+
+		annotation SummarizationSetBy = Automatic
+
+	column File = 'Booking Sheets'[Folder Path]&'Booking Sheets'[Program Sheet]
+		lineageTag: 621db583-ae2c-4ebc-86b3-da1fc43cc38e
+		dataCategory: WebUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Booking Sheets-eeb61c6a-e0da-4140-9609-4a2dcfb4fdee' = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Files("https://efcom.sharepoint.com/sites/EFGapYear990", [ApiVersion = 15]),
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Folder Path] = "https://efcom.sharepoint.com/sites/EFGapYear990/Shared Documents/Reports/Flights/Booking Sheets/")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Name", "Program Sheet"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"Content", "Extension", "Date accessed", "Attributes"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

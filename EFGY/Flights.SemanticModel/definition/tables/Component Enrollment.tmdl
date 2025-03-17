@@ -1,0 +1,121 @@
+table 'Component Enrollment'
+	lineageTag: 1c54ac81-c8fc-4f67-85a1-aa82d933e8db
+
+	column Id
+		dataType: string
+		lineageTag: adfbcfb2-bcc7-4d26-b67c-74fbbb9bd339
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: b49422e3-8de0-42fc-96e9-1b7cda8f6431
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment__c
+		dataType: string
+		lineageTag: 67f1cd22-6d56-4da7-a400-c468b5731a93
+		summarizeBy: none
+		sourceColumn: Enrollment__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status__c
+		dataType: string
+		lineageTag: 73e19a2f-18ca-4ca9-99f5-6c28b5506c8d
+		summarizeBy: none
+		sourceColumn: Status__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component__c
+		dataType: string
+		lineageTag: 999696fc-1e8a-4408-b157-d4205274490c
+		summarizeBy: none
+		sourceColumn: Component__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component_Number__c
+		dataType: string
+		lineageTag: 9fea46b2-6b3b-4286-9f98-157ce4d51f3c
+		summarizeBy: none
+		sourceColumn: Component_Number__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component_Name__c
+		dataType: string
+		lineageTag: 99a8086e-4dc7-464e-939d-6ef6545e84de
+		summarizeBy: none
+		sourceColumn: Component_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Student__c
+		dataType: string
+		lineageTag: a4685514-fca8-4dd9-8562-22945463f38e
+		summarizeBy: none
+		sourceColumn: Student__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Name__c
+		dataType: string
+		lineageTag: 516d68ed-f861-4600-9ca8-260f7231609e
+		summarizeBy: none
+		sourceColumn: Program_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location__c
+		dataType: string
+		lineageTag: 09085c0f-1a38-4de3-b8c3-f63bb63d4add
+		summarizeBy: none
+		sourceColumn: Location__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Component_ID_18__c
+		dataType: string
+		lineageTag: 7971e52f-fc21-4c7d-a6ce-310fa38476ee
+		summarizeBy: none
+		sourceColumn: Program_Component_ID_18__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type__c
+		dataType: string
+		lineageTag: 19558b05-68a7-4266-9804-ea02ea867698
+		summarizeBy: none
+		sourceColumn: Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component_Code__c
+		dataType: string
+		lineageTag: 75809ca4-2879-4f33-9712-9c35dbd1b905
+		summarizeBy: none
+		sourceColumn: Component_Code__c
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Component Enrollment-e2a3d759-5262-41e5-ac41-7e912365c691' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Program_Component__c,{"Id", "Name", "Enrollment__c", "Status__c", "Component__c", "Component_Number__c", "Component_Name__c", "Student__c", "Program_Name__c", "Location__c", "Program_Component_ID_18__c", "Component__r"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Status__c] = "Confirmed")),
+				    #"Expanded Component__r" = Table.ExpandRecordColumn(#"Filtered Rows", "Component__r", {"Type__c", "Component_Code__c"}, {"Type__c", "Component_Code__c"})
+				in
+				    #"Expanded Component__r"
+
+	annotation PBI_ResultType = Table
+

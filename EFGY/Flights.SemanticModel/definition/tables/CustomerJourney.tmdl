@@ -1,0 +1,241 @@
+table CustomerJourney
+	lineageTag: b9fae861-4e19-4c6c-9695-698d1a8f29fa
+
+	column 'Component Id'
+		dataType: string
+		lineageTag: d82ec6fe-d492-4837-9bc6-af58f96c72ad
+		summarizeBy: none
+		sourceColumn: Component Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: d9898fa6-6503-4ccd-a010-69904a9701b7
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c958b9b5-dd6b-47fe-a7b3-0ea39610e1ef
+		summarizeBy: none
+		sourceColumn: Component Start Date
+
+		variation Variation
+			isDefault
+			relationship: a746a680-dc0c-44d7-bdce-610bdb719ecc
+			defaultHierarchy: LocalDateTable_54cc76c0-fd01-44a2-badf-7861bf8e1d46.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Type
+		dataType: string
+		lineageTag: f81d95eb-9159-44c8-9dad-9c37262c19e6
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SF Prod'
+		dataType: string
+		lineageTag: 2955b3a5-db72-45c3-a2e7-0217f38456a8
+		summarizeBy: none
+		sourceColumn: SF Prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Module Option'
+		dataType: string
+		lineageTag: 543612b0-7770-4328-9d90-fd8e26f991c7
+		summarizeBy: none
+		sourceColumn: Module Option
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Id'
+		dataType: string
+		lineageTag: 1be05113-e906-418a-ac5a-94f178e8390a
+		summarizeBy: none
+		sourceColumn: Program Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component End Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0f0bc6aa-c6bb-4c01-b6a5-b5715e1a285d
+		summarizeBy: none
+		sourceColumn: Component End Date
+
+		variation Variation
+			isDefault
+			relationship: 648f0bad-ca74-43ec-af5a-dd5f83c8b4db
+			defaultHierarchy: LocalDateTable_c682dd93-e2e0-4994-b8bc-3e9e93f6a871.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start - End'
+		dataType: string
+		lineageTag: 29814a33-d2b5-4334-9117-bbce42972e45
+		summarizeBy: none
+		sourceColumn: Start - End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Enrollment Id'
+		dataType: string
+		lineageTag: 82cce55d-fef6-4096-91fa-1199167d3d7b
+		summarizeBy: none
+		sourceColumn: Enrollment Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Id'
+		dataType: string
+		lineageTag: 840e18b7-21e4-468b-8f47-b8395bf7d0f1
+		summarizeBy: none
+		sourceColumn: Customer Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component Enrollment Status'
+		dataType: string
+		lineageTag: 8975553e-27c7-4770-a597-91b381ba3675
+		summarizeBy: none
+		sourceColumn: Component Enrollment Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column PNR1
+		dataType: string
+		lineageTag: f19d569c-f220-40c1-9b0a-1b8bb5a0d816
+		summarizeBy: none
+		sourceColumn: PNR1
+
+		annotation SummarizationSetBy = Automatic
+
+	column PNR2
+		dataType: string
+		lineageTag: 6f9eeec8-6f85-499b-b675-de137bc448c0
+		summarizeBy: none
+		sourceColumn: PNR2
+
+		annotation SummarizationSetBy = Automatic
+
+	column PNR3
+		dataType: string
+		lineageTag: 3227fe83-b7d3-4c9b-aa16-7e9acb82b204
+		summarizeBy: none
+		sourceColumn: PNR3
+
+		annotation SummarizationSetBy = Automatic
+
+	column PNR4
+		dataType: string
+		lineageTag: 5f5e0626-7a41-49dd-ae9e-1d60bab77f7c
+		summarizeBy: none
+		sourceColumn: PNR4
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Special Request Count'
+		dataType: int64
+		lineageTag: 4b064428-618e-47b9-a211-9ca34aa82e2a
+		summarizeBy: sum
+		sourceColumn: Special Request Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Special Request Count nulls' = CALCULATE(AVERAGE(CustomerJourney[Special Request Count]), CustomerJourney[Special Request Count] <> 0)
+		formatString: 0
+		lineageTag: 6716fa35-8760-446c-830c-43861c3178bc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArrGate
+		dataType: string
+		lineageTag: e2451b66-0326-4bff-98a6-46032e20b24e
+		summarizeBy: none
+		sourceColumn: ArrGate
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepGate
+		dataType: string
+		lineageTag: db3b8b09-84a8-4dc3-97de-74e9689069b7
+		summarizeBy: none
+		sourceColumn: DepGate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Id'
+		dataType: string
+		lineageTag: d34e966a-6ae5-41e3-b2da-70f50dd9a0fa
+		summarizeBy: none
+		sourceColumn: Account Id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CustomerJourney-983f44fe-1bf4-4866-9aa2-1211041b0bfc = m
+		mode: import
+		source = ```
+				let
+				  Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				Component__c = Source{[Name="Component__c"]}[Data],
+				
+				//Excluding Main program component types
+				   #"Filtered Rows" = Table.SelectRows(Component__c, each ([Type__c] <> "Main Program Component")),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"Id", "Component Id"}}),
+				   #"Expanded Program_Components__r" = Table.ExpandTableColumn(#"Renamed Columns1", "Program_Components__r", {"Enrollment__c", "Enrollment__r", "Status__c"}, {"Enrollment Id", "Program_Components__r.Enrollment__r", "Component Enrollment Status"}),
+				   #"Expanded Program_Components__r.Enrollment__r" = Table.ExpandRecordColumn(#"Expanded Program_Components__r", "Program_Components__r.Enrollment__r", {"Customer_ID__c", "AccountId"}, {"Customer Id", "Account Id"}),
+				   #"Removed Other Columns" = Table.SelectColumns(#"Expanded Program_Components__r.Enrollment__r",{"Component Id", "Name", "Start_Date__c", "Type__c", "Component_Code__c", "Module_Option__c", "Program__c", "End_Date__c", "Enrollment Id", "Customer Id", "Account Id", "Component Enrollment Status"}),
+				
+				      #"Appended Query" = Table.Combine({#"Removed Other Columns", #"Component (2)"}),
+				
+				   //Adding component start-end range
+				   #"Added Custom" = Table.AddColumn(#"Appended Query", "Start - End", each Text.From([Start_Date__c]) & " - " & Text.From([End_Date__c])),
+				    
+				  //Joining Customer ID and Start Date with GYUS FlightDetails to get PNR that matches exact date
+				    #"Merged Queries" = Table.NestedJoin(#"Added Custom", {"Customer Id", "Start_Date__c"}, #"GYUS FlightDetails", {"NameRemarks", "DepDateShort"}, "GYUS FlightDetails", JoinKind.LeftOuter),
+				    #"Expanded GYUS FlightDetails" = Table.ExpandTableColumn(#"Merged Queries", "GYUS FlightDetails", {"RecordLocator"}, {"PNR1"}),
+				  
+				  //Joining Customer ID and Start Date with GYUS FlightDetails to get PNR that matches date minus one day
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded GYUS FlightDetails", {"Customer Id", "Start_Date__c"}, #"GYUS FlightDetails", {"NameRemarks", "DepMinusOne"}, "GYUS FlightDetails", JoinKind.LeftOuter),
+				    #"Expanded GYUS FlightDetails1" = Table.ExpandTableColumn(#"Merged Queries1", "GYUS FlightDetails", {"RecordLocator"}, {"PNR2"}),
+				
+				    //Joining Customer ID and Start Date with GYUS FlightDetails to get PNR that matches date plus one day
+				    #"Merged Queries2" = Table.NestedJoin(#"Expanded GYUS FlightDetails1", {"Customer Id", "Start_Date__c"}, #"GYUS FlightDetails", {"NameRemarks", "DepAddOne"}, "GYUS FlightDetails", JoinKind.LeftOuter),
+				    #"Expanded GYUS FlightDetails2" = Table.ExpandTableColumn(#"Merged Queries2", "GYUS FlightDetails", {"RecordLocator"}, {"PNR3"}),
+				
+				//Checking which date matches and grabs the PNR
+				    #"Added Conditional Column" = Table.AddColumn(#"Expanded GYUS FlightDetails2", "PNR4", each if [PNR1] <> null then [PNR1] else if [PNR2] <> null then [PNR2] else if [PNR3] <> null then [PNR3] else null),
+				    
+				  //Joining Special requests  
+				    #"Merged Queries3" = Table.NestedJoin(#"Added Conditional Column", {"Customer Id"}, #"Special Requests", {"Customer ID"}, "Special Requests", JoinKind.LeftOuter),
+				    
+				   //Counting special requests per Customer ID
+				    #"Aggregated Special Requests" = Table.AggregateTableColumn(#"Merged Queries3", "Special Requests", {{"Customer ID", List.NonNullCount, "Special Request Count", Int64.Type}}),
+				    
+				    //Joining Gateways which replaces Component Names with Gateway codes
+				    #"Merged Queries4" = Table.NestedJoin(#"Aggregated Special Requests", {"Component Id"}, Gateways, {"Component Id"}, "Gateways", JoinKind.LeftOuter),  
+				   #"Expanded Gateways" = Table.ExpandTableColumn(#"Merged Queries4", "Gateways", {"Arrival GTW", "Departing GTW"}, {"ArrGate", "DepGate"}),
+				    
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Gateways",{{"Start_Date__c", "Component Start Date"}, {"Type__c", "Type"}, {"Component_Code__c", "SF Prod"}, {"Module_Option__c", "Module Option"}, {"Program__c", "Program Id"}, {"End_Date__c", "Component End Date"}})
+				in
+				    #"Renamed Columns"
+				```
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

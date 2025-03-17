@@ -1,0 +1,300 @@
+relationship 5b26c424-5097-4a55-95d5-a984538adace
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Account.'Date of Birth'
+	toColumn: LocalDateTable_938ae4cc-cf3b-4450-961a-9c3971a7b475.Date
+
+relationship 0e8cbf15-3362-48d1-9bb2-e5eb1bd798d3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Program.Departure_Date__c
+	toColumn: LocalDateTable_71697bc4-7ade-4ff2-920b-20647362b594.Date
+
+relationship 9a6d9c2d-b1b7-45f3-96d6-d4cc4da27d3c
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Quote and Enrollment'.AccountId
+	toColumn: Account.'Account Id'
+
+relationship dba85ed0-2fe1-4ec5-8070-21967c4cea7c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.CreatedDate
+	toColumn: LocalDateTable_2a1924e2-e83f-496f-a9bd-762dea618181.Date
+
+relationship 2ab367a6-5c74-43dd-8e26-a69e5f427ff5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Departure_time__c
+	toColumn: LocalDateTable_7e2792be-7b9f-4700-9f71-c8122bb79fe2.Date
+
+relationship 1766f9d9-248d-44a9-a44d-03356cefddf9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Arrival_time__c
+	toColumn: LocalDateTable_1a471b1c-aa2e-47f8-9c02-a7adef1ad040.Date
+
+relationship 76a10e07-336c-4777-a843-115a1f1bed74
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Account.'Passport Expiration Date'
+	toColumn: LocalDateTable_2d081e99-0fac-49a8-9e02-9d5fb86e6d5e.Date
+
+relationship 8f8d6dea-f396-40c0-a820-ae886d918a2f
+	fromColumn: 'Other Charge'.Enrollment__c
+	toColumn: 'Quote and Enrollment'.'Enrollment Id'
+
+relationship 21eb40bd-8d20-4484-a05e-a784aada8fbf
+	fromColumn: 'Other Charge'.Charge_Type__c
+	toColumn: 'Charge Type'.Id
+
+relationship a8106083-f1d9-4064-9796-ae7894b9effd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Departure_Time_Text__c
+	toColumn: LocalDateTable_85f39dbe-9c33-4121-9eed-c853c5abafdd.Date
+
+relationship 42a7c9e5-50bc-4707-934a-d9c7e117e145
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Arrival_Time_Text__c
+	toColumn: LocalDateTable_81708af2-cef6-42d8-991b-71077455fe48.Date
+
+relationship cdd1dd0d-aac9-45b8-928e-2a8d682b889e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Departure_Time_User_s_time_zone__c
+	toColumn: LocalDateTable_1a5d5714-04e4-40cb-9d4e-ff46a2408049.Date
+
+relationship 1636ce17-8721-47ae-975a-ad3b45c491cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Flight.Arrival_Time_User_s_time_zone__c
+	toColumn: LocalDateTable_45a96b73-42b4-4d88-b43e-cc7ffdafcf72.Date
+
+relationship af8b646a-d1f8-4a2b-9951-2dd341de7a44
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepDate
+	toColumn: LocalDateTable_c58c5ae1-d299-4d89-b033-67c2f43b66fc.Date
+
+relationship d156ac2c-7387-4bcc-b073-e41c74cfd0e3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.ArrDate
+	toColumn: LocalDateTable_60aa5edb-c0f7-4402-ad29-f7ef381f6ca8.Date
+
+relationship 0a54fede-49e4-4396-a5d6-9253a7a9b799
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepDateUTC
+	toColumn: LocalDateTable_c4430359-b51a-4eb0-b9f2-5676fec2b18c.Date
+
+relationship bc5d6f65-7012-47bd-995c-8c3bcd0fbdd8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.ArrDateUTC
+	toColumn: LocalDateTable_c7e2c7ec-fdce-4903-918f-14ae66fde755.Date
+
+relationship 310fe6ec-fd5d-4d69-8eab-219455f4b677
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.'Booked Date'
+	toColumn: LocalDateTable_9c1b9416-5a4d-47c7-9a16-cde37b8688b2.Date
+
+relationship 0ea8ff4b-431a-4c31-ab7f-4e6c3a05d5eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Program.End_Date__c
+	toColumn: LocalDateTable_dac0a698-2f62-4ee6-b277-649c48c0bc7e.Date
+
+relationship 5d2ed200-eaa4-4560-a3aa-9f964ee44e5a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Quote and Enrollment'.'Enrollment Id'
+	toColumn: 'Component Enrollment Names'.Enrollment__c
+
+relationship 8c587d70-3e28-4d84-a4e2-42a99572e8a9
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Quote and Enrollment'.ProgramID__c
+	toColumn: Program.Id
+
+relationship 65671761-9ba0-409d-9f35-27f22c9cf1a8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Component.StartDate
+	toColumn: LocalDateTable_d1f70e5a-348a-45e2-9261-5f3f2e24e609.Date
+
+relationship 4235f798-1f7e-495e-b8ab-6d09654aa718
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Component.EndDate
+	toColumn: LocalDateTable_2b1e0825-329f-46ae-81e0-496cd35ed2e4.Date
+
+relationship 82da8057-7688-4fca-aa94-8cbfe077658b
+	fromColumn: 'Other Charge'.Enrollment__c
+	toColumn: 'Component Enrollment IDs'.Enrollment__c
+
+relationship bf85846a-d8b6-40e0-9df3-935ec1ea75aa
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Component Enrollment IDs'.Enrollment__c
+	toColumn: 'Quote and Enrollment'.'Enrollment Id'
+
+relationship 2edbd85d-e912-48ce-b579-d3b926b78b14
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'ARR DEP'.'Start Date'
+	toColumn: LocalDateTable_d21a21f4-8219-4440-acbc-e4031ec9a8ab.Date
+
+relationship 525696d7-7829-42e8-a69c-51eaa06cf601
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'ARR DEP'.'End Date'
+	toColumn: LocalDateTable_d7fe1601-c7e1-481f-b8ed-68e8d2e3c865.Date
+
+relationship 13272105-ca7c-4171-8022-f2bddb9331ab
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.'Mod 1 Start Date'
+	toColumn: LocalDateTable_046224e9-34f4-40a0-a620-ec16cc22d29e.Date
+
+relationship fcbeb743-3acc-49a6-aee4-6cfaffe84480
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.'Mod 2 Start Date'
+	toColumn: LocalDateTable_9e599d01-9095-4ed8-b045-feedc35c1845.Date
+
+relationship 7579eace-441e-4a2b-97a6-e37efed3e531
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.'Mod 3 Start Date'
+	toColumn: LocalDateTable_4ffa25e4-867f-4a92-aae2-b3ff0cdd70ea.Date
+
+relationship 86ad0161-a911-4061-b35e-c6a2268d1217
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Quote and Enrollment'.'Mod 1 ID'
+	toColumn: Component.Id
+
+relationship d323acea-2606-4570-8275-8844455c444b
+	isActive: false
+	fromColumn: 'Quote and Enrollment'.'Mod 2 ID'
+	toColumn: Component.Id
+
+relationship 5812fb55-0c9f-437e-888e-9033c4cc0a2e
+	isActive: false
+	fromColumn: 'Quote and Enrollment'.'Mod 3 ID'
+	toColumn: Component.Id
+
+relationship c594e9fc-2280-4524-aba9-011ac60ac8c6
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Component Enrollment'.Enrollment__c
+	toColumn: 'Quote and Enrollment'.'Enrollment Id'
+
+relationship 3dd3b09c-0862-4ffc-9606-72d7fbd1ea81
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Quote and Enrollment'.Customer_ID__c
+	toColumn: 'GYUS FlightDetails'.NameRemarks
+
+relationship f62118c0-d11a-4d25-9edb-2b2bb72bde08
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.EffectiveDate
+	toColumn: LocalDateTable_8a6bd1c9-ce11-48d0-86e2-a01393ef5e0d.Date
+
+relationship eb05fefb-472a-4b5c-8a0f-494447cc0f8c
+	crossFilteringBehavior: bothDirections
+	fromColumn: Flight.Account__c
+	toColumn: Account.'Account Id'
+
+relationship 279e4827-5d23-4e8d-bb56-dc146b5c3842
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Booking Sheets'.'Date modified'
+	toColumn: LocalDateTable_e258748a-55b2-4558-944f-2f89773f27f9.Date
+
+relationship 9ad014b3-6631-445b-be29-525ab6ce41a1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Booking Sheets'.'Date created'
+	toColumn: LocalDateTable_425a3d17-7fc5-4ad9-93a9-5d65f5565de2.Date
+
+relationship e167c925-4530-42da-a4b6-980f2808a3e2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepartureDate
+	toColumn: LocalDateTable_c9d2bfe4-fa8c-4c99-aad5-fc2f03583852.Date
+
+relationship 82c9ff03-2840-4d33-af91-b855735b9d1f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.ArrivalDate
+	toColumn: LocalDateTable_4f83bca8-b79f-44ce-a52a-72deea82f7a1.Date
+
+relationship a746a680-dc0c-44d7-bdce-610bdb719ecc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CustomerJourney.'Component Start Date'
+	toColumn: LocalDateTable_54cc76c0-fd01-44a2-badf-7861bf8e1d46.Date
+
+relationship 648f0bad-ca74-43ec-af5a-dd5f83c8b4db
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CustomerJourney.'Component End Date'
+	toColumn: LocalDateTable_c682dd93-e2e0-4994-b8bc-3e9e93f6a871.Date
+
+relationship 43e291ba-9a27-451c-a131-7c7cf017efae
+	isActive: false
+	fromColumn: 'Component Enrollment'.Component__c
+	toColumn: Component.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 36541175-46c1-4a61-ab34-7fc1cb27fb0d
+	crossFilteringBehavior: bothDirections
+	fromColumn: CustomerJourney.'Enrollment Id'
+	toColumn: 'Quote and Enrollment'.'Enrollment Id'
+
+relationship a363278f-da79-46e9-867a-33c96f19e775
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepDateShort
+	toColumn: LocalDateTable_b8f9893f-644e-41e5-8400-764947396ff2.Date
+
+relationship 07b5d585-0e88-43de-869d-56c132443668
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepMinusOne
+	toColumn: LocalDateTable_6a46a03d-9e32-4cf5-a5ef-4b93d3e0ead0.Date
+
+relationship 9187b531-76c8-4eef-b38e-0a517151a439
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'GYUS FlightDetails'.DepAddOne
+	toColumn: LocalDateTable_eb00f6ee-7e83-4c26-89c4-98dd4878e729.Date
+
+relationship e1cd5ef0-d952-4004-b5c4-eae3c222f3b7
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: CustomerJourney.'Customer Id'
+	toColumn: 'Special Requests'.'Customer ID'
+
+relationship e6c2e93d-aed9-4718-bbef-d2e605512feb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Component (2)'.Start_Date__c
+	toColumn: LocalDateTable_bc0e350c-b9ed-4c54-8333-0c44c4e15f5e.Date
+
+relationship b8e12317-8f5b-4ca5-b9ac-b9a4b5323e22
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Component (2)'.End_Date__c
+	toColumn: LocalDateTable_776d106e-a008-402a-b29f-330756c84ac7.Date
+
+relationship 670e1a91-6b62-4f39-9f39-c412b181e5b6
+	crossFilteringBehavior: bothDirections
+	fromColumn: CustomerJourney.'Component Id'
+	toColumn: ProdIds.'Component ID'
+
+relationship a33330de-3d6f-4327-9d6d-eb042e48c8ac
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FlightItin.DEPDATE
+	toColumn: LocalDateTable_7aaa8bf6-4cb3-4e2a-bc25-b0e8984c4111.Date
+
+relationship 1ad4f5c2-fa73-43ee-93fe-ee2f58cb0c26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FlightItin.ARRDATE
+	toColumn: LocalDateTable_5236593d-e419-44bb-9f87-5bbe5942ae22.Date
+
+relationship c11d6035-b9c1-4d9e-9437-680cb81550f5
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: CustomerJourney.'Component Id'
+	toColumn: FlightItin.Id
+
+relationship b27bed2b-0ea3-4481-a871-cc1185f9daad
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Special_Requests.Created_Date
+	toColumn: LocalDateTable_f215a33f-6f80-495b-86a5-13e1011438b5.Date
+
+relationship fbf9cdd6-b1e3-0dac-8cd4-77b2065c9474
+	crossFilteringBehavior: bothDirections
+	fromColumn: Special_Requests.Order_Number
+	toColumn: 'Quote and Enrollment'.OrderNumber
+
+relationship 298ad9b9-824f-4896-a751-dfd325e6eb8c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Special_Requests.Approved_Date
+	toColumn: LocalDateTable_1fa545b7-d747-4e9e-8430-d443c6e250c3.Date
+
+relationship 272374c0-06cb-4748-b994-b66d97377d18
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Special_Requests.Departure_Date
+	toColumn: LocalDateTable_ffa6f5ac-e698-4d16-a9c6-fe2a70d2c49d.Date
+

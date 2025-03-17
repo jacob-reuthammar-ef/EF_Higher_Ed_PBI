@@ -1,0 +1,82 @@
+table Gateways
+	lineageTag: e21a1298-40f0-4c28-aaa6-0f6795ea16f8
+
+	column 'Component Id'
+		dataType: string
+		lineageTag: 7552c5b8-1e1f-4194-9e2c-8f85b6ce49be
+		summarizeBy: none
+		sourceColumn: Component Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component Name'
+		dataType: string
+		lineageTag: 928488d1-3df1-4629-bdb8-44efb718614d
+		summarizeBy: none
+		sourceColumn: Component Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		dataType: string
+		lineageTag: 07415cbd-4242-4953-b27c-5c7f28e9ade6
+		summarizeBy: none
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Name'
+		dataType: string
+		lineageTag: 57296229-63cf-4c33-8bbf-8de688451e22
+		summarizeBy: none
+		sourceColumn: Program Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column isActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a41cc0ae-fc5e-4e7f-8089-66b41bae807d
+		summarizeBy: none
+		sourceColumn: isActive
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Id'
+		dataType: string
+		lineageTag: 56fe5134-db7a-4fb3-8e29-1b5d0ad813f4
+		summarizeBy: none
+		sourceColumn: Program Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Arrival GTW'
+		dataType: string
+		lineageTag: 74c9895e-ea6a-49a5-8325-e3d067411868
+		summarizeBy: none
+		sourceColumn: Arrival GTW
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Departing GTW'
+		dataType: string
+		lineageTag: e64ddeaf-6ec5-45a4-b18f-564a7602526b
+		summarizeBy: none
+		sourceColumn: Departing GTW
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gateways-e0837539-11d0-45e9-a8c8-5fcaf39b0bdd = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/EFGapYear990/Shared%20Documents/Reports/Flights/Components%20with%20Gateways%20-%20for%20Flights%20report.xlsx"), null, true),
+				    Gateways_Table = Source{[Item="Gateways",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Gateways_Table,{{"Component Id", type text}, {"Component Name", type text}, {"Fiscal Year", type text}, {"Program Name", type text}, {"isActive", type logical}, {"Program Id", type text}, {"Arrival GTW", type text}, {"Departing GTW", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,327 @@
+table 'Quote and Enrollment'
+	lineageTag: f5b8dc7c-0dff-46e0-a96a-48529f590e0a
+
+	column 'Enrollment Id'
+		dataType: string
+		lineageTag: c23e4eb7-e979-4754-99bc-9ede77dc4b12
+		summarizeBy: none
+		sourceColumn: Enrollment Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountId
+		dataType: string
+		lineageTag: 2cce50a4-5a91-4340-bc56-938f53303e9f
+		summarizeBy: none
+		sourceColumn: AccountId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 5c096ef8-088b-49b1-9868-c1eb4b2b3d7f
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderNumber
+		dataType: string
+		lineageTag: 440f3fa8-0009-47ba-b7eb-6910268b2248
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountId__c
+		dataType: string
+		lineageTag: b95f7220-352c-473f-800c-7c317d1aa295
+		summarizeBy: none
+		sourceColumn: AccountId__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Home Airport'
+		dataType: string
+		lineageTag: 865785e7-701f-40f3-904a-73fcca178887
+		summarizeBy: none
+		sourceColumn: Home Airport
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: e5380ab5-6e77-45ed-b60a-4e84a7f2b962
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Name'
+		dataType: string
+		lineageTag: 900028d4-b555-47d5-992e-627fadad3e61
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		lineageTag: 73956e36-7a6e-4f4f-a83a-aac4094285d1
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 6ef07100-2950-4ade-8d40-4f0dd3331e84
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_ID__c
+		dataType: string
+		lineageTag: 12c11508-195c-4cbe-8b51-6d0264c27bc2
+		summarizeBy: none
+		sourceColumn: Customer_ID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Booked Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a7c2fc38-3ddb-49ce-8857-e8476a0492a9
+		summarizeBy: none
+		sourceColumn: Booked Date
+
+		variation Variation
+			isDefault
+			relationship: 310fe6ec-fd5d-4d69-8eab-219455f4b677
+			defaultHierarchy: LocalDateTable_9c1b9416-5a4d-47c7-9a16-cde37b8688b2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SubStatus__c
+		dataType: string
+		lineageTag: 0fc6c021-8212-44fe-baac-1e1a275dca1d
+		summarizeBy: none
+		sourceColumn: SubStatus__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProgramID__c
+		dataType: string
+		lineageTag: 7d5b561e-3bca-4361-97cf-aef4a4f788c9
+		summarizeBy: none
+		sourceColumn: ProgramID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 1 ID'
+		dataType: string
+		lineageTag: 2c8ce14d-863d-4f08-8303-4c251adcefdf
+		summarizeBy: none
+		sourceColumn: Mod 1 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 2 ID'
+		dataType: string
+		lineageTag: c2e31178-0279-430c-a925-3dfc471185a6
+		summarizeBy: none
+		sourceColumn: Mod 2 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 3 ID'
+		dataType: string
+		lineageTag: 1ce8daae-9ad8-429c-8466-455ed65007fa
+		summarizeBy: none
+		sourceColumn: Mod 3 ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 1 Start Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 353854e8-0746-4b82-b50e-f5be32dd48e9
+		summarizeBy: none
+		sourceColumn: Mod 1 Start Date
+
+		variation Variation
+			isDefault
+			relationship: 13272105-ca7c-4171-8022-f2bddb9331ab
+			defaultHierarchy: LocalDateTable_046224e9-34f4-40a0-a620-ec16cc22d29e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Mod 2 Start Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 1789ffbf-41c6-48ee-959c-79aabdf8f593
+		summarizeBy: none
+		sourceColumn: Mod 2 Start Date
+
+		variation Variation
+			isDefault
+			relationship: fcbeb743-3acc-49a6-aee4-6cfaffe84480
+			defaultHierarchy: LocalDateTable_9e599d01-9095-4ed8-b045-feedc35c1845.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Mod 3 Start Date'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 225fc162-ce0d-4d3f-8004-9bb8848ccc4c
+		summarizeBy: none
+		sourceColumn: Mod 3 Start Date
+
+		variation Variation
+			isDefault
+			relationship: 7579eace-441e-4a2b-97a6-e37efed3e531
+			defaultHierarchy: LocalDateTable_4ffa25e4-867f-4a92-aae2-b3ff0cdd70ea.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Mod 1 Prod'
+		dataType: string
+		lineageTag: a9059174-b723-4a6f-9df9-e6c3d1fe27bc
+		summarizeBy: none
+		sourceColumn: Mod 1 Prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mod 2 Prod'
+		dataType: string
+		lineageTag: 548dd05a-68d0-45f8-8f18-d211078d8034
+		summarizeBy: none
+		sourceColumn: Mod 2 Prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column EffectiveDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e21eb149-bc8e-48da-878e-ba61b69a1383
+		summarizeBy: none
+		sourceColumn: EffectiveDate
+
+		variation Variation
+			isDefault
+			relationship: f62118c0-d11a-4d25-9edb-2b2bb72bde08
+			defaultHierarchy: LocalDateTable_8a6bd1c9-ce11-48d0-86e2-a01393ef5e0d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'AUS/NZ Prod'
+		dataType: string
+		lineageTag: 17a3c285-fa8f-4df2-929d-5fdf59054064
+		summarizeBy: none
+		sourceColumn: AUS/NZ Prod
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Module 1'
+		dataType: string
+		lineageTag: 6e8a6dce-aa1b-49c1-9b56-d6afd493f8ea
+		summarizeBy: none
+		sourceColumn: Module 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Module 2'
+		dataType: string
+		lineageTag: e4a3cec5-1016-4349-8774-892af569ae28
+		summarizeBy: none
+		sourceColumn: Module 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Module 3'
+		dataType: string
+		lineageTag: 7b1c120f-38c8-4625-b1d4-5a0b37f59c07
+		summarizeBy: none
+		sourceColumn: Module 3
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Quote and Enrollment-0fa939f0-a6c6-4273-b146-f7ccd9326dd9' = m
+		mode: import
+		source = ```
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Order = Source{[Name="Order"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Order,{"AccountId", "AccountId__c", "Booked_Date__c", "Customer_ID__c", "EffectiveDate", "First_Name__c", "Gender__c", "Home_Airport__c", "Id", "Last_Name__c", "OrderNumber", "Program_Components__r", "Program_Name__c", "ProgramID__c", "Status", "SubStatus__c"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Id", "Enrollment Id"}, {"Home_Airport__c", "Home Airport"}, {"Program_Name__c", "Program"}, {"First_Name__c", "First Name"}, {"Last_Name__c", "Last Name"}, {"Gender__c", "Gender"}, {"Booked_Date__c", "Booked Date"}}),
+				
+				    //Removing orders that are not tied to a program
+				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns", each ([ProgramID__c] <> null) and ([Status] = "Booked" or [Status] = "Cancelled")),
+				
+				    //Joining Component Enrollments 1,2,3 onto each order
+				    #"Merged Queries - Comp enrollments 1,2,3" = Table.NestedJoin(#"Filtered Rows1", {"Enrollment Id"}, #"Component Enrollment Names", {"Enrollment__c"}, "Component Enrollment", JoinKind.FullOuter),
+				    #"Expanded Component Enrollment" = Table.ExpandTableColumn(#"Merged Queries - Comp enrollments 1,2,3", "Component Enrollment", {"1", "2", "3"}, {"1", "2", "3"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded Component Enrollment",{{"1", "Module 1"}, {"2", "Module 2"}, {"3", "Module 3"}}),
+				    
+				    //Joining Component Enrollments 1,2,3 ids onto each order
+				    #"Merged Queries - comp enrollment ids 1,2,3" = Table.NestedJoin(#"Renamed Columns1", {"Enrollment Id"}, #"Component Enrollment IDs", {"Enrollment__c"}, "Component Enrollment Names", JoinKind.FullOuter),
+				    #"Expanded Component Enrollment ids" = Table.ExpandTableColumn(#"Merged Queries - comp enrollment ids 1,2,3", "Component Enrollment Names", {"Mod 1 ID", "Mod 2 ID", "Mod 3 ID"}, {"Mod 1 ID", "Mod 2 ID", "Mod 3 ID"}),
+				    
+				    //Joining Component Enrollment 1,2,3 start dates
+				    #"Merged Queries - component 1" = Table.NestedJoin(#"Expanded Component Enrollment ids", {"Mod 1 ID"}, Component, {"Id"}, "Component", JoinKind.LeftOuter),
+				    #"Expanded Mod 1 start date" = Table.ExpandTableColumn(#"Merged Queries - component 1", "Component", {"StartDate"}, {"Component.StartDate"}),
+				    #"Merged Queries - component 2" = Table.NestedJoin(#"Expanded Mod 1 start date", {"Mod 2 ID"}, Component, {"Id"}, "Component", JoinKind.LeftOuter),
+				    #"Expanded Mod 2 Start date" = Table.ExpandTableColumn(#"Merged Queries - component 2", "Component", {"StartDate"}, {"Component.StartDate.1"}),
+				    #"Merged Queries - component 3" = Table.NestedJoin(#"Expanded Mod 2 Start date", {"Mod 3 ID"}, Component, {"Id"}, "Component", JoinKind.LeftOuter),     
+				    #"Expanded Mod3 Start Date" = Table.ExpandTableColumn(#"Merged Queries - component 3", "Component", {"StartDate"}, {"Component.StartDate.2"}),
+				    
+				    #"Renamed Start Dates" = Table.RenameColumns(#"Expanded Mod3 Start Date",{{"Component.StartDate", "Mod 1 Start Date"}, {"Component.StartDate.1", "Mod 2 Start Date"}, {"Component.StartDate.2", "Mod 3 Start Date"}}),
+				    #"Filtered out error quotes" = Table.SelectRows(#"Renamed Start Dates", each [Enrollment Id] <> "8011I000000oC1uQAE" and [Enrollment Id] <> "8018W000006ZPp8QAG"),
+				    #"Merged Mod1ID Components" = Table.NestedJoin(#"Filtered out error quotes", {"Mod 1 ID"}, Component, {"Id"}, "Component", JoinKind.LeftOuter),
+				    
+				    //Joinging Component Enrollment 1,2,3 Prods
+				    #"Expanded Component" = Table.ExpandTableColumn(#"Merged Mod1ID Components", "Component", {"Component_Code__c"}, {"Component_Code__c"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Expanded Component",{{"Component_Code__c", "Mod 1 Prod"}}),
+				    #"Merged Mod2ID Components" = Table.NestedJoin(#"Renamed Columns3", {"Mod 2 ID"}, Component, {"Id"}, "Component", JoinKind.LeftOuter),
+				    #"Expanded Component1" = Table.ExpandTableColumn(#"Merged Mod2ID Components", "Component", {"Component_Code__c"}, {"Component_Code__c"}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Expanded Component1",{{"Component_Code__c", "Mod 2 Prod"}}),
+				    
+				    //Joining AUS/NZ prods
+				    #"Merged Queries - AUZ/NZ prods" = Table.NestedJoin(#"Renamed Columns4", {"Enrollment Id"}, #"AUS/NZ", {"Enrollment__c"}, "Component Enrollment", JoinKind.LeftOuter),
+				    #"Expanded AUS/NZ prods" = Table.ExpandTableColumn(#"Merged Queries - AUZ/NZ prods", "Component Enrollment", {"Component_Code__c"}, {"Component_Code__c"}),
+				    
+				    #"Renamed Columns5" = Table.RenameColumns(#"Expanded AUS/NZ prods",{{"Component_Code__c", "AUS/NZ Prod"}}),
+				    
+				    //Removing duplicates from Enrollment ID
+				    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns5", {"Enrollment Id"}),
+				
+				    //Some components have accommodation type in the name in brackets. This removes that.
+				 #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Duplicates", "Module 1", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Module 1", "Module 1.2"}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Split Column by Delimiter", "Module 2", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Module 2", "Module 2.2"}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Split Column by Delimiter1", "Module 3", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Module 3", "Module 3.2"}),
+				    
+				    #"Removed Columns" = Table.RemoveColumns(#"Split Column by Delimiter2",{"Module 1.2", "Module 2.2", "Module 3.2"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each [Enrollment Id] <> null and [Enrollment Id] <> "")
+				in
+				    #"Filtered Rows"
+				```
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,420 @@
+table 'GYUS FlightDetails'
+	lineageTag: ade9ce6b-7897-4476-99c9-d96be312cba3
+
+	column PNR_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 798e1cdf-2be7-42f8-8647-93bbca014c9c
+		summarizeBy: sum
+		sourceColumn: PNR_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordLocator
+		dataType: string
+		lineageTag: 4b544757-444d-4d63-9376-e66d66b05b08
+		summarizeBy: none
+		sourceColumn: RecordLocator
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerNumber
+		dataType: string
+		lineageTag: a15d21b5-910a-4189-a338-9f5c03a33b34
+		summarizeBy: none
+		sourceColumn: CustomerNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column NameRemarks
+		dataType: string
+		lineageTag: aad97caa-23ff-4397-88b6-76ff655afc37
+		summarizeBy: none
+		sourceColumn: NameRemarks
+
+		annotation SummarizationSetBy = Automatic
+
+	column TicketNumber
+		dataType: string
+		lineageTag: da95851e-83df-49e6-83ed-099c451541bd
+		summarizeBy: none
+		sourceColumn: TicketNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 9c5d8a67-75ea-4b58-8e61-d7a02dddf903
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: fd1670c3-e9bb-4fee-ba6d-f2c168b82073
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flight_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 10cb3f72-7349-4b64-bcdc-0353521a16aa
+		summarizeBy: sum
+		sourceColumn: Flight_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Carrier
+		dataType: string
+		lineageTag: 0d6762c5-fb9d-4930-92c2-302023629d51
+		summarizeBy: none
+		sourceColumn: Carrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodeShareCarrier
+		dataType: string
+		lineageTag: 36b33b04-cc52-4260-acc7-9d88ce729fdf
+		summarizeBy: none
+		sourceColumn: CodeShareCarrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column FlightNum
+		dataType: string
+		lineageTag: 82bc7a07-f4a1-4e0f-bbe3-393008ee421c
+		summarizeBy: none
+		sourceColumn: FlightNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepGateCode
+		dataType: string
+		lineageTag: 770f41f7-7081-4084-997b-7dc21e3392d4
+		summarizeBy: none
+		sourceColumn: DepGateCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArrGateCode
+		dataType: string
+		lineageTag: 4da3f221-8452-4332-bc50-7da0bd41ac70
+		summarizeBy: none
+		sourceColumn: ArrGateCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepDate
+		dataType: dateTime
+		formatString: mm/dd/yyyy hh:nn AM/PM
+		lineageTag: 6da6c4ea-0ff2-40bb-85f3-4eb2361d1a1e
+		summarizeBy: none
+		sourceColumn: DepDate
+
+		variation Variation
+			isDefault
+			relationship: af8b646a-d1f8-4a2b-9951-2dd341de7a44
+			defaultHierarchy: LocalDateTable_c58c5ae1-d299-4d89-b033-67c2f43b66fc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column DepDateFormatted
+		dataType: string
+		lineageTag: 57f0b346-3b83-4697-a437-26d841531d92
+		summarizeBy: none
+		sourceColumn: DepDateFormatted
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArrDate
+		dataType: dateTime
+		formatString: mm/dd/yyyy hh:nn AM/PM
+		lineageTag: 9a9f6e6f-d384-4c9b-94d5-df017521f4c0
+		summarizeBy: none
+		sourceColumn: ArrDate
+
+		variation Variation
+			isDefault
+			relationship: d156ac2c-7387-4bcc-b073-e41c74cfd0e3
+			defaultHierarchy: LocalDateTable_60aa5edb-c0f7-4402-ad29-f7ef381f6ca8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column ArrDateFormatted
+		dataType: string
+		lineageTag: 770db432-fc20-42fa-adb0-6e972b10886f
+		summarizeBy: none
+		sourceColumn: ArrDateFormatted
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepDateUTC
+		dataType: dateTime
+		formatString: yyyy-mm-dd h:nn:ss
+		lineageTag: 4482fcc9-8190-4cb6-b231-79e5196c3246
+		summarizeBy: none
+		sourceColumn: DepDateUTC
+
+		variation Variation
+			isDefault
+			relationship: 0a54fede-49e4-4396-a5d6-9253a7a9b799
+			defaultHierarchy: LocalDateTable_c4430359-b51a-4eb0-b9f2-5676fec2b18c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column DepDateUTCFormatted
+		dataType: string
+		lineageTag: b2ea3eb0-e7dc-40ca-9c3b-be90dc7a2538
+		summarizeBy: none
+		sourceColumn: DepDateUTCFormatted
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArrDateUTC
+		dataType: dateTime
+		formatString: yyyy-mm-dd h:nn:ss
+		lineageTag: 89b4e760-2a6d-4be1-a9f4-dd5f2d0d0a62
+		summarizeBy: none
+		sourceColumn: ArrDateUTC
+
+		variation Variation
+			isDefault
+			relationship: bc5d6f65-7012-47bd-995c-8c3bcd0fbdd8
+			defaultHierarchy: LocalDateTable_c7e2c7ec-fdce-4903-918f-14ae66fde755.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column ArrDateUTCFormatted
+		dataType: string
+		lineageTag: 31e827a8-d64b-48f8-a2cb-f4b43941ae98
+		summarizeBy: none
+		sourceColumn: ArrDateUTCFormatted
+
+		annotation SummarizationSetBy = Automatic
+
+	column flightDuration
+		dataType: string
+		lineageTag: 7faeb6b9-ff07-4262-bdb1-63fb7b9c3964
+		summarizeBy: none
+		sourceColumn: flightDuration
+
+		annotation SummarizationSetBy = Automatic
+
+	column StatusCode
+		dataType: string
+		lineageTag: 5e766a85-eca2-4799-8bb3-638b260a7a4c
+		summarizeBy: none
+		sourceColumn: StatusCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column rowID
+		dataType: string
+		lineageTag: 93892010-fa17-4f0b-b5e8-1c81ce91ea9a
+		summarizeBy: none
+		sourceColumn: rowID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AirlineLocator
+		dataType: string
+		lineageTag: 53875821-acc2-45b8-8633-36352c1066a2
+		summarizeBy: none
+		sourceColumn: AirlineLocator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 8cb4e4d7-d86c-471f-907e-b37c55467948
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column pnrStatusCode
+		dataType: string
+		lineageTag: 2ac1501e-0273-43c0-bac9-6eb1dc80c3f9
+		summarizeBy: none
+		sourceColumn: pnrStatusCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartureDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 168fa222-ae85-4ca9-9928-a198e46a61a3
+		summarizeBy: none
+		sourceColumn: DepartureDate
+
+		variation Variation
+			isDefault
+			relationship: e167c925-4530-42da-a4b6-980f2808a3e2
+			defaultHierarchy: LocalDateTable_c9d2bfe4-fa8c-4c99-aad5-fc2f03583852.'Date Hierarchy'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepartureTime
+		dataType: dateTime
+		formatString: Short Time
+		lineageTag: 1c1fac11-4a82-4f9b-8326-fdbae1145aa3
+		summarizeBy: none
+		sourceColumn: DepartureTime
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column ArrivalDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 6cf8340f-3784-4113-8f4b-305579ca066c
+		summarizeBy: none
+		sourceColumn: ArrivalDate
+
+		variation Variation
+			isDefault
+			relationship: 82c9ff03-2840-4d33-af91-b855735b9d1f
+			defaultHierarchy: LocalDateTable_4f83bca8-b79f-44ce-a52a-72deea82f7a1.'Date Hierarchy'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ArrivalTime
+		dataType: dateTime
+		formatString: Short Time
+		lineageTag: 68a229ab-9a33-4684-9b4b-f2e246db3744
+		summarizeBy: none
+		sourceColumn: ArrivalTime
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Flight Number'
+		dataType: string
+		lineageTag: de06ca22-c67f-464f-a7ca-37180bd4158c
+		summarizeBy: none
+		sourceColumn: Flight Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepDateShort
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bb927ac6-3a2a-45a3-aa5c-64e97629ee9c
+		summarizeBy: none
+		sourceColumn: DepDateShort
+
+		variation Variation
+			isDefault
+			relationship: a363278f-da79-46e9-867a-33c96f19e775
+			defaultHierarchy: LocalDateTable_b8f9893f-644e-41e5-8400-764947396ff2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepMinusOne
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 6a49e96e-87f3-49fe-965c-a2548c77032b
+		summarizeBy: none
+		sourceColumn: DepMinusOne
+
+		variation Variation
+			isDefault
+			relationship: 07b5d585-0e88-43de-869d-56c132443668
+			defaultHierarchy: LocalDateTable_6a46a03d-9e32-4cf5-a5ef-4b93d3e0ead0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepAddOne
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b421b7ee-42ff-4868-bee6-35652aaf50fe
+		summarizeBy: none
+		sourceColumn: DepAddOne
+
+		variation Variation
+			isDefault
+			relationship: 9187b531-76c8-4eef-b38e-0a517151a439
+			defaultHierarchy: LocalDateTable_eb00f6ee-7e83-4c26-89c4-98dd4878e729.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'GYUS FlightDetails-045b1241-746f-40ff-9954-3991376f5fb3' = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"79b241c3-e356-4fab-aa24-a41c449d1053" = Workspaces{[workspaceId="79b241c3-e356-4fab-aa24-a41c449d1053"]}[Data],
+				    #"9d9e6bee-bd4d-4da6-b8ae-873ac2696ef0" = #"79b241c3-e356-4fab-aa24-a41c449d1053"{[dataflowId="9d9e6bee-bd4d-4da6-b8ae-873ac2696ef0"]}[Data],
+				    #"GYUS FlightDetails_" = #"9d9e6bee-bd4d-4da6-b8ae-873ac2696ef0"{[entity="GYUS FlightDetails",version=""]}[Data],
+				
+				    #"Trimmed Text" = Table.TransformColumns(#"GYUS FlightDetails_",{{"RecordLocator", Text.Trim, type text}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Trimmed Text", "AirlineLocators", Splitter.SplitTextByEachDelimiter({"/"}, QuoteStyle.Csv, false), {"AirlineLocators.1", "AirlineLocators.2"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"AirlineLocators.1", type text}, {"AirlineLocators.2", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type", "AirlineLocators.2", Splitter.SplitTextByEachDelimiter({","}, QuoteStyle.Csv, false), {"AirlineLocators.2.1", "AirlineLocators.2.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"AirlineLocators.2.1", type text}, {"AirlineLocators.2.2", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"AirlineLocators.1", "AirlineLocators.2.2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"AirlineLocators.2.1", "AirlineLocator"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Status", each if [StatusCode] = "HK   " then "Ticketed" else [StatusCode]),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each true),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Filtered Rows", "DepDate", "DepDate - Copy"),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Duplicated Column",{{"DepDate - Copy", type date}}),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Changed Type2", "DepDate", "DepDate - Copy.1"),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Duplicated Column1",{{"DepDate - Copy.1", type time}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type3",{{"DepDate - Copy", "DepartureDate"}, {"DepDate - Copy.1", "DepartureTime"}}),
+				    #"Duplicated Column2" = Table.DuplicateColumn(#"Renamed Columns1", "ArrDate", "ArrDate - Copy"),
+				    #"Duplicated Column3" = Table.DuplicateColumn(#"Duplicated Column2", "ArrDate", "ArrDate - Copy.1"),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Duplicated Column3",{{"ArrDate - Copy", type date}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"ArrDate - Copy", "ArrivalDate"}}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Renamed Columns2",{{"ArrDate - Copy.1", type time}}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type5",{{"ArrDate - Copy.1", "ArrivalTime"}}),
+				    #"Added Custom1" = Table.AddColumn(#"Renamed Columns3", "Flight Number", each [Carrier] & " " & [FlightNum]),
+				    // Updating name remarks that comes through with '/ID' at the start
+				    #"Replaced Value" = Table.ReplaceValue(#"Added Custom1","/ID","",Replacer.ReplaceText,{"NameRemarks"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","16756","0016756",Replacer.ReplaceValue,{"NameRemarks"}),
+				    // Removing backslash
+				    #"Replaced backslash" = Table.ReplaceValue(#"Replaced Value1","/","",Replacer.ReplaceText,{"NameRemarks"}),
+				    #"Duplicated Column4" = Table.DuplicateColumn(#"Replaced backslash", "DepDate", "DepDateShort", type date),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Duplicated Column4",{{"DepDateShort", type date}}),
+				    // Adding a +/- 1 date range on the departure date to be able to join with the Customer Journey table
+				    #"Added Dep Date -1" = Table.AddColumn(#"Changed Type6", "DepMinusOne", each Date.AddDays([DepDateShort], -1), type date),
+				    // Adding a +/- 1 date range on the departure date to be able to join with the Customer Journey table
+				    #"Added Dep Date +1" = Table.AddColumn(#"Added Dep Date -1", "DepAddOne", each Date.AddDays([DepDateShort], 1 ), type date)
+				in
+				    #"Added Dep Date +1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

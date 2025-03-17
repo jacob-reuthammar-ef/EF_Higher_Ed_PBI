@@ -1,0 +1,179 @@
+expression 'Module departures' =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+		    #"Merged Queries" = Table.NestedJoin(Program_Component__c, {"Component__c"}, #"ARR DEP", {"Component ID (18)"}, "ARR DEP", JoinKind.LeftOuter),
+		    #"Expanded ARR DEP" = Table.ExpandTableColumn(#"Merged Queries", "ARR DEP", {"Departure"}, {"Departure"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded ARR DEP",{"Enrollment__c", "Component_Number__c", "Departure"}),
+		    #"Pivoted Column" = Table.Pivot(#"Removed Other Columns", List.Distinct(#"Removed Other Columns"[Component_Number__c]), "Component_Number__c", "Departure"),
+		    #"Removed Columns" = Table.RemoveColumns(#"Pivoted Column",{"4", "5"})
+		in
+		    #"Removed Columns"
+	lineageTag: 9c312e43-0d55-462b-91be-38be23cacbbb
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Module arrivals' =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+		    #"Merged Queries" = Table.NestedJoin(Program_Component__c, {"Component__c"}, #"ARR DEP", {"Component ID (18)"}, "ARR DEP", JoinKind.LeftOuter),
+		    #"Expanded ARR DEP" = Table.ExpandTableColumn(#"Merged Queries", "ARR DEP", {"Arrival"}, {"Arrival"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded ARR DEP",{"Enrollment__c", "Component_Number__c", "Arrival"}),
+		    #"Pivoted Column" = Table.Pivot(#"Removed Other Columns", List.Distinct(#"Removed Other Columns"[Component_Number__c]), "Component_Number__c", "Arrival"),
+		    #"Removed Columns" = Table.RemoveColumns(#"Pivoted Column",{"4", "5"})
+		in
+		    #"Removed Columns"
+	lineageTag: 86df4ffa-4825-4eaa-aa95-29a26c5e6f1a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'SF Airport Codes' = ```
+		let
+		    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/EFGapYear990/Shared%20Documents/Reports/Flights/SFDC%20airports.xlsx"), null, true),
+		
+		    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
+		    
+		    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"City and State", type text}, {"Airport code", type text}, {"SFDC Value", type text}})
+		in
+		    #"Changed Type"
+		```
+	lineageTag: 66f9167a-3310-413e-b01b-83dc3e2a863a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Orientation =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Component__c = Source{[Name="Component__c"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(Component__c,{{"Start_Date__c", "StartDate"}, {"Type__c", "Type"}, {"Program__c", "Program"}, {"End_Date__c", "EndDate"}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Name", "ComponentName"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns1",{"Id", "ComponentName", "StartDate", "Location__c", "Program"}),
+		    #"Sorted Rows" = Table.Sort(#"Removed Other Columns",{{"Program", Order.Ascending}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([ComponentName] = "Orientation" or [ComponentName] = "Orientation Prod 2" or [ComponentName] = "Orientation Tour" or [ComponentName] = "Orientation Tour - Europe" or [ComponentName] = "Orientation Tour - Japan")),
+		    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each not Text.Contains([ComponentName], "prod")),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows1",{{"Location__c", "Location"}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns2", {"Id"}, #"ARR DEP", {"Component ID (18)"}, "ARR DEP", JoinKind.LeftOuter),
+		    #"Expanded ARR DEP" = Table.ExpandTableColumn(#"Merged Queries", "ARR DEP", {"Arrival", "Departure", "FIN"}, {"Arrival", "Departure", "FIN"})
+		in
+		    #"Expanded ARR DEP"
+	lineageTag: 4e3a80d0-33e8-4505-bf75-e2bd0de16b55
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'EUR Immersion' =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Component__c = Source{[Name="Component__c"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(Component__c,{{"Start_Date__c", "StartDate"}, {"Type__c", "Type"}, {"Program__c", "Program"}, {"End_Date__c", "EndDate"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Id", "Name", "StartDate", "Location__c", "Program"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Name", "ComponentName"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns1", each ([ComponentName] = "European Immersion Prod 1")),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows",{{"Location__c", "Location"}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns2", {"Id"}, #"ARR DEP", {"Component ID (18)"}, "ARR DEP", JoinKind.LeftOuter),
+		    #"Expanded ARR DEP" = Table.ExpandTableColumn(#"Merged Queries", "ARR DEP", {"Arrival", "Departure", "FIN"}, {"Arrival", "Departure", "FIN"})
+		in
+		    #"Expanded ARR DEP"
+	lineageTag: d854edd1-e1a8-43a8-be91-39ec6955f795
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Leadership =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Component__c = Source{[Name="Component__c"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(Component__c,{{"Start_Date__c", "StartDate"}, {"Type__c", "Type"}, {"Program__c", "Program"}, {"End_Date__c", "EndDate"}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Name", "ComponentName"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns1",{"Id", "ComponentName", "StartDate", "Location__c", "Program", "EndDate"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Removed Other Columns",{{"Location__c", "Location"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns2", each ([ComponentName] = "Leadership Academy" or [ComponentName] = "Leadership Academy Prod 2" or [ComponentName] = "Leadership Academy Tour")),
+		    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each not Text.Contains([ComponentName], "prod") and not Text.Contains([ComponentName], "tour")),
+		    #"Sorted Rows" = Table.Sort(#"Filtered Rows1",{{"Program", Order.Ascending}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Sorted Rows", {"Id"}, #"ARR DEP", {"Component ID (18)"}, "ARR DEP", JoinKind.LeftOuter),
+		    #"Expanded ARR DEP" = Table.ExpandTableColumn(#"Merged Queries", "ARR DEP", {"Arrival", "Departure", "FIN"}, {"Arrival", "Departure", "FIN"})
+		in
+		    #"Expanded ARR DEP"
+	lineageTag: 4ca95ef6-2a80-4826-bd8a-e2f3b0c8dbed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Winter Break' =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+		    Component__c = Source{[Name="Component__c"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(Component__c,{{"Start_Date__c", "StartDate"}, {"Type__c", "Type"}, {"Program__c", "Program"}, {"End_Date__c", "EndDate"}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Name", "ComponentName"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns1",{"Id", "ComponentName", "StartDate", "Location__c", "Program"}),
+		    #"Sorted Rows" = Table.Sort(#"Removed Other Columns",{{"Program", Order.Ascending}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each [ComponentName] = "Winter Break"),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Filtered Rows",{{"Location__c", "Location"}})
+		in
+		    #"Renamed Columns2"
+	lineageTag: ed946e09-d7a4-4935-a722-acceb9ba4b9c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression AUS/NZ =
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+		    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+		    #"Removed Other Columns" = Table.SelectColumns(Program_Component__c,{"Id", "Enrollment__c", "Status__c", "Component__c", "Component_Number__c", "Component_Name__c", "Component__r"}),
+		    #"Expanded Component__r" = Table.ExpandRecordColumn(#"Removed Other Columns", "Component__r", {"Start_Date__c", "Type__c", "Component_Code__c"}, {"Start_Date__c", "Type__c", "Component_Code__c"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Component__r", each ([Type__c] = "Gap Year Australia & New Zealand Immersion Component") and ([Status__c] = "Confirmed"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 5fe6abb4-7514-4948-9217-ffbd5023adc1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Enrollment Program' = ```
+		let
+		    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+		    
+		    //Getting 'Enrollment Program', to get the Enrollment/Account data for all Main Program Components (since they do not have component enrollments always). Will be use to join with the CustomerJourney tables
+		    OrderItem = Source{[Name="OrderItem"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(OrderItem,{{"OrderId", "Enrollment Id"}, {"Id", "Enrollment Program Id"}, {"Product2Id", "Program Id"}}),
+		
+		    //Getting Account Id and Customer Id
+		    #"Expanded Order" = Table.ExpandRecordColumn(#"Renamed Columns", "Order", {"AccountId", "Customer_ID__c"}, {"Account Id", "Customer Id"}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Expanded Order",{"Enrollment Program Id", "Enrollment Id", "Enrollment_Status__c", "Program Id", "Status__c", "Account Id", "Customer Id"})
+		in
+		    #"Removed Other Columns"
+		```
+	lineageTag: c60bb0dd-a1e7-4614-8e28-429579ab6e1a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'FlightItin v1' =
+		let
+		    Source = Sql.Database("toursbistaging\bistaging", "martAllocation", [Query="--Select outbound arrival gateway and date, Gap Year Tour codes only#(lf)#(lf)WITH BrochureItinOutbound AS (#(lf)#(lf)SELECT S.SalesTourID#(lf),s.ProdTour_id#(lf),CAST(NULL AS VARCHAR(1)) AS DepGate#(lf)/*,s.OutDepGateCode AS DepGate*/#(lf),s.OutArrGateCode AS ArrGate#(lf),S.ActualTourDate AS DepDate#(lf)/*,s.ActualTourEndDate AS DepDate*/#(lf),CAST(NULL AS VARCHAR(1)) AS ArrDate #(lf)#(lf)#(lf)FROM Atlas_2400.dbo.Production_SalesTour_v S#(lf)#(lf)WHERE  S.StatusCode = 'AC' #(lf)#(tab)#(tab)AND (S.actualtourcode LIKE 'y_%_x' #(lf)        OR S.actualtourcode LIKE 's_%_x' #(lf)#(tab)#(tab)OR S.actualtourcode LIKE 'b_%_x' #(lf)        OR S.actualtourcode = 'bgap' )#(lf)#(tab)#(tab)#(tab)#(tab)),#(lf)#(lf)#(lf)--Select return departure gateway and date, Gap Year Tour codes only#(lf)#(lf)BrochureItinReturn AS (#(lf)#(lf)SELECT S.SalesTourID#(lf),s.ProdTour_id#(lf),s.RetDepGateCode AS DepGate#(lf),CAST(NULL AS varchar(1)) AS ArrGate#(lf)/*,s.RetArrGateCode AS ArrGate*/#(lf),s.ActualTourEndDate AS DepDate#(lf),CAST(NULL AS varchar(1))  AS ArrDate#(lf)/*,s.ActualTourEndDate AS ArrDate*/#(lf)#(lf)#(lf)FROM Atlas_2400.dbo.Production_SalesTour_v S#(lf)#(lf)WHERE  S.StatusCode = 'AC' #(lf)#(tab)#(tab)AND (S.actualtourcode LIKE 'y_%_x' #(lf)        OR S.actualtourcode LIKE 's_%_x' #(lf)#(tab)#(tab)OR S.actualtourcode LIKE 'b_%_x' #(lf)        OR S.actualtourcode = 'bgap' )#(lf)#(tab)#(tab)#(tab)#(tab)),#(lf)#(lf)--Select dep and arr gateways and dates for internals, Gap Year Tour codes only#(tab)#(lf)#(lf)FLINTS AS (#(lf)#(lf)SELECT S.SalesTourID#(lf),s.ProdTour_id#(lf),fi.DepGateCode AS DepGate#(lf),fi.ArrGateCode AS ArrGate#(lf),FI.DepDate#(lf),FI.ArrDate#(lf)#(lf)FROM Atlas_2400.dbo.Production_SalesTour_v S#(lf)#(lf)INNER JOIN#(tab)[Atlas_2400].[dbo].[Air_ReqItin_v] R ON R.SalesTourId = S.SalesTourID#(lf)INNER JOIN#(tab)Atlas_2400.dbo.Air_FlightItin_v F ON F.ReqItin_id = R.ReqItin_id#(lf)INNER JOIN#(tab)Atlas_2400.dbo.Air_FlightItinLeg_v FI ON FI.FlightItin_id = F.FlightItin_id#(lf)#(lf)WHERE  S.StatusCode = 'AC' #(lf)#(tab)#(tab)AND (S.actualtourcode LIKE 'y_%_x' #(lf)        OR S.actualtourcode LIKE 's_%_x' #(lf)#(tab)#(tab)OR S.actualtourcode LIKE 'b_%_x' #(lf)        OR S.actualtourcode = 'bgap' )#(lf)#(tab)#(tab))#(lf)#(lf)--Union all into one table#(lf)SELECT * FROM BrochureItinOutbound#(lf)UNION#(lf)SELECT * FROM BrochureItinReturn#(lf)UNION#(lf)SELECT * FROM FLINTS#(lf)#(lf);", HierarchicalNavigation=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"DepDate", type date}, {"ArrDate", type date}, {"ProdTour_id", type text}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"ProdTour_id"}, ProdIds, {"Prod ID"}, "ProdIds", JoinKind.LeftOuter),
+		    #"Expanded ProdIds" = Table.ExpandTableColumn(#"Merged Queries", "ProdIds", {"Component ID"}, {"Component ID"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded ProdIds", each ([ProdTour_id] <> null))
+		in
+		    #"Filtered Rows"
+	lineageTag: 0e7e2657-ec6b-4ca1-938b-95b1c6443128
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

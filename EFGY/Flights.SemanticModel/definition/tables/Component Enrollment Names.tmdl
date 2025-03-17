@@ -1,0 +1,73 @@
+table 'Component Enrollment Names'
+	isHidden
+	lineageTag: d1a17d24-ecc6-493e-84f7-35b429a1d34c
+
+	column Enrollment__c
+		dataType: string
+		isHidden
+		lineageTag: 6ea88a3b-0f8c-4461-88ca-58a24855028a
+		summarizeBy: none
+		sourceColumn: Enrollment__c
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 1
+		dataType: string
+		isHidden
+		lineageTag: 3a79b1ce-620d-4464-9e22-d0b12ab51944
+		summarizeBy: none
+		sourceColumn: 1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 2
+		dataType: string
+		isHidden
+		lineageTag: b85a6184-4555-4ac8-b35b-152d0cdb310d
+		summarizeBy: none
+		sourceColumn: 2
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 3
+		dataType: string
+		isHidden
+		lineageTag: 618ff435-932c-444e-b60a-a9f87e11e9cd
+		summarizeBy: none
+		sourceColumn: 3
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Component Enrollment Names-57b93251-973a-4e6c-a757-ffae12649084' = m
+		mode: import
+		source = ```
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Program_Component__c = Source{[Name="Program_Component__c"]}[Data],
+				    //Filtering out only Component enrollments in status Confirmed
+				    #"Filtered Rows" = Table.SelectRows(Program_Component__c, each ([Status__c] = "Confirmed")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"Enrollment__c", "Component_Number__c", "Component_Name__c"}),
+				    //Pivoting Component 1,2,3 as columns while keeping Enrollment ID as rows.
+				    #"Pivoted Column" = Table.Pivot(#"Removed Other Columns", List.Distinct(#"Removed Other Columns"[Component_Number__c]), "Component_Number__c", "Component_Name__c"),
+				
+				    //Removing Component Number 4 and 5 as they are not elective modules. Only 1,2,3 are. 
+				    #"Removed Columns" = Table.RemoveColumns(#"Pivoted Column",{"4", "5"}),
+				
+				    //When an Enrollment ID has multiple component enrollments for the same Component number, return "Multiple Enrollments"
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Removed Columns", {{"1", "Multiple Enrollments"}}),
+				    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Replaced Errors", {{"2", "Multiple Enrollments"}}),
+				    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Replaced Errors1", {{"3", "Multiple Enrollments"}})
+				in
+				    #"Replaced Errors2"
+				```
+
+	annotation PBI_ResultType = Table
+

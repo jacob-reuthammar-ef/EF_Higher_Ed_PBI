@@ -1,0 +1,89 @@
+table FlightItin
+	lineageTag: e917ee3e-0ad1-478a-a048-8152e7c32874
+
+	column SALESTOURID
+		dataType: string
+		lineageTag: 6fc825bf-b79b-49e3-be19-09ced5a71264
+		summarizeBy: none
+		sourceColumn: SALESTOURID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODTOUR_ID
+		dataType: string
+		lineageTag: bfc2f60d-e58c-4dab-b454-8cb65d011793
+		summarizeBy: none
+		sourceColumn: PRODTOUR_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DEPGATE
+		dataType: string
+		lineageTag: 116a2ec5-2f1b-4e73-b9b3-72674be09f8b
+		summarizeBy: none
+		sourceColumn: DEPGATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column ARRGATE
+		dataType: string
+		lineageTag: a0c5f16a-6495-45c7-9715-d11e2f500727
+		summarizeBy: none
+		sourceColumn: ARRGATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DEPDATE
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9d204754-09c4-4e8b-b9f0-d0cd6a76f0cc
+		summarizeBy: none
+		sourceColumn: DEPDATE
+
+		variation Variation
+			isDefault
+			relationship: a33330de-3d6f-4327-9d6d-eb042e48c8ac
+			defaultHierarchy: LocalDateTable_7aaa8bf6-4cb3-4e2a-bc25-b0e8984c4111.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ARRDATE
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 59296e5d-343a-44bf-a16d-4a325ac895f3
+		summarizeBy: none
+		sourceColumn: ARRDATE
+
+		variation Variation
+			isDefault
+			relationship: 1ad4f5c2-fa73-43ee-93fe-ee2f58cb0c26
+			defaultHierarchy: LocalDateTable_5236593d-e419-44bb-9f87-5bbe5942ae22.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: string
+		lineageTag: c2cf4b24-32e3-41fe-8be7-4ac8bac48c24
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FlightItin-7afd877f-1fb4-4567-81dd-eb29ca3f4c0e = m
+		mode: import
+		source = ```
+				let    
+				    Source = Value.NativeQuery(Snowflake.Databases("eftours_us.us-east-1.snowflakecomputing.com","REPORTING_WH",[Role="REPORTER"]){[Name="ANALYTICS"]}[Data], "/*****************************************************************************************#(lf)*  Education Tour System#(lf)*#(lf)*  Procedure      : usp_GapYear_FlightItin#(lf)*  Creation Date  : 2023/05/16#(lf)*  Creation By    : Jacob Reuthammar#(lf)*  Description    : A table with flight gateways and dates for Gap Year tour codes.#(tab)#(tab)#(tab)#(lf)*#(tab)#(tab)#(tab)#(tab)#(lf)*#(lf)*  Modification   :#(lf)*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#(lf)*  Modified By      Date        Description #(lf)*   #(lf)*#(lf)*****************************************************************************************/#(lf)#(lf)--Select outbound arrival gateway and date, Gap Year Tour codes only#(lf)#(lf)WITH     #(lf)  -- CTE: Outbound flights#(lf)  BrochureItinOutbound AS (#(lf)    SELECT #(lf)      S.SalesTourID,#(lf)      s.ProdTour_id,#(lf)      NULL::VARCHAR(1) AS DepGate,#(lf)      s.outarrgatecode AS ArrGate, -- Use appropriate column casting#(lf)      s.ACTUALTOURDATE AS DepDate,#(lf)      NULL::VARCHAR(1) AS ArrDate -- Use appropriate column casting#(lf)    FROM analytics.source_live.atlas_production_salestour_v S#(lf)        WHERE #(lf)      S.StatusCode = 'AC' AND #(lf)      (S.actualtourcode LIKE 'Y_%_X' OR #(lf)       S.actualtourcode LIKE 'S_%_X' OR #(lf)       S.actualtourcode LIKE 'B_%_X'       #(lf)      )#(lf)  ),#(lf)#(lf)  -- CTE: Return flights#(lf)  BrochureItinReturn AS ( #(lf)    SELECT #(lf)      SalesTourID,#(lf)      ProdTour_id,#(lf)      s.RetDepGateCode AS DepGate,#(lf)      CAST(NULL AS VARCHAR(1)) AS ArrGate, -- Cast as VARCHAR#(lf)      s.ActualTourEndDate AS DepDate,#(lf)      CAST(NULL AS VARCHAR(1)) AS ArrDate#(lf)    FROM analytics.source_live.atlas_production_salestour_v S#(lf)        WHERE #(lf)      S.StatusCode = 'AC' AND #(lf)      (S.actualtourcode LIKE 'Y_%_X' OR #(lf)       S.actualtourcode LIKE 'S_%_X' OR #(lf)       S.actualtourcode LIKE 'B_%_X'       #(lf)      )#(lf)  ),#(lf)#(lf)  -- CTE: Internal Flights#(lf)  FLINTS AS ( #(lf)    SELECT #(lf)      S.SalesTourID,#(lf)      s.ProdTour_id,#(lf)      FI.DepGateCode AS DepGate,#(lf)      FI.ArrGateCode AS ArrGate,#(lf)      FI.DepDate,#(lf)      FI.ArrDate #(lf)    FROM analytics.source_live.atlas_production_salestour_v S#(lf)    INNER JOIN analytics.source_live.atlas_air_reqitin_v R ON R.SalesTourId = S.SalesTourID    #(lf)    INNER JOIN analytics.source_live.atlas_air_flightitin_v F ON F.ReqItin_id = R.ReqItin_id    #(lf)    INNER JOIN analytics.source_live.atlas_air_flightitinleg_nocosts_v FI ON FI.FlightItin_id = F.FlightItin_id    #(lf)    #(lf)    WHERE #(lf)      S.StatusCode = 'AC' AND #(lf)      (S.actualtourcode LIKE 'Y_%_X' OR #(lf)       S.actualtourcode LIKE 'S_%_X' OR #(lf)       S.actualtourcode LIKE 'B_%_X'       #(lf)      )#(lf)  )#(lf)#(lf)-- Final Result Combination#(lf)SELECT * #(lf)FROM (#(lf)  SELECT * FROM BrochureItinOutbound#(lf)  UNION ALL #(lf)  SELECT * FROM BrochureItinReturn#(lf)  UNION ALL#(lf)  SELECT * FROM FLINTS#(lf)) AS Final", null, [EnableFolding=true]),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"PRODTOUR_ID", type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"PRODTOUR_ID"}, Component, {"Prod_ID__c"}, "ProdIds", JoinKind.LeftOuter),
+				    #"Expanded ProdIds" = Table.ExpandTableColumn(#"Merged Queries", "ProdIds", {"Id"}, {"Id"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded ProdIds", each [PRODTOUR_ID] <> null)
+				in
+				    #"Filtered Rows"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

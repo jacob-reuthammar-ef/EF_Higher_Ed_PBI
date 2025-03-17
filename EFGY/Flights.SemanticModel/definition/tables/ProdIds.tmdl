@@ -1,0 +1,65 @@
+table ProdIds
+	lineageTag: e226d3e9-a9fc-46f1-b881-012dabb1fc7b
+
+	column Program
+		dataType: string
+		lineageTag: ae5ab0a1-7620-4442-a336-67248475fe52
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program ID'
+		dataType: string
+		lineageTag: c1bb256c-d67a-4fa0-a680-63c190efcbc9
+		summarizeBy: none
+		sourceColumn: Program ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component
+		dataType: string
+		lineageTag: 406b1402-0573-42c4-aad3-3c566665c552
+		summarizeBy: none
+		sourceColumn: Component
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component ID'
+		dataType: string
+		lineageTag: b34859b4-ea89-49a0-a514-8711d3139087
+		summarizeBy: none
+		sourceColumn: Component ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prod ID'
+		dataType: string
+		lineageTag: 7304a8f9-da3b-4eff-b2f4-32b68f132dfd
+		summarizeBy: none
+		sourceColumn: Prod ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salestour ID'
+		dataType: string
+		lineageTag: 8b0bf2b4-c11f-4a69-8806-0872c1a145d2
+		summarizeBy: none
+		sourceColumn: Salestour ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ProdIds-30f5e58c-9a66-4149-bb14-a42f04ad648f = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/EFGapYear990/Shared%20Documents/Reports/Prod%20IDs.xlsx"), null, true),
+				    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"Program", type text}, {"Program ID", type text}, {"Component", type text}, {"Component ID", type text}, {"Prod ID", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

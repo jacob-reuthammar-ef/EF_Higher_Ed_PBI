@@ -1,0 +1,135 @@
+table 'Component (2)'
+	lineageTag: 4e190f95-d1ef-4416-8244-353f73cbc76e
+
+	column 'Component Id'
+		dataType: string
+		lineageTag: 9deddc79-1e37-4c99-8e16-aa56c7136131
+		summarizeBy: none
+		sourceColumn: Component Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 2a41fbd6-9919-4d7b-97ce-03b6f7e49c5f
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c3b0e1bd-d08c-494d-828f-6bbbca93af06
+		summarizeBy: none
+		sourceColumn: Start_Date__c
+
+		variation Variation
+			isDefault
+			relationship: e6c2e93d-aed9-4718-bbef-d2e605512feb
+			defaultHierarchy: LocalDateTable_bc0e350c-b9ed-4c54-8333-0c44c4e15f5e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Type__c
+		dataType: string
+		lineageTag: fa7f90e4-bcf3-44b2-8060-04b9631dd7f7
+		summarizeBy: none
+		sourceColumn: Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Component_Code__c
+		dataType: string
+		lineageTag: 4dec2ac3-9984-48b7-a7d3-4bbdcb21266b
+		summarizeBy: none
+		sourceColumn: Component_Code__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module_Option__c
+		dataType: string
+		lineageTag: 57036efc-a982-421c-96dd-254827998862
+		summarizeBy: none
+		sourceColumn: Module_Option__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program__c
+		dataType: string
+		lineageTag: c5fdf439-28f9-48cb-8765-0012c0f0f21e
+		summarizeBy: none
+		sourceColumn: Program__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column End_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 92aaaafd-9012-445c-be1f-e914d0fd7b36
+		summarizeBy: none
+		sourceColumn: End_Date__c
+
+		variation Variation
+			isDefault
+			relationship: b8e12317-8f5b-4ca5-b9ac-b9a4b5323e22
+			defaultHierarchy: LocalDateTable_776d106e-a008-402a-b29f-330756c84ac7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Enrollment Id'
+		dataType: string
+		lineageTag: 9a8490a9-a75c-492c-aaf7-8d49962d62e5
+		summarizeBy: none
+		sourceColumn: Enrollment Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Id'
+		dataType: string
+		lineageTag: 6aa74d46-ec77-4abb-9c96-def29d2945b9
+		summarizeBy: none
+		sourceColumn: Customer Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Id'
+		dataType: string
+		lineageTag: c90b6086-1601-47c0-aee3-c337d73f9bec
+		summarizeBy: none
+		sourceColumn: Account Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component Enrollment Status'
+		dataType: string
+		lineageTag: f4627975-7da2-494d-8447-d1d9409f6f3f
+		summarizeBy: none
+		sourceColumn: Component Enrollment Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Component (2)-c821ec61-8689-4ccb-ab2f-65a01fce0fa8' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Component__c = Source{[Name="Component__c"]}[Data],
+				
+				    //Filtering only Main program components
+				    #"Filtered Rows" = Table.SelectRows(Component__c, each ([Type__c] = "Main Program Component")),
+				    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows", {"Program__c"}, #"Enrollment Program", {"Program Id"}, "Enrollment Program", JoinKind.LeftOuter),
+				    #"Expanded Enrollment Program" = Table.ExpandTableColumn(#"Merged Queries", "Enrollment Program", {"Enrollment Id", "Status__c", "Account Id", "Customer Id"}, {"Enrollment Id", "Component Enrollment Status", "Account Id", "Customer Id"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Enrollment Program",{{"Id", "Component Id"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Component Id", "Name", "Start_Date__c", "Type__c", "Component_Code__c", "Module_Option__c", "Program__c", "End_Date__c", "Enrollment Id", "Component Enrollment Status", "Account Id", "Customer Id"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

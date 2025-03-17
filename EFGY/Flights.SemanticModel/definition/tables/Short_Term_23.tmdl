@@ -1,0 +1,50 @@
+table Short_Term_23
+	lineageTag: bff212d2-8f19-4c0e-af77-fdeaaa55c607
+
+	column OrderNumber
+		dataType: string
+		lineageTag: d448dbdd-a22a-4f8c-ac97-ede4498c7076
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Request Type'
+		dataType: string
+		lineageTag: e2a1bf4e-89c3-431a-8002-16dc1def4fa7
+		summarizeBy: none
+		sourceColumn: Request Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Request Details'
+		dataType: string
+		lineageTag: 1c93b973-cae9-4849-a0c3-7e317535adce
+		summarizeBy: none
+		sourceColumn: Request Details
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: e5a0c471-00b0-49ff-af4c-931c13e3671b
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Short_Term_23-14671924-c1df-4346-a766-1175564e1d07 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/GapYear/Shared%20Documents/Product%20and%20Policy/Archive/Special%20Requests%20-%20Test%20PBI.xlsm"), null, true),
+				    Short_Term_23_Table = Source{[Item="Short_Term_23",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Short_Term_23_Table,{{"Requester", type any}, {"CX Advisor", type text}, {"Account Name", type text}, {"Status", type text}, {"Program", type text}, {"Request Type", type text}, {"Request Details", type text}, {"Request Date", type date}, {"Informed Ops", type text}, {"Ops Confirmation", type text}, {"Updated Family", type any}, {"OPS Response", type any}, {"Response Date", type any}, {"Notes", type any}}),
+				    // Filtering only request type Flights
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Request Type] = "Flights" or [Request Type] = "Flights ")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"OrderNumber", "Request Type", "Request Details", "Customer ID"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+

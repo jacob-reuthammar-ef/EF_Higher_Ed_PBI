@@ -1,0 +1,138 @@
+table 'ARR DEP'
+	lineageTag: 62a7a317-3d1b-420a-9ff5-9b92ea1a2d33
+
+	column 'Component Name'
+		dataType: string
+		lineageTag: ce145e8f-cb15-414e-bcee-e9b80ba0879c
+		summarizeBy: none
+		sourceColumn: Component Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: 06e52148-a974-40c5-b039-0c7f1930907a
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 69338373-08f2-480d-a480-0ab60766be17
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		variation Variation
+			isDefault
+			relationship: 2edbd85d-e912-48ce-b579-d3b926b78b14
+			defaultHierarchy: LocalDateTable_d21a21f4-8219-4440-acbc-e4031ec9a8ab.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e680d246-1da8-4653-83f5-10fa5e2f3fc2
+		summarizeBy: none
+		sourceColumn: End Date
+
+		variation Variation
+			isDefault
+			relationship: 525696d7-7829-42e8-a69c-51eaa06cf601
+			defaultHierarchy: LocalDateTable_d7fe1601-c7e1-481f-b8ed-68e8d2e3c865.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Module Option'
+		dataType: int64
+		formatString: 0
+		lineageTag: 27f256b1-6a68-4c1b-811a-cc65e16773fb
+		summarizeBy: sum
+		sourceColumn: Module Option
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Component ID (18)'
+		dataType: string
+		lineageTag: b7666093-d7cb-4b25-8859-800d29695ff1
+		summarizeBy: none
+		sourceColumn: Component ID (18)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 0aa189db-2489-4313-a1ea-1bf75e598747
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column TourCode
+		dataType: string
+		lineageTag: 9b1cbfd2-8622-4294-b5d2-dc3b2634bf84
+		summarizeBy: none
+		sourceColumn: TourCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTourId
+		dataType: string
+		lineageTag: f5f59f83-52c7-455d-be70-b1ff3bad01b3
+		summarizeBy: none
+		sourceColumn: SalesTourId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProdId
+		dataType: string
+		lineageTag: e44c9425-b395-4dea-a149-81696cdd49b0
+		summarizeBy: none
+		sourceColumn: ProdId
+
+		annotation SummarizationSetBy = Automatic
+
+	column FIN
+		dataType: string
+		lineageTag: 99c60ca1-2800-434d-908a-89810c6efb49
+		summarizeBy: none
+		sourceColumn: FIN
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival
+		dataType: string
+		lineageTag: bb2d55bc-a070-408a-9051-3c98923040f1
+		summarizeBy: none
+		sourceColumn: Arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure
+		dataType: string
+		lineageTag: 65f580cc-5bcd-420e-a7b0-642161d67079
+		summarizeBy: none
+		sourceColumn: Departure
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'ARR DEP-18bb5f6f-7bb2-471a-9674-3059a77601e5' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/EFGapYear990/Shared%20Documents/Reports/Flights/ARR%20DEP.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Component Name", type text}, {"Program", type text}, {"Start Date", type date}, {"End Date", type date}, {"Module Option", Int64.Type}, {"Component ID (18)", type text}, {"Location", type text}, {"Arrival", type text}, {"Departure", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Program", Order.Ascending}, {"Start Date", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,45 @@
+table 'Special Requests'
+	lineageTag: fcf027a4-56d9-4af5-a577-86a1b34d7b42
+
+	column OrderNumber
+		dataType: string
+		lineageTag: 3e63c390-8f66-465e-9ed7-953364308271
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Request Type'
+		dataType: string
+		lineageTag: d53a0dc5-3e79-40e0-abca-8d3eff705d2c
+		summarizeBy: none
+		sourceColumn: Request Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Request Details'
+		dataType: string
+		lineageTag: ea195bd6-5e1b-4457-91e6-a2c1ef79ad4e
+		summarizeBy: none
+		sourceColumn: Request Details
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 34a8276b-a3b4-4884-844c-9b7f7ea4aaf4
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Special Requests-227351a5-db6d-4313-b40f-1c2d5dfc295f' = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({GY_23, Short_Term_23})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

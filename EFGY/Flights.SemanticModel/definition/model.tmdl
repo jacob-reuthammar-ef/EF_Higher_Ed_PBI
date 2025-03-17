@@ -1,0 +1,85 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.138.782.0 (24.11)
+
+annotation PBI_QueryOrder = ["Account","Quote and Enrollment","Program","Flight","Other Charge","Charge Type","GYUS FlightDetails","Component Enrollment Names","Component Enrollment IDs","Component","Orientation","EUR Immersion","Leadership","ARR DEP","Module arrivals","Module departures","Winter Break","AUS/NZ","SF Airport Codes","Component Enrollment","Booking Sheets","Component (2)","CustomerJourney","GY_23","Short_Term_23","Special Requests","Gateways","FlightItin v1","ProdIds","Enrollment Program","FlightItin","Special_Requests"]
+
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"4e190f95-d1ef-4416-8244-353f73cbc76e","fromColumnLocalLineageTag":"9a8490a9-a75c-492c-aaf7-8d49962d62e5","toTableLocalLineageTag":"f5b8dc7c-0dff-46e0-a96a-48529f590e0a","toColumnLocalLineageTag":"c23e4eb7-e979-4754-99bc-9ede77dc4b12"}},"objectType":"Relationship"}]
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop"]
+
+ref table Account
+ref table DateTableTemplate_e555062d-a05c-4826-8db8-d9155ac985d7
+ref table LocalDateTable_938ae4cc-cf3b-4450-961a-9c3971a7b475
+ref table 'Quote and Enrollment'
+ref table Program
+ref table LocalDateTable_71697bc4-7ade-4ff2-920b-20647362b594
+ref table Flight
+ref table LocalDateTable_2a1924e2-e83f-496f-a9bd-762dea618181
+ref table LocalDateTable_7e2792be-7b9f-4700-9f71-c8122bb79fe2
+ref table LocalDateTable_1a471b1c-aa2e-47f8-9c02-a7adef1ad040
+ref table LocalDateTable_2d081e99-0fac-49a8-9e02-9d5fb86e6d5e
+ref table 'Other Charge'
+ref table 'Charge Type'
+ref table LocalDateTable_85f39dbe-9c33-4121-9eed-c853c5abafdd
+ref table LocalDateTable_81708af2-cef6-42d8-991b-71077455fe48
+ref table LocalDateTable_1a5d5714-04e4-40cb-9d4e-ff46a2408049
+ref table LocalDateTable_45a96b73-42b4-4d88-b43e-cc7ffdafcf72
+ref table 'GYUS FlightDetails'
+ref table LocalDateTable_c58c5ae1-d299-4d89-b033-67c2f43b66fc
+ref table LocalDateTable_60aa5edb-c0f7-4402-ad29-f7ef381f6ca8
+ref table LocalDateTable_c4430359-b51a-4eb0-b9f2-5676fec2b18c
+ref table LocalDateTable_c7e2c7ec-fdce-4903-918f-14ae66fde755
+ref table LocalDateTable_9c1b9416-5a4d-47c7-9a16-cde37b8688b2
+ref table LocalDateTable_dac0a698-2f62-4ee6-b277-649c48c0bc7e
+ref table 'Component Enrollment Names'
+ref table Component
+ref table LocalDateTable_d1f70e5a-348a-45e2-9261-5f3f2e24e609
+ref table LocalDateTable_2b1e0825-329f-46ae-81e0-496cd35ed2e4
+ref table 'Component Enrollment IDs'
+ref table 'ARR DEP'
+ref table LocalDateTable_d21a21f4-8219-4440-acbc-e4031ec9a8ab
+ref table LocalDateTable_d7fe1601-c7e1-481f-b8ed-68e8d2e3c865
+ref table LocalDateTable_046224e9-34f4-40a0-a620-ec16cc22d29e
+ref table LocalDateTable_9e599d01-9095-4ed8-b045-feedc35c1845
+ref table LocalDateTable_4ffa25e4-867f-4a92-aae2-b3ff0cdd70ea
+ref table 'Component Enrollment'
+ref table LocalDateTable_8a6bd1c9-ce11-48d0-86e2-a01393ef5e0d
+ref table 'Booking Sheets'
+ref table LocalDateTable_e258748a-55b2-4558-944f-2f89773f27f9
+ref table LocalDateTable_425a3d17-7fc5-4ad9-93a9-5d65f5565de2
+ref table LocalDateTable_c9d2bfe4-fa8c-4c99-aad5-fc2f03583852
+ref table LocalDateTable_4f83bca8-b79f-44ce-a52a-72deea82f7a1
+ref table CustomerJourney
+ref table LocalDateTable_54cc76c0-fd01-44a2-badf-7861bf8e1d46
+ref table LocalDateTable_c682dd93-e2e0-4994-b8bc-3e9e93f6a871
+ref table LocalDateTable_b8f9893f-644e-41e5-8400-764947396ff2
+ref table LocalDateTable_6a46a03d-9e32-4cf5-a5ef-4b93d3e0ead0
+ref table LocalDateTable_eb00f6ee-7e83-4c26-89c4-98dd4878e729
+ref table GY_23
+ref table Short_Term_23
+ref table 'Special Requests'
+ref table Gateways
+ref table ProdIds
+ref table 'Component (2)'
+ref table LocalDateTable_bc0e350c-b9ed-4c54-8333-0c44c4e15f5e
+ref table LocalDateTable_776d106e-a008-402a-b29f-330756c84ac7
+ref table FlightItin
+ref table LocalDateTable_7aaa8bf6-4cb3-4e2a-bc25-b0e8984c4111
+ref table LocalDateTable_5236593d-e419-44bb-9f87-5bbe5942ae22
+ref table Special_Requests
+ref table LocalDateTable_f215a33f-6f80-495b-86a5-13e1011438b5
+ref table LocalDateTable_1fa545b7-d747-4e9e-8430-d443c6e250c3
+ref table LocalDateTable_ffa6f5ac-e698-4d16-a9c6-fe2a70d2c49d
+
+ref cultureInfo en-US
+

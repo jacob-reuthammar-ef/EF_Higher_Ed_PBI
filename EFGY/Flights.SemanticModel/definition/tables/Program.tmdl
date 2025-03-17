@@ -1,0 +1,100 @@
+table Program
+	lineageTag: 99742358-73c8-449a-9aab-3158b40cddb6
+
+	column Id
+		dataType: string
+		lineageTag: be1cd136-d8f8-4609-afe5-e99b10850513
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: eb11a076-1a66-46a7-88af-b2735b484796
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Date__c
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: a96e0df6-ba40-4914-b7fd-8fd1f29deac9
+		summarizeBy: none
+		sourceColumn: Departure_Date__c
+
+		variation Variation
+			isDefault
+			relationship: 0e8cbf15-3362-48d1-9bb2-e5eb1bd798d3
+			defaultHierarchy: LocalDateTable_71697bc4-7ade-4ff2-920b-20647362b594.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Start_Year__c
+		dataType: string
+		lineageTag: 0269a40f-f4dc-42a1-aaeb-39e07bc4f148
+		summarizeBy: none
+		sourceColumn: Start_Year__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semester__c
+		dataType: string
+		lineageTag: 79e41d7c-490d-4547-b9ef-a19fdf704dcf
+		summarizeBy: none
+		sourceColumn: Semester__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column End_Date__c
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c3055470-3591-4dc3-bbf5-c3df92a9294e
+		summarizeBy: none
+		sourceColumn: End_Date__c
+
+		variation Variation
+			isDefault
+			relationship: 0ea8ff4b-431a-4c31-ab7f-4e6c3a05d5eb
+			defaultHierarchy: LocalDateTable_dac0a698-2f62-4ee6-b277-649c48c0bc7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FiscalYear__c
+		dataType: string
+		lineageTag: f99f8d19-3701-4b3d-8536-11fd854f33a0
+		summarizeBy: none
+		sourceColumn: FiscalYear__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Family
+		dataType: string
+		lineageTag: e4d03611-9fb4-48ab-9abf-813c4fe38895
+		summarizeBy: none
+		sourceColumn: Family
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Program-ea20ea44-51aa-432b-9d90-1ba844bc0fbf = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data(),
+				    Product2 = Source{[Name="Product2"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Product2,{"Id", "Name", "Family", "Departure_Date__c", "Start_Year__c", "End_Date__c", "Semester__c", "FiscalYear__c"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Name", "Program"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

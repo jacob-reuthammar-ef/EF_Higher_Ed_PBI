@@ -1,0 +1,267 @@
+table Account
+	lineageTag: 3bd667ae-d4a4-493a-84f4-aea0c92470a8
+
+	measure TSA = SELECTEDVALUE(Account[Passport name confirmed]) + 0
+		formatString: 0
+		lineageTag: df00d835-cd71-4c73-ac6e-460c122a8696
+
+	measure FilteredStudent = IF(SELECTEDVALUE('Account'[Name], 0) == 0, "Select a student to drill through to all their flights", "Click to drill through to see all flights for " & SELECTEDVALUE('Account'[Name]))
+		lineageTag: ae4ec7c3-c213-486e-8260-f4aa97e7e626
+
+	measure FilteredStudentShowing = "Showing all flights saved in Atlas for " & SELECTEDVALUE(Account[Name])
+		lineageTag: 0b3b7083-bb91-4371-904f-d7ff0b8dfba6
+
+	measure FilteredStudentSTRs = "Showing all Special Travel Requests for " & SELECTEDVALUE(Account[Name])
+		lineageTag: 4b4977c5-529a-4613-a15b-1b1c89e82114
+
+	column 'Account Id'
+		dataType: string
+		lineageTag: 1ad6d1ad-0c38-4109-9a9a-73127fc88446
+		summarizeBy: none
+		sourceColumn: Account Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 109be4a1-1d53-415f-ba9a-7a65658abc42
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing City'
+		dataType: string
+		lineageTag: 92a40e60-3fb8-457e-a1ee-1bb6bd4f94e9
+		summarizeBy: none
+		sourceColumn: Billing City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal Gender'
+		dataType: string
+		lineageTag: 853c0743-5f43-4261-9637-243ab2a03c4b
+		summarizeBy: none
+		sourceColumn: Legal Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date of Birth'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 39cfba2d-205a-4689-b814-21417a2074e7
+		summarizeBy: none
+		sourceColumn: Date of Birth
+
+		variation Variation
+			isDefault
+			relationship: 5b26c424-5097-4a55-95d5-a984538adace
+			defaultHierarchy: LocalDateTable_938ae4cc-cf3b-4450-961a-9c3971a7b475.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 8e2196e9-87cb-4b00-b287-ad2ad39c8f63
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Passport Number'
+		dataType: string
+		lineageTag: ba8a633d-aa55-4c8d-886a-cba4f02e6fa6
+		summarizeBy: none
+		sourceColumn: Passport Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Passport Expiration Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: adea8789-1b54-4c23-8552-1815be3797dd
+		summarizeBy: none
+		sourceColumn: Passport Expiration Date
+
+		variation Variation
+			isDefault
+			relationship: 76a10e07-336c-4777-a843-115a1f1bed74
+			defaultHierarchy: LocalDateTable_2d081e99-0fac-49a8-9e02-9d5fb86e6d5e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Visa Requirements'
+		dataType: string
+		lineageTag: 4103ec9c-eafa-4c4d-9454-34da40e1e0a7
+		summarizeBy: none
+		sourceColumn: Visa Requirements
+
+		annotation SummarizationSetBy = Automatic
+
+	column Allergies
+		dataType: string
+		lineageTag: e905d309-09e6-4eac-abba-1d40ae218e53
+		summarizeBy: none
+		sourceColumn: Allergies
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dietary restrictions'
+		dataType: string
+		lineageTag: d65623b2-941e-4672-bee8-10ee01b827f5
+		summarizeBy: none
+		sourceColumn: Dietary restrictions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Departure Airport'
+		dataType: string
+		lineageTag: c307600d-2b87-46c5-9f93-a302e195dd27
+		summarizeBy: none
+		sourceColumn: Departure Airport
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Passport name confirmed'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 40d9d1a4-4c02-4e06-9c41-1862cf678f81
+		summarizeBy: none
+		sourceColumn: Passport name confirmed
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age = INT((TODAY() - Account[Date of Birth].[Date]) / 365)
+		dataType: int64
+		formatString: 0
+		lineageTag: b3e81acf-f895-41e2-b3c5-2454aa6943ca
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column 'First Name'
+		dataType: string
+		lineageTag: 8f57fed8-7606-4c75-91e5-a06e06468cfa
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		lineageTag: a7b16273-b2a2-4348-b72f-4dcae19856c0
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Middle Name'
+		dataType: string
+		lineageTag: d32213bb-b8e8-472d-985a-6cee8b797295
+		summarizeBy: none
+		sourceColumn: Middle Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name Remark' = "nm1" & Account[Last name formula] & "/" & Account[First name formula] & " " & Account[Middle Name] & "(id"&Account[Customer ID]&")"
+		lineageTag: ead35380-dbc5-4f9a-a427-1a6beb342e36
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SSR DOCS' = "SRDOCS YY HK1-----" & FORMAT(Account[Date of Birth].[Date], "ddmmmyy") & "-" & IF(Account[Legal Gender] = "male", "m", "f") & "--" & Account[Last Name] & "-" & Account[First Name] & " " & Account[Middle Name] & "/p"
+		lineageTag: ef4a8767-d0c5-47ff-8722-33d11bdc13aa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SFDC URL' = "https://efgapyear.lightning.force.com/" & Account[Account Id]
+		lineageTag: 00d584be-1f6e-4265-867a-6753f88e2ffd
+		dataCategory: WebUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Airport code'
+		dataType: string
+		lineageTag: 715803da-715c-4c49-9512-091798694c1f
+		summarizeBy: none
+		sourceColumn: Airport code
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: b4d751cf-56b0-49d4-b7b0-3707150a9147
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 85748813-7e59-4f1c-b1c3-cf186f9056e6
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First name formula'
+		dataType: string
+		lineageTag: c1e4c980-1715-48f9-a8ef-ecd95b702825
+		summarizeBy: none
+		sourceColumn: First name formula
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last name formula'
+		dataType: string
+		lineageTag: 8e0a8a24-2d36-4ca3-bc67-4de8ba65be8c
+		summarizeBy: none
+		sourceColumn: Last name formula
+
+		annotation SummarizationSetBy = Automatic
+
+	column NameConfirmedNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: b9699d0d-2d64-49f6-b836-5f503b78913a
+		summarizeBy: none
+		sourceColumn: NameConfirmedNumber
+
+		annotation SummarizationSetBy = User
+
+	partition Account-151dbc46-5cce-409e-b922-3d1054c83280 = m
+		mode: import
+		source = ```
+				let
+				    Source = Salesforce.Data(),
+				    Account1 = Source{[Name="Account"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Account1,{"Id", "Name", "LastName", "FirstName", "BillingCity", "Customer_ID__c", "passport_name_confirmed__c", "Passport_Number__c", "Passport_Expiration_Date__c", "Visa_Requirements__c", "Allergies__pc", "Dietary_restrictions__pc", "First_Name__pc", "Last_Name__pc", "Legal_Gender__pc", "Date_of_Birth__pc", "Middle_Name__pc", "Departure_Airport__pc"}),
+				
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"BillingCity", "Billing City"}, {"Id", "Account Id"}, 
+				{"Customer_ID__c", "Customer ID"}, {"passport_name_confirmed__c", "Passport name confirmed"}, {"Passport_Number__c", "Passport Number"}, {"Passport_Expiration_Date__c", "Passport Expiration Date"}, {"Visa_Requirements__c", "Visa Requirements"}, {"Allergies__pc", "Allergies"}, {"Dietary_restrictions__pc", "Dietary restrictions"}, {"Legal_Gender__pc", "Legal Gender"}, {"Date_of_Birth__pc", "Date of Birth"}, {"Departure_Airport__pc", "Departure Airport"}, {"First_Name__pc", "First Name"}, {"Last_Name__pc", "Last Name"}, {"Middle_Name__pc", "Middle Name"}}),
+				
+				//Merging with the SF Airport Codes table to transform the airport name to codes.
+				    #"Merged Airport Codes" = Table.NestedJoin(#"Renamed Columns", {"Departure Airport"}, #"SF Airport Codes", {"SFDC Value"}, "SF Airport Codes", JoinKind.LeftOuter),
+				    #"Expanded SF Airport Codes" = Table.ExpandTableColumn(#"Merged Airport Codes", "SF Airport Codes", {"Airport code"}, {"Airport code"}),
+				
+				//'FirstName' is derived from the Account Name column. 'First Name' is from the Passport Name fields. This step chooses the passport name if it has been entered, otherwise it uses the Account name. 
+				    #"Added Conditional first name" = Table.AddColumn(#"Expanded SF Airport Codes", "First name formula", each if [First Name] = null then [FirstName] else [First Name]),
+				    #"Added Conditional last name" = Table.AddColumn(#"Added Conditional first name", "Last name formula", each if [Last Name] = null then [LastName] else [Last Name]),
+				    #"Added Conditional Column" = Table.AddColumn(#"Added Conditional last name", "NameConfirmedNumber", each if [Passport name confirmed] = true then 1 else if [Passport name confirmed] = false then 0 else null),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Conditional Column",{{"NameConfirmedNumber", Int64.Type}})
+				in
+				    #"Changed Type"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

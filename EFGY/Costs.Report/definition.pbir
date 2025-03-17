@@ -1,0 +1,13 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byConnection": {
+      "connectionString": "Data Source=\"powerbi://api.powerbi.com/v1.0/myorg/Tours Ops - Models\";Initial Catalog=\"OpsControllingCosts - Model\";Integrated Security=ClaimsToken",
+      "pbiServiceModelId": null,
+      "pbiModelVirtualServerName": "sobe_onpremisevirtualserver",
+      "pbiModelDatabaseName": "65f8fcd3-45bb-4a09-ae11-d7c6f5004348",
+      "name": "EntityDataSource",
+      "connectionType": "pbiServiceXmlaStyleLive"
+    }
+  }
+}

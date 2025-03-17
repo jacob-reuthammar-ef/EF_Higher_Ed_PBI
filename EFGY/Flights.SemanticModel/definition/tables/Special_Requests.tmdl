@@ -1,0 +1,254 @@
+table Special_Requests
+	lineageTag: d3bd7d27-91a9-4e8d-afc0-ad3e4f1ee0c0
+
+	column Request_Id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4735ec22-7863-45ab-92f1-9304f87aa790
+		summarizeBy: count
+		sourceColumn: Request_Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: 99ab3f19-7918-43f2-9bda-224bfb420748
+		summarizeBy: count
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account_Name
+		dataType: string
+		lineageTag: c38db11a-3e29-4d8b-8c88-9071fa6a32ce
+		summarizeBy: none
+		sourceColumn: Account_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Name
+		dataType: string
+		lineageTag: 4dea5085-80b9-411b-bb7f-513362d3d2e7
+		summarizeBy: none
+		sourceColumn: Program_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column CX_Advisor_Name
+		dataType: string
+		lineageTag: da6f9688-5267-442a-b836-be87eccab752
+		summarizeBy: none
+		sourceColumn: CX_Advisor_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment_Status
+		dataType: string
+		lineageTag: 4521eed5-6138-4ac3-8c36-dbb27234ccb2
+		summarizeBy: none
+		sourceColumn: Enrollment_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment_Sub_Status
+		dataType: string
+		lineageTag: 1dddaf1e-df37-4e74-ae90-b655df52ba29
+		summarizeBy: none
+		sourceColumn: Enrollment_Sub_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Number
+		dataType: string
+		lineageTag: abf10794-2b92-4069-a874-78197122a576
+		summarizeBy: none
+		sourceColumn: Order_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module_1
+		dataType: string
+		lineageTag: 6cfbc69a-e157-4cec-9ecc-001a45c5db35
+		summarizeBy: none
+		sourceColumn: Module_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module_2
+		dataType: string
+		lineageTag: 9641c0ea-df88-4821-bfc4-408318ba856e
+		summarizeBy: none
+		sourceColumn: Module_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module_3
+		dataType: string
+		lineageTag: 2eccd889-f667-426e-ac91-e299ab17ca92
+		summarizeBy: none
+		sourceColumn: Module_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Request_Details
+		dataType: string
+		lineageTag: 609ace7c-e347-47c5-9114-62c9a418095e
+		summarizeBy: none
+		sourceColumn: Request_Details
+
+		annotation SummarizationSetBy = Automatic
+
+	column Request_Type
+		dataType: string
+		lineageTag: 3f655d65-6362-49d8-993f-421ac28d9637
+		summarizeBy: none
+		sourceColumn: Request_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Request_Sub_Type
+		dataType: string
+		lineageTag: fa2a1162-72d6-4fa6-9ef9-8bb8ab805a87
+		summarizeBy: none
+		sourceColumn: Request_Sub_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account_Id
+		dataType: string
+		lineageTag: d3ae0403-6fb5-412f-960d-485cc93f3639
+		summarizeBy: none
+		sourceColumn: Account_Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment_Id
+		dataType: string
+		lineageTag: 62044923-5f18-42b6-bc96-7a5aa08b86b7
+		summarizeBy: none
+		sourceColumn: Enrollment_Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d8972f8d-2b54-4bb1-9632-b9fbdda7ec3a
+		summarizeBy: none
+		sourceColumn: Created_Date
+
+		variation Variation
+			isDefault
+			relationship: b27bed2b-0ea3-4481-a871-cc1185f9daad
+			defaultHierarchy: LocalDateTable_f215a33f-6f80-495b-86a5-13e1011438b5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created_By
+		dataType: string
+		lineageTag: 46508107-a9be-4922-88a5-340e2c7330f9
+		summarizeBy: none
+		sourceColumn: Created_By
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created_By_Email
+		dataType: string
+		lineageTag: 9b6d1326-ad71-4dc7-93f1-f166ae186043
+		summarizeBy: none
+		sourceColumn: Created_By_Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Request_Status_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 109db91b-9aec-4416-aa9c-b3871d0f2b80
+		summarizeBy: count
+		sourceColumn: Request_Status_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approval_Status_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 97de104d-d770-4a43-9e5a-7b0dff004945
+		summarizeBy: count
+		sourceColumn: Approval_Status_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approved_By
+		dataType: string
+		lineageTag: 576e9403-597e-4891-af49-de0a366fc83b
+		summarizeBy: none
+		sourceColumn: Approved_By
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approved_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7609451c-4cfc-4837-bde1-a445a6d5cbcf
+		summarizeBy: none
+		sourceColumn: Approved_Date
+
+		variation Variation
+			isDefault
+			relationship: 298ad9b9-824f-4896-a751-dfd325e6eb8c
+			defaultHierarchy: LocalDateTable_1fa545b7-d747-4e9e-8430-d443c6e250c3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 15fd578a-6516-47bc-a0ac-e28e3e96bb63
+		summarizeBy: none
+		sourceColumn: Departure_Date
+
+		variation Variation
+			isDefault
+			relationship: 272374c0-06cb-4748-b994-b66d97377d18
+			defaultHierarchy: LocalDateTable_ffa6f5ac-e698-4d16-a9c6-fe2a70d2c49d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CX_Advisor_Email
+		dataType: string
+		lineageTag: 7574ce96-1311-48f8-860a-b197c1a68e59
+		summarizeBy: none
+		sourceColumn: CX_Advisor_Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost_per_pax
+		dataType: int64
+		formatString: 0
+		lineageTag: 54a50b4d-2b3d-450a-b44d-19191263912e
+		summarizeBy: sum
+		sourceColumn: Cost_per_pax
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comment
+		dataType: string
+		lineageTag: 417897c8-a119-474a-a67e-c257d0da4891
+		summarizeBy: none
+		sourceColumn: Comment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Special_Requests = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("tours-power-apps.database.windows.net", "ToursPowerApps", [Query="SELECT#(lf)*#(lf)FROM ToursPowerApps.ops_gap.sfdc_Special_Requests_v#(lf)WHERE Request_Type in ('Flights', 'Travel With')"])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

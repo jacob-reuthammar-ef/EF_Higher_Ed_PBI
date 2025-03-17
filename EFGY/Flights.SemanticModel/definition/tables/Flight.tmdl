@@ -1,0 +1,277 @@
+table Flight
+	lineageTag: 7c78c555-29ca-4a87-b64b-9733438bcc04
+
+	column Id
+		dataType: string
+		lineageTag: 776bc9f6-b0cf-40ee-8bf9-c98f12c14f6b
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: f6497ec9-8e22-47a2-9ea2-c43733843df1
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9e0d4248-f908-46ee-912e-0996fa078b57
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: dba85ed0-2fe1-4ec5-8070-21967c4cea7c
+			defaultHierarchy: LocalDateTable_2a1924e2-e83f-496f-a9bd-762dea618181.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departing_Gateway__c
+		dataType: string
+		lineageTag: 26e44f02-4402-4093-b9bc-577121114acb
+		summarizeBy: none
+		sourceColumn: Departing_Gateway__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arriving_Gateway__c
+		dataType: string
+		lineageTag: 09cad5f4-62c5-4469-8d16-327bb68e92ab
+		summarizeBy: none
+		sourceColumn: Arriving_Gateway__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_time__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cee02aa1-e1b4-493f-bf52-29e12cde5794
+		summarizeBy: none
+		sourceColumn: Departure_time__c
+
+		variation Variation
+			isDefault
+			relationship: 2ab367a6-5c74-43dd-8e26-a69e5f427ff5
+			defaultHierarchy: LocalDateTable_7e2792be-7b9f-4700-9f71-c8122bb79fe2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module__c
+		dataType: string
+		lineageTag: 4ff89ed0-1eb7-4e05-b19c-d9b88f434b6f
+		summarizeBy: none
+		sourceColumn: Module__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status__c
+		dataType: string
+		lineageTag: f7e04bac-a2b9-40d3-bc92-502f8f53bbaa
+		summarizeBy: none
+		sourceColumn: Status__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enrollment__c
+		dataType: string
+		lineageTag: 46d53ae7-9bf1-4677-afa3-6a5a3f6aeb63
+		summarizeBy: none
+		sourceColumn: Enrollment__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Airline__c
+		dataType: string
+		lineageTag: 294e02ea-1e9c-47b3-91f6-c5d8b09dc2d1
+		summarizeBy: none
+		sourceColumn: Airline__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flight__c
+		dataType: string
+		lineageTag: 15587e96-f0bd-40a3-a25f-45bfe80a596a
+		summarizeBy: none
+		sourceColumn: Flight__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival_time__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f55ed546-9eda-4a5f-a3d9-4e7a803488a9
+		summarizeBy: none
+		sourceColumn: Arrival_time__c
+
+		variation Variation
+			isDefault
+			relationship: 1766f9d9-248d-44a9-a44d-03356cefddf9
+			defaultHierarchy: LocalDateTable_1a471b1c-aa2e-47f8-9c02-a7adef1ad040.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duration__c
+		dataType: string
+		lineageTag: 066eea25-7b14-481f-880e-a2c15224155d
+		summarizeBy: none
+		sourceColumn: Duration__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account__c
+		dataType: string
+		lineageTag: 69738b40-7f83-4c2e-8d76-1a65e9e0cbf6
+		summarizeBy: none
+		sourceColumn: Account__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column PNR_id__c
+		dataType: string
+		lineageTag: e9b8a2f1-3aae-48c3-98b0-b98901368170
+		summarizeBy: none
+		sourceColumn: PNR_id__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Booking_Reference__c
+		dataType: string
+		lineageTag: 5e898300-369d-4363-b816-bd0492b3e6d1
+		summarizeBy: none
+		sourceColumn: Booking_Reference__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column E_Ticket_Number__c
+		dataType: string
+		lineageTag: aab67db3-18ad-44d4-8e5c-4958d57325af
+		summarizeBy: none
+		sourceColumn: E_Ticket_Number__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Time_Text__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 31db1c82-cc87-4970-9882-12a2e9652767
+		summarizeBy: none
+		sourceColumn: Departure_Time_Text__c
+
+		variation Variation
+			isDefault
+			relationship: a8106083-f1d9-4064-9796-ae7894b9effd
+			defaultHierarchy: LocalDateTable_85f39dbe-9c33-4121-9eed-c853c5abafdd.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival_Time_Text__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d44390ae-2030-4f81-9faa-0511b2dfd62a
+		summarizeBy: none
+		sourceColumn: Arrival_Time_Text__c
+
+		variation Variation
+			isDefault
+			relationship: 42a7c9e5-50bc-4707-934a-d9c7e117e145
+			defaultHierarchy: LocalDateTable_81708af2-cef6-42d8-991b-71077455fe48.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flight_id__c
+		dataType: string
+		lineageTag: de4c99f6-db14-420a-834c-f0781bdd9930
+		summarizeBy: none
+		sourceColumn: Flight_id__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Time_Frmla__c
+		dataType: string
+		lineageTag: 22503d0e-0e44-4e9d-97a8-881b485bb6ad
+		summarizeBy: none
+		sourceColumn: Departure_Time_Frmla__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival_Time_Frmla__c
+		dataType: string
+		lineageTag: 9625257a-ef15-4b40-bcc7-dd9d1da186d4
+		summarizeBy: none
+		sourceColumn: Arrival_Time_Frmla__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Time_User_s_time_zone__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 66190d65-a58a-4436-abcd-82e0b3ef08ea
+		summarizeBy: none
+		sourceColumn: Departure_Time_User_s_time_zone__c
+
+		variation Variation
+			isDefault
+			relationship: cdd1dd0d-aac9-45b8-928e-2a8d682b889e
+			defaultHierarchy: LocalDateTable_1a5d5714-04e4-40cb-9d4e-ff46a2408049.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival_Time_User_s_time_zone__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 48fd8b2b-0f86-4a36-b931-1c241eb8f523
+		summarizeBy: none
+		sourceColumn: Arrival_Time_User_s_time_zone__c
+
+		variation Variation
+			isDefault
+			relationship: 1636ce17-8721-47ae-975a-ad3b45c491cd
+			defaultHierarchy: LocalDateTable_45a96b73-42b4-4d88-b43e-cc7ffdafcf72.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Time_UTC__c
+		dataType: string
+		lineageTag: 7bba5f48-ebe0-4f6d-b451-648b3e2cce9a
+		summarizeBy: none
+		sourceColumn: Departure_Time_UTC__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrival_Time_UTC__c
+		dataType: string
+		lineageTag: 2f0278c3-7b07-4137-ba81-803c68d27837
+		summarizeBy: none
+		sourceColumn: Arrival_Time_UTC__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Student Name' = RELATED(Account[name])
+		lineageTag: 3e7df914-7fce-4069-9e52-5b0c4a25d726
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Flight-a2a3eccd-b770-430f-86aa-6c797b3e0180 = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data(),
+				    Flight__c = Source{[Name="Flight__c"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Flight__c,{"Id", "Name", "CreatedDate", "Departing_Gateway__c", "Arriving_Gateway__c", "Departure_time__c", "PNR_id__c", "Module__c", "Status__c", "Enrollment__c", "Airline__c", "Flight__c", "Arrival_time__c", "Duration__c", "Account__c", "Booking_Reference__c", "E_Ticket_Number__c", "Departure_Time_Text__c", "Arrival_Time_Text__c", "Flight_id__c", "Departure_Time_Frmla__c", "Arrival_Time_Frmla__c", "Departure_Time_User_s_time_zone__c", "Arrival_Time_User_s_time_zone__c", "Departure_Time_UTC__c", "Arrival_Time_UTC__c"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
