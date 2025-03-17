@@ -1,0 +1,573 @@
+table 'Survey Question Response'
+	lineageTag: 49d3593c-cfcd-43d6-934b-767ae4cc33ae
+
+	measure 'NPS Promotors' = ```
+			CALCULATE(
+			    COUNTA('Survey Question Response'[ResponseValue]), 
+			        'Survey Question Response'[NumberValue] >=9,
+			        'Survey Question'[QuestionType] = "NPS"
+			        ) + 0
+			```
+		formatString: 0
+		lineageTag: 436838e7-ba83-4347-8223-e27d015cd47b
+
+	measure 'NPS Detractors' = ```
+			CALCULATE(
+			    COUNTA('Survey Question Response'[ResponseValue]), 
+			        'Survey Question Response'[NumberValue] <7,
+			        'Survey Question'[QuestionType] = "NPS"    
+			        ) + 0
+			```
+		formatString: 0
+		lineageTag: ebace391-cac7-4e38-ada4-48714510a6ec
+
+	measure 'NPS Passive' = ```
+			CALCULATE(
+			    COUNTA('Survey Question Response'[ResponseValue]), 
+			        'Survey Question Response'[NumberValue] >=7,
+			        'Survey Question Response'[NumberValue] <=8,
+			        'Survey Question'[QuestionType] = "NPS"
+			        )
+			         + 0
+			```
+		formatString: 0
+		lineageTag: 05118c55-210a-4b7d-97c6-a5d536116726
+
+	measure 'NPS Score' =
+			DIVIDE(
+			    ('Survey Question Response'[NPS Promotors] - 'Survey Question Response'[NPS Detractors]), [Responders - NPS]) * 100
+			
+			---DIVIDE(('Survey Question Response'[NPS Promotors] - 'Survey Question Response'[NPS Detractors]), ('Survey Question Response'[NPS Promotors] + 'Survey Question Response'[NPS Passive] + 'Survey Question Response'[NPS Detractors])) * 100
+		formatString: 0
+		lineageTag: af4c01ee-3d4c-4c69-861b-ec868627f343
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Gap Year 21-22 NPS
+	measure 'GY21-22 NPS' =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Year - 2021-2022",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: 631da2cd-1419-4c70-adcb-59d12a8ede5c
+
+		changedProperty = FormatString
+
+	/// Gap Year 19-20 NPS
+	measure 'GY19-20 NPS' =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Year - 2019-2020",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: d32b6ba9-5516-45e6-8a35-4d5c16739b6e
+
+		changedProperty = FormatString
+
+	/// Gap Semester Fall 2021 NPS
+	/// 
+	measure 'GSF21 NPS' =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Semester - Fall 2021",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: 51c3c93c-1a59-4534-9e08-e3e5cc52535d
+
+		changedProperty = FormatString
+
+	/// Gap Semester Fall 2019 NPS
+	/// 
+	measure 'GSF19 NPS' =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Semester - Fall 2019",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: ef6cdea7-bf0c-4d0e-bb82-cabd6b37706d
+
+		changedProperty = FormatString
+
+	/// Gap Semester Spring 2020 NPS
+	measure GSS20NPS =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Semester - Spring 2020",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: bf8e9255-5903-4b92-b904-62dc6921292c
+
+		changedProperty = FormatString
+
+	/// Gap Semester Spring 2022 NPS
+	measure 'GSS22 NPS' =
+			CALCULATE([NPS Score],
+			'Survey Question Response'[Program Name] = "Gap Semester - Spring 2022",
+			'Survey Question'[QuestionType] = "NPS",
+			CONTAINSSTRING('Survey Version'[Survey Name], "final")
+			)
+		formatString: 0.0
+		displayFolder: Measures
+		lineageTag: 9b63c1cb-2706-470f-b246-d782684dfc1a
+
+		changedProperty = FormatString
+
+	measure 'formatting GSF21 vs GSF19' = IF(CALCULATE([GSF21 NPS] - [GSF19 NPS]) > 0, 1, -1)
+		displayFolder: Measures
+		lineageTag: 1d936fcd-3981-45c0-b6cc-1b3f54d5bd33
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'formatting GSS22 vs GSS20' = IF(CALCULATE([GSS22 NPS] - [GSS20NPS]) > 0, 1, -1)
+		displayFolder: Measures
+		lineageTag: 6cbcd8c6-1aea-4e18-93b0-58e39eac2bf7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'formatting GY21-22 vs GY19-20' = IF(CALCULATE([GY21-22 NPS] - [GY19-20 NPS]) > 0, 1, -1)
+		formatString: 0
+		displayFolder: Measures
+		lineageTag: b2abfadd-6f3f-403c-81e5-4db09e7febbc
+
+	measure 'Count Scores' =
+			
+			COUNTA('Survey Question Response'[NumberValue])
+		formatString: 0
+		displayFolder: Likert Measures
+		lineageTag: 98862c6d-27ee-491b-bca1-cffd54dc964e
+
+	measure 'Count Scores 3N' =
+			
+			-0.5*(CALCULATE([Count Scores],
+			FILTER('Survey Question Response', 'Survey Question Response'[NumberValue] in {3})))
+		displayFolder: Likert Measures
+		lineageTag: bb8f6f34-1c19-4537-b622-4c9dcac0e8c3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Count Scores 3P' =
+			
+			0.5*(CALCULATE([Count Scores],
+			FILTER('Survey Question Response', 'Survey Question Response'[NumberValue] in {3})))
+		displayFolder: Likert Measures
+		lineageTag: a6159ab9-0cc7-47d0-9de3-a6cec691e152
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Count Scores Negative' =
+			
+			-1*(CALCULATE([Count Scores],
+			FILTER('Survey Question Response', 'Survey Question Response'[NumberValue] in {1,2})))
+		formatString: 0
+		displayFolder: Likert Measures
+		lineageTag: 34384495-b842-4d8f-b1e4-3bd29367b1db
+
+	measure 'Count Scores Positive' =
+			
+			(CALCULATE([Count Scores],
+			FILTER('Survey Question Response', 'Survey Question Response'[NumberValue] in {4,5})))
+		formatString: 0
+		displayFolder: Likert Measures
+		lineageTag: 763e0c54-c34f-4bf8-b430-b2feff262643
+
+	measure '% Scores 3N' =
+			
+			DIVIDE([Count Scores 3N], [Count Scores])
+		formatString: 0%;-0%;0%
+		displayFolder: Likert Measures
+		lineageTag: 32d4d316-6980-440f-a094-91b9afd9ff40
+
+		changedProperty = FormatString
+
+	measure '% Scores 3P' =
+			
+			DIVIDE([Count Scores 3P], [Count Scores])
+		formatString: 0%;-0%;0%
+		displayFolder: Likert Measures
+		lineageTag: d2d5ef26-560a-44cf-9112-6480fe094bb3
+
+		changedProperty = FormatString
+
+	measure '% Scores Negative' =
+			
+			DIVIDE([Count Scores Negative], [Count Scores])
+		formatString: 0%;-0%;0%
+		displayFolder: Likert Measures
+		lineageTag: f775af82-43df-4f4c-92f7-94994569ebeb
+
+		changedProperty = FormatString
+
+	measure '% Scores Positive' =
+			
+			DIVIDE([Count Scores Positive], [Count Scores])
+		formatString: 0%;-0%;0%
+		displayFolder: Likert Measures
+		lineageTag: 03a1816c-03d5-443f-bdd9-014b19df5efd
+
+		changedProperty = FormatString
+
+	measure 'NPS Grouped' =
+			
+			100 * (([% Scores Positive]) + ([% Scores Negative]))
+		displayFolder: Likert Measures
+		lineageTag: 5b47ce4e-c8f8-4b85-886a-f50b2ca810ee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rank NPS' =
+			
+			RANKX(ALL('Survey Question'[Question]), [NPS Grouped],,DESC)
+		formatString: 0
+		displayFolder: Likert Measures
+		lineageTag: c30a3b08-09cd-4119-b48f-805ffe634b1e
+
+	measure FilteredProgram = SELECTEDVALUE('Survey Question Response'[Program Name], "All")
+		lineageTag: 97ded6ba-e6e6-4d6c-8f63-c90b81ce8632
+
+	measure 'BandedRowRank CF' = ```
+			
+			VAR Program =                      -- By using ALLSELECTED 
+			    CALCULATETABLE (                    -- we would get all the order numbers
+			        VALUES ( 'Survey Question Response'[Program Name] ), -- if there were no explicit filter on the
+			        ALLSELECTED ( )                 -- order numbers. Therefore, we use
+			    )                                   -- VALUES / ALLSELECTED to reduce the number of orders
+			                                         -- evaluated in the ranking.
+			VAR CurrentProgram =
+			    SELECTEDVALUE ( 'Survey Question Response'[Program Name] )
+			VAR Result =
+			    IF (
+			        HASONEVALUE ( 'Survey Question Response'[Program Name] ),  -- Check that only one order is visible.
+			        RANKX (
+			            Program,               -- Table to build the lookup values.
+			            'Survey Question Response'[Program Name],        -- Expression to use during the iteration.
+			            CurrentProgram,               -- Value to rank. We must use SELECTEDVALUE
+			            ASC                         -- to retrieve the current row in the report.
+			        )
+			    )
+			RETURN
+			    Result
+			```
+		formatString: 0
+		lineageTag: 285cd55f-f329-430d-af45-9a15e511ec2d
+
+	measure BandNumber = MOD ( [BandedRowRank CF], 2 )
+		formatString: 0
+		lineageTag: dc852242-138e-4f2b-ad80-de2f9c18052f
+
+	measure Responders = COUNTA('Survey Question Response'[Responder])
+		formatString: 0
+		lineageTag: 6b844784-2dde-4270-b60f-279adc76b8f7
+
+	measure 'NPS Score Fall' = CALCULATE([NPS Score], 'Survey Question Response'[Semester] = "Fall")
+		lineageTag: 479f758b-e884-4433-9b49-7568a6089a59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NPS Score Spring' = CALCULATE([NPS Score], 'Survey Question Response'[Semester] = "Spring")
+		lineageTag: 1be0af6d-237f-4cdf-87db-ef32c4ecebf1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NPS Score Summer' = CALCULATE([NPS Score], 'Survey Question Response'[Semester] = "Summer")
+		lineageTag: ab85800d-0fff-461d-941c-374868982c57
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NPS Score Year' = CALCULATE([NPS Score], 'Survey Question Response'[Semester] = "Year")
+		lineageTag: 293cce37-0e2f-4cc3-b87e-8274c2be0119
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Responders - NPS' = CALCULATE([Responders], 'Survey Question'[QuestionType] = "NPS")
+		formatString: 0
+		displayFolder: Measures
+		lineageTag: a964f382-39d0-44e8-892c-1b62541515e3
+
+	column Id
+		dataType: string
+		lineageTag: d70eb859-de22-405e-9da1-ecfc0e70fa41
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseShortText
+		dataType: string
+		lineageTag: ee70ece9-4f0b-4fe7-83b4-f636885e0b81
+		summarizeBy: none
+		sourceColumn: ResponseShortText
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseId
+		dataType: string
+		lineageTag: 9fa59fd4-8425-46be-8ea4-a380740ef1c5
+		summarizeBy: none
+		sourceColumn: ResponseId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionId
+		dataType: string
+		lineageTag: 397e933f-c7b4-4b90-b58d-8a3c5cabdea3
+		summarizeBy: none
+		sourceColumn: QuestionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionChoiceId
+		dataType: string
+		lineageTag: ae399ace-afb3-4f61-883a-5897c0a8d150
+		summarizeBy: none
+		sourceColumn: QuestionChoiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyVersionId
+		dataType: string
+		lineageTag: 945436f0-13ec-4a2e-a8d2-6a535c9e2327
+		summarizeBy: none
+		sourceColumn: SurveyVersionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvitationId
+		dataType: string
+		lineageTag: 4cc3f616-04c2-402e-890b-19cce137f149
+		summarizeBy: none
+		sourceColumn: InvitationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datatype
+		dataType: string
+		lineageTag: 88b720e0-a978-4994-a931-717a2ef5cb5b
+		summarizeBy: none
+		sourceColumn: Datatype
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rank
+		dataType: int64
+		formatString: 0
+		lineageTag: f6e3ce6e-67aa-4f55-b290-0ea2883611f4
+		summarizeBy: sum
+		sourceColumn: Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateValue
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1831632f-3978-48f6-97fa-5df8006d1870
+		summarizeBy: none
+		sourceColumn: DateValue
+
+		variation Variation
+			isDefault
+			relationship: 2ff19914-f601-4e8f-b36a-bcf5364d931f
+			defaultHierarchy: LocalDateTable_fde67037-47e3-4524-ad6e-82027c38d0c0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ChoiceValue
+		dataType: string
+		lineageTag: 7bd4a27f-f89f-4f45-a45f-87c63b6429ec
+		summarizeBy: none
+		sourceColumn: ChoiceValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseValue
+		dataType: string
+		lineageTag: c7ff6d70-af70-4a9b-8e21-6b280cc7ca2a
+		summarizeBy: none
+		sourceColumn: ResponseValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsTrueOrFalse
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f69bce4a-5915-4353-bf70-0b9211465f79
+		summarizeBy: none
+		sourceColumn: IsTrueOrFalse
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumberValue
+		dataType: int64
+		formatString: 0
+		lineageTag: e7ead78c-76a6-415d-ba9e-b5d8429609bd
+		summarizeBy: sum
+		sourceColumn: NumberValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response.Submitter.AccountId'
+		dataType: string
+		lineageTag: 4bd1f4de-d0fe-4e71-b01d-adc5f88082a5
+		summarizeBy: none
+		sourceColumn: Response.Submitter.AccountId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response.Submitter.Name'
+		dataType: string
+		lineageTag: 1cadbbdd-18fb-4e85-ac31-8e1cf5cc2bef
+		summarizeBy: none
+		sourceColumn: Response.Submitter.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Name'
+		dataType: string
+		lineageTag: 4a1713ca-0927-452d-87bf-44cc946a83b2
+		summarizeBy: none
+		sourceColumn: Program Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SurveyVersion.SurveyStatus'
+		dataType: string
+		lineageTag: 89f2dab1-e219-4eac-8e48-6bd466b7f06f
+		summarizeBy: none
+		sourceColumn: SurveyVersion.SurveyStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Family'
+		dataType: string
+		lineageTag: 574143d0-51b3-4426-98f1-aac86b1985e8
+		summarizeBy: none
+		sourceColumn: Program Family
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d52647c2-5ed7-40b1-bee7-54272af61a36
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: 45f21bd7-2317-4506-9a77-a4a746376bde
+			defaultHierarchy: LocalDateTable_0d5917b4-1746-4c04-8c2b-3af8ac91ee31.'Date Hierarchy'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Responder =
+			IF('Survey Question Response'[Response.Submitter.Name] = BLANK(), "Anonymous" & RANKX(
+			        'Survey Question Response', 'Survey Question Response'[ResponseId]), 'Survey Question Response'[Response.Submitter.Name])
+		lineageTag: 5323ea27-237e-4376-8644-ebe03455c265
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column = SELECTEDVALUE('Survey Question Response'[Responder])
+		lineageTag: 54cf0927-9b2b-4d08-9945-e1d7726f572b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Response' = ```
+			IF(RELATED('Survey Question'[QuestionTypeNumber]) = 5, 'Survey Question Response'[NumberValue], 
+			BLANK())
+			```
+		formatString: 0
+		lineageTag: 663644f8-a65d-4c3d-b8f9-3ee5ac543f7a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rating = IF(RELATED('Survey Question'[QuestionTypeNumber]) = 8, 'Survey Question Response'[NumberValue], BLANK())
+		formatString: 0
+		lineageTag: 15bd5d08-9080-4913-8208-d4d1c37309fe
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TextResponse =
+			IF( RELATED('Survey Question'[QuestionTypeNumber]) = 3, 'Survey Question Response'[ResponseValue],
+			IF( RELATED('Survey Question'[QuestionTypeNumber]) = 9, 'Survey Question Response'[ResponseValue],
+			BLANK()))
+		lineageTag: 140f8ce2-89d2-4409-885e-15a78c0d8ddc
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Year'
+		dataType: string
+		lineageTag: a1a5bf78-46f6-4528-85b5-aadbd41686df
+		summarizeBy: none
+		sourceColumn: Program Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semester
+		dataType: string
+		lineageTag: a89e6607-b233-4953-b573-3829cdae2016
+		summarizeBy: none
+		sourceColumn: Semester
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Enrollments' = CALCULATE(SUM(Program[Booked]), USERELATIONSHIP(Program[Name], 'Survey Question Response'[Program Name]))
+		lineageTag: 258b0622-fe44-498f-9b60-880bb7f57369
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Survey Question Response-f740798b-6595-4310-a613-b70daf7974a8' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyQuestionResponse = Source{[Name="SurveyQuestionResponse"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyQuestionResponse,{"Id", "ResponseShortText", "CreatedDate", "ResponseId", "QuestionId", "QuestionChoiceId", "SurveyVersionId", "InvitationId", "Datatype", "Rank", "DateValue", "ChoiceValue", "ResponseValue", "IsTrueOrFalse", "NumberValue", "Response", "SurveyVersion"}),
+				    #"Expanded SurveyVersion" = Table.ExpandRecordColumn(#"Removed Other Columns", "SurveyVersion", {"SurveyStatus"}, {"SurveyVersion.SurveyStatus"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded SurveyVersion", each ([SurveyVersion.SurveyStatus] = "Active")),
+				    #"Expanded Response" = Table.ExpandRecordColumn(#"Filtered Rows", "Response", {"Submitter"}, {"Response.Submitter"}),
+				    #"Expanded Response.Submitter" = Table.ExpandRecordColumn(#"Expanded Response", "Response.Submitter", {"AccountId", "Name"}, {"Response.Submitter.AccountId", "Response.Submitter.Name"}),
+				    #"Merged Queries" = Table.FuzzyNestedJoin(#"Expanded Response.Submitter", {"Response.Submitter.AccountId"}, #"Quote and Enrollment", {"AccountId"}, "Quote and Enrollment", JoinKind.LeftOuter, [IgnoreCase=false, IgnoreSpace=false, NumberOfMatches=1]),
+				    #"Expanded Quote and Enrollment" = Table.ExpandTableColumn(#"Merged Queries", "Quote and Enrollment", {"Program_Family__c", "Program_Name__c", "Program_Year__c", "Semester__c"}, {"Quote and Enrollment.Program_Family__c", "Quote and Enrollment.Program_Name__c", "Quote and Enrollment.Program_Year__c", "Quote and Enrollment.Semester__c"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Quote and Enrollment",{{"Quote and Enrollment.Program_Name__c", "Program"}, {"Quote and Enrollment.Program_Family__c", "Program Family"}, {"Quote and Enrollment.Program_Year__c", "Program Year"}, {"Quote and Enrollment.Semester__c", "Semester"}}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns", {"SurveyVersionId"}, #"Survey & Program", {"SurveyVersionId"}, "Survey & Program", JoinKind.LeftOuter),
+				    #"Expanded Survey & Program" = Table.ExpandTableColumn(#"Merged Queries1", "Survey & Program", {"Program Name", "Program Family", "Program Year", "Semester"}, {"Survey & Program.Program Name", "Survey & Program.Program Family", "Survey & Program.Program Year", "Survey & Program.Semester"}),
+				    #"Added Custom1" = Table.AddColumn(#"Expanded Survey & Program", "Program Name", each if [Program] = null then [#"Survey & Program.Program Name"] else [Program]),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Program Family2", each if [Program Family] is null then [#"Survey & Program.Program Family"] else [Program Family]),
+				    #"Added Custom" = Table.AddColumn(#"Added Custom2", "Program Year 2", each if [Program Year] is null then [#"Survey & Program.Program Year"] else [Program Year]),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom", "Semester 2", each if [Semester] is null then [#"Survey & Program.Semester"] else [Semester]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom3",{"Program", "Survey & Program.Program Name", "Program Family", "Survey & Program.Program Family", "Program Year", "Semester", "Survey & Program.Program Year", "Survey & Program.Semester"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Program Family2", "Program Family"}, {"Program Year 2", "Program Year"}, {"Semester 2", "Semester"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"CreatedDate", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

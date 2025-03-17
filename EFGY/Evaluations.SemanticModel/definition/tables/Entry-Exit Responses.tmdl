@@ -1,0 +1,367 @@
+table 'Entry-Exit Responses'
+	lineageTag: 74b9f724-763b-458e-9cd9-e04a226ad1fd
+
+	measure 'Score Avg Entry & Exit' = CALCULATE ( AVERAGE ( 'Entry-Exit Responses'[NumberValue] ) )
+		displayFolder: _Measures
+		lineageTag: 0b91a6a1-70a6-40d0-babf-9a598608ea5c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Entry' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Entry"
+			)
+		displayFolder: _Measures\Measures Entry
+		lineageTag: c30b95dc-0be1-4439-9a3d-e006f7abf069
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Exit' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Exit"
+			)
+		displayFolder: _Measures\Measures Exit
+		lineageTag: ffcab39d-e7db-4c92-ba91-0ffa1636cbc5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Diff' =
+			IF (
+			    ISBLANK ( [Score Avg Entry] ),
+			    BLANK (),
+			    IF (
+			        ISBLANK ( [Score Avg Exit] ),
+			        BLANK (),
+			        CALCULATE ( [Score Avg Exit] - [Score Avg Entry] )
+			    )
+			)
+		displayFolder: _Measures\Measures Diff
+		lineageTag: fefdd9b1-2217-43e4-8c50-924f9fe8ec45
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Entry Action' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Entry",
+			    'Entry-Exit Responses'[G2PA category] = "Action and Impact"
+			)
+		displayFolder: _Measures\Measures Entry\G2PA Categories
+		lineageTag: 2af39c4b-d994-47ee-a137-0df67f520668
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Entry Global Perspective' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Entry",
+			    'Entry-Exit Responses'[G2PA category] = "Global Perspective"
+			)
+		displayFolder: _Measures\Measures Entry\G2PA Categories
+		lineageTag: 03cd1662-8205-4f77-993e-467ca4205602
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Entry Growth Mindset' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Entry",
+			    'Entry-Exit Responses'[G2PA category] = "Growth Mindset"
+			)
+		displayFolder: _Measures\Measures Entry\G2PA Categories
+		lineageTag: 88492b3c-238b-43ff-b75d-9c01263c678d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Entry Personal Development' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Entry",
+			    'Entry-Exit Responses'[G2PA category] = "Personal Development"
+			)
+		displayFolder: _Measures\Measures Entry\G2PA Categories
+		lineageTag: a2a042c8-9d3f-4a26-8ae5-211683cdd793
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Exit Action' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Exit",
+			    'Entry-Exit Responses'[G2PA category] = "Action and Impact"
+			)
+		displayFolder: _Measures\Measures Exit\G2PA Categories
+		lineageTag: 47ba9be3-2415-4782-a47c-50931a77417c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Exit Global Perspective' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Exit",
+			    'Entry-Exit Responses'[G2PA category] = "Global Perspective"
+			)
+		displayFolder: _Measures\Measures Exit\G2PA Categories
+		lineageTag: 7bef94ef-aff1-4015-b559-a6390e93af72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Exit Growth Mindset' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Exit",
+			    'Entry-Exit Responses'[G2PA category] = "Growth Mindset"
+			)
+		displayFolder: _Measures\Measures Exit\G2PA Categories
+		lineageTag: 29d0fcdb-2151-4ed5-8f79-93cd97ff6379
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Score Avg Exit Personal Development' =
+			CALCULATE (
+			    AVERAGE ( 'Entry-Exit Responses'[NumberValue] ),
+			    'Entry-Exit Responses'[Entry-Exit] = "Exit",
+			    'Entry-Exit Responses'[G2PA category] = "Personal Development"
+			)
+		displayFolder: _Measures\Measures Exit\G2PA Categories
+		lineageTag: 3fe3131a-1407-434d-be4a-769f60d4d234
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Action Diff' =
+			IF (
+			    ISBLANK ( [Score Avg Entry Action] ),
+			    BLANK (),
+			    IF (
+			        ISBLANK ( [Score Avg Exit Action] ),
+			        BLANK (),
+			        CALCULATE ( [Score Avg Exit Action] - [Score Avg Entry Action] )
+			    )
+			)
+		displayFolder: _Measures\Measures Diff
+		lineageTag: cb78d571-308d-4f47-812e-71942f384807
+
+	measure 'Global Perspective Diff' =
+			IF (
+			    ISBLANK ( [Score Avg Entry Global Perspective] ),
+			    BLANK (),
+			    IF (
+			        ISBLANK ( [Score Avg Exit Action] ),
+			        BLANK (),
+			        CALCULATE ( [Score Avg Exit Global Perspective] - [Score Avg Entry Global Perspective] )
+			    )
+			)
+		displayFolder: _Measures\Measures Diff
+		lineageTag: 82d24eb9-741d-44e3-a16f-c417eed1ef40
+
+	measure 'Growth Mindset Diff' =
+			IF (
+			    ISBLANK ( [Score Avg Entry Growth Mindset] ),
+			    BLANK (),
+			    IF (
+			        ISBLANK ( [Score Avg Exit Growth Mindset] ),
+			        BLANK (),
+			        CALCULATE ( [Score Avg Exit Growth Mindset] - [Score Avg Entry Growth Mindset] )
+			    )
+			)
+		displayFolder: _Measures\Measures Diff
+		lineageTag: bdba5025-73a3-45bb-9dd3-951efd35e6be
+
+	measure 'Personal Development Diff' =
+			IF (
+			    ISBLANK ( [Score Avg Entry Personal Development] ),
+			    BLANK (),
+			    IF (
+			        ISBLANK ( [Score Avg Exit Personal Development] ),
+			        BLANK (),
+			        CALCULATE ( [Score Avg Exit Personal Development] - [Score Avg Entry Personal Development] )
+			    )
+			)
+		displayFolder: _Measures\Measures Diff
+		lineageTag: ea2315f8-644f-466a-bc68-27f6a812d150
+
+	column Id
+		dataType: string
+		lineageTag: eea24566-6295-45bb-a624-1c5c610daa78
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 5ca5655f-d8e8-4374-988c-82b0eba70a14
+		summarizeBy: none
+		sourceColumn: Response Date
+
+		variation Variation
+			isDefault
+			relationship: 7b1e8478-e8d9-4ae5-b859-7bdfb91fea39
+			defaultHierarchy: LocalDateTable_112a85c4-e29d-43c2-bf38-6eff2d4d0ebd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column NumberValue
+		dataType: int64
+		formatString: 0
+		lineageTag: be63c20a-49eb-4f48-b7c5-7f36da6a0e23
+		summarizeBy: sum
+		sourceColumn: NumberValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Question.SurveyVersion.Name'
+		dataType: string
+		lineageTag: db867493-8892-40bc-9299-e2516cc42649
+		summarizeBy: none
+		sourceColumn: Question.SurveyVersion.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account id'
+		dataType: string
+		lineageTag: 0fdc76c5-2202-4e19-a14f-22abbd9696af
+		summarizeBy: none
+		sourceColumn: Account id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Advisor
+		dataType: string
+		lineageTag: 5b862f89-abe5-4470-b0c5-99c0f829a468
+		summarizeBy: none
+		sourceColumn: Advisor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Responder
+		dataType: string
+		lineageTag: 0e85aa3c-1be9-44c3-92b2-54c0f8b6802e
+		summarizeBy: none
+		sourceColumn: Responder
+
+		annotation SummarizationSetBy = Automatic
+
+	column Entry-Exit
+		dataType: string
+		lineageTag: 2500371f-abf1-450a-a07f-7689090fe154
+		summarizeBy: none
+		sourceColumn: Entry-Exit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status'
+		dataType: string
+		lineageTag: fa007fb0-14bc-4642-8e19-0ca1b00c6499
+		summarizeBy: none
+		sourceColumn: Order Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program Name'
+		dataType: string
+		lineageTag: 10e6d94f-ea0a-4a40-90cc-374c9ed63a04
+		summarizeBy: none
+		sourceColumn: Program Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Survey Name'
+		dataType: string
+		lineageTag: e9c0aa70-ed94-4cdf-a13f-cae76f9980ea
+		summarizeBy: none
+		sourceColumn: Survey Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionId
+		dataType: string
+		lineageTag: 25c09743-8ead-4b9d-a639-746496e4b79c
+		summarizeBy: none
+		sourceColumn: QuestionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Question.Name'
+		dataType: string
+		lineageTag: 933c665a-203d-4fb6-9367-5414ad8ccf0a
+		summarizeBy: none
+		sourceColumn: Question.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'G2PA category'
+		dataType: string
+		lineageTag: 12b81350-b990-42a3-8078-a0cdc3c7c2dd
+		summarizeBy: none
+		sourceColumn: G2PA category
+		sortByColumn: 'Category Sort Order'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module
+		dataType: string
+		lineageTag: 664e0387-4303-4580-ac70-f66d925d578e
+		summarizeBy: none
+		sourceColumn: Module
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Sort Order'
+		dataType: string
+		lineageTag: dc755a89-69d6-45d9-9523-46750b6af906
+		summarizeBy: none
+		sourceColumn: Category Sort Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Entry-Exit Responses-28afd59b-2ed5-489e-8247-9a71d6606165' = m
+		mode: import
+		source = ```
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyQuestionResponse = Source{[Name="SurveyQuestionResponse"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyQuestionResponse,{"Id", "CreatedDate", "QuestionId", "NumberValue", "Question", "Response"}),
+				    #"Expanded Response" = Table.ExpandRecordColumn(#"Removed Other Columns", "Response", {"Submitter"}, {"Response.Submitter"}),
+				    #"Expanded Response.Submitter" = Table.ExpandRecordColumn(#"Expanded Response", "Response.Submitter", {"Account", "AccountId", "CX_Advisor_Name__c", "Name", "Quotes"}, {"Response.Submitter.Account", "Response.Submitter.AccountId", "Response.Submitter.CX_Advisor_Name__c", "Response.Submitter.Name", "Response.Submitter.Quotes"}),
+				    #"Expanded Response.Submitter.Account" = Table.ExpandRecordColumn(#"Expanded Response.Submitter", "Response.Submitter.Account", {"Orders"}, {"Response.Submitter.Account.Orders"}),
+				    #"Expanded Response.Submitter.Account.Orders" = Table.ExpandTableColumn(#"Expanded Response.Submitter.Account", "Response.Submitter.Account.Orders", {"Status", "Program_Name__c"}, {"Response.Submitter.Account.Orders.Status", "Response.Submitter.Account.Orders.Program_Name__c"}),
+				    #"Expanded Question" = Table.ExpandRecordColumn(#"Expanded Response.Submitter.Account.Orders", "Question", {"SurveyVersion"}, {"Question.SurveyVersion"}),
+				
+				    //Joining on Survey Question to get Question Name
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Question", {"QuestionId"}, #"Survey Question", {"Id"}, "Survey Question", JoinKind.LeftOuter),
+				    #"Expanded Survey Question" = Table.ExpandTableColumn(#"Merged Queries1", "Survey Question", {"Question"}, {"Survey Question.Question"}),
+				    #"Expanded Question.SurveyVersion" = Table.ExpandRecordColumn(#"Expanded Survey Question", "Question.SurveyVersion", {"Name"}, {"Question.SurveyVersion.Name"}),
+				    
+				    //Filtering only Surveys with 'Entry' or 'Exit' in the name
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Question.SurveyVersion", each Text.Contains([Question.SurveyVersion.Name], "Entry") or Text.Contains([Question.SurveyVersion.Name], "Exit") or Text.Contains([Question.SurveyVersion.Name], "entry") or Text.Contains([Question.SurveyVersion.Name], "exit")),
+				    
+				    //Excluding the 'Gap Entry / Exit' survey, as it was taken anonymously
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each ([Question.SurveyVersion.Name] <> "Gap Entry / Exit Survey")),
+				    
+				    //Renaming the 'Pathfinder Entry/Exit Survey' as it's actually the Entry survey
+				    #"Replaced Value" = Table.ReplaceValue(#"Filtered Rows1","Pathfinder Entry/Exit Survey","Pathfinder Entry Survey",Replacer.ReplaceText,{"Question.SurveyVersion.Name"}),
+				    
+				       // Looking up 'entry' or 'exit' in the survey name and creating a new column for that in order to create the categories
+				    #"Added entry or exit category" = Table.AddColumn(#"Replaced Value", "Entry-Exit", each if Text.Contains([Question.SurveyVersion.Name], "entry") then "Entry" else if Text.Contains([Question.SurveyVersion.Name], "Exit") then "Exit" else if Text.Contains([Question.SurveyVersion.Name], "Entry") then "Entry" else if Text.Contains([Question.SurveyVersion.Name], "exit") then "Exit" else null),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added entry or exit category",{{"CreatedDate", type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"CreatedDate", "Response Date"}, {"Survey Question.Question", "Question.Name"}, {"Response.Submitter.Account.Orders.Status", "Order Status"}, {"Response.Submitter.Account.Orders.Program_Name__c", "Program Name"}, {"Response.Submitter.AccountId", "Account id"}, {"Response.Submitter.CX_Advisor_Name__c", "Advisor"}, {"Response.Submitter.Name", "Responder"}}),
+				    // Looking up words before 'entry' or 'exit' in the survey name and appending that to 'Entry/Exit Survey' in order to name both surveys the same
+				    #"Added custom survey name" = Table.AddColumn(#"Renamed Columns", "Survey Name", each if Text.Contains([Question.SurveyVersion.Name], "Entry") then Text.BeforeDelimiter([Question.SurveyVersion.Name], "Entry") & "Entry/Exit Survey" else if Text.Contains([Question.SurveyVersion.Name], "Exit") then Text.BeforeDelimiter([Question.SurveyVersion.Name], "Exit") & "Entry/Exit Survey" else if Text.Contains([Question.SurveyVersion.Name], "exit") then Text.BeforeDelimiter([Question.SurveyVersion.Name], "Exit") & "Entry/Exit Survey" else if Text.Contains([Question.SurveyVersion.Name], "entry") then Text.BeforeDelimiter([Question.SurveyVersion.Name], "Entry") & "Entry/Exit Survey" else null),
+				    
+				    //Joining the G2PA question categories
+				    #"Merged Queries2" = Table.NestedJoin(#"Added custom survey name", {"Question.Name"}, #"G2PA Categories", {"Question"}, "G2PA Categories", JoinKind.LeftOuter),
+				    #"Expanded G2PA Categories1" = Table.ExpandTableColumn(#"Merged Queries2", "G2PA Categories", {"Category Sort Order", "G2PA category", "Module"}, {"Category Sort Order", "G2PA category", "Module"})
+				in
+				    #"Expanded G2PA Categories1"
+				```
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,47 @@
+table 'G2PA Categories'
+	lineageTag: f11df157-67ff-4e45-a56e-fa371aa52147
+
+	column Question
+		dataType: string
+		lineageTag: 57b72cb6-9d6c-40a8-b3a1-1c88208c08b6
+		summarizeBy: none
+		sourceColumn: Question
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'G2PA category'
+		dataType: string
+		lineageTag: 0563bc6b-77a4-42ec-9165-eef11ee75d9a
+		summarizeBy: none
+		sourceColumn: G2PA category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Module
+		dataType: string
+		lineageTag: c99ec55b-4769-451f-9540-5210918b48d7
+		summarizeBy: none
+		sourceColumn: Module
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Sort Order'
+		dataType: string
+		lineageTag: 73d44d8c-6048-4833-917b-e98a4cb8009c
+		summarizeBy: none
+		sourceColumn: Category Sort Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'G2PA Categories-1f8afd85-c28e-4351-9aa8-6b82729eb39d' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://efcom.sharepoint.com/sites/EFGapYear990/Shared%20Documents/Reports/Evals/G2PA%20Questions%20and%20Categories.xlsx"), null, true),
+				    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"Question", type text}, {"G2PA category", type text}, {"Module", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

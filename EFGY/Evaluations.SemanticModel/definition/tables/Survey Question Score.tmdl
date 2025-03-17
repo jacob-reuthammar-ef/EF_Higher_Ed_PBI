@@ -1,0 +1,142 @@
+table 'Survey Question Score'
+	lineageTag: f52ed5ed-05f6-45ff-ad01-5b4cf14ced24
+
+	column Id
+		dataType: string
+		lineageTag: 3f086712-5a23-4af2-9461-0deaeda179ea
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 299229e0-700f-4231-a476-0300eefa21b4
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyId
+		dataType: string
+		lineageTag: 919ecd57-74e6-438c-9680-7cb8fb8f49aa
+		summarizeBy: none
+		sourceColumn: SurveyId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyVersionId
+		dataType: string
+		lineageTag: 9c118daf-2e51-4d0d-a354-829d1e7202a0
+		summarizeBy: none
+		sourceColumn: SurveyVersionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyInvitationId
+		dataType: string
+		lineageTag: eddea407-72e7-4614-af7b-c12614a62e0a
+		summarizeBy: none
+		sourceColumn: SurveyInvitationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionId
+		dataType: string
+		lineageTag: 90794200-f685-471f-bc70-9ecc00fb5989
+		summarizeBy: none
+		sourceColumn: QuestionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionChoiceId
+		dataType: string
+		lineageTag: aa66db39-d518-4db9-b0b0-426613f01c19
+		summarizeBy: none
+		sourceColumn: QuestionChoiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionName
+		dataType: string
+		lineageTag: 43a13a34-1370-4dec-a3a3-e2da250b0182
+		summarizeBy: none
+		sourceColumn: QuestionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseValue
+		dataType: double
+		lineageTag: f0fcf6a8-edc6-46ca-b07b-278b6c671c6c
+		summarizeBy: sum
+		sourceColumn: ResponseValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Score
+		dataType: double
+		lineageTag: d08c9898-2066-40a1-ad1a-55f37517822c
+		summarizeBy: sum
+		sourceColumn: Score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ResponseCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a791641-6c3e-4d81-a0e6-dee4fd044d6e
+		summarizeBy: sum
+		sourceColumn: ResponseCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScoreType
+		dataType: string
+		lineageTag: 966054f9-3c07-4f03-892e-cc1da2a31786
+		summarizeBy: none
+		sourceColumn: ScoreType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateResponse
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 03d0e1e7-8e94-4eb6-b583-5434961db804
+		summarizeBy: none
+		sourceColumn: DateResponse
+
+		variation Variation
+			isDefault
+			relationship: e9040354-06f8-40f8-8a34-8f7f86d83595
+			defaultHierarchy: LocalDateTable_2496eff8-41f5-486a-860f-93fa47d1eadb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CumulativeScore
+		dataType: double
+		lineageTag: e8693113-1294-48ca-8eef-6e02ec4bd1b8
+		summarizeBy: sum
+		sourceColumn: CumulativeScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Survey Question Score-dcfab13f-ffe3-4222-910f-8caaf1bbc811' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyQuestionScore = Source{[Name="SurveyQuestionScore"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyQuestionScore,{"Id", "Name", "SurveyId", "SurveyVersionId", "SurveyInvitationId", "QuestionId", "QuestionChoiceId", "QuestionName", "ResponseValue", "Score", "ResponseCount", "ScoreType", "DateResponse", "CumulativeScore"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+

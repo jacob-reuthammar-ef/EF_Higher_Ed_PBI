@@ -1,0 +1,606 @@
+table 'ILC Evals'
+	lineageTag: 9205f96a-e677-4694-8937-0c232982281f
+
+	measure 'NPS Respondents' = CALCULATE(COUNTROWS('ILC Evals'))
+		formatString: 0
+		lineageTag: a6c4d4fa-df21-481c-a108-366fb585c6fd
+
+	measure 'NPS Detractors ILC' = CALCULATE([NPS Respondents],'ILC Evals'[Recommend]<=6,'ILC Evals'[Recommend]>=1)
+		formatString: 0
+		lineageTag: bce50182-f3d4-4312-a30d-4dee7bd4c579
+
+	measure 'NPS Passive ILC' = CALCULATE([NPS Respondents],'ILC Evals'[Recommend]<=8,'ILC Evals'[Recommend]>=7)
+		formatString: 0
+		lineageTag: 02625c59-1961-4e3f-902f-3d7410ea2ff7
+
+	measure 'NPS Promotors ILC' = CALCULATE([NPS Respondents],'ILC Evals'[Recommend]>=9)
+		formatString: 0
+		lineageTag: 6a493ea6-0430-42fd-88ca-a8868d6f387a
+
+	measure 'NPS ILC' = (([NPS Promotors ILC] - [NPS Detractors ILC]) / CALCULATE([NPS Respondents], 'ILC Evals'[Recommend] <> BLANK())) * 100
+		lineageTag: 6e9b1e44-b933-43d3-ad95-7ed9b76cf90d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure zNPS-100 = -100
+		formatString: 0
+		lineageTag: 80843a45-123c-4707-aa0d-ff2ed6d33a92
+
+	measure zNPS100 = 100
+		formatString: 0
+		lineageTag: 8802ded8-4c66-4533-94e1-69829b93b54b
+
+	measure zNPS-33 = -33
+		formatString: 0
+		lineageTag: af65d1c1-4cd4-432c-8d17-9dd5ec9b0a28
+
+	measure zNPS33 = 33
+		formatString: 0
+		lineageTag: 36586a4d-8263-482f-993f-04a4557e701d
+
+	measure 'HF Average' = AVERAGEX('ILC Evals', CALCULATE(SUM('ILC Evals'[Accommodation 1 Grade]), 'ILC Evals'[Accommodation 1 Type] = "HF") + CALCULATE(SUM('ILC Evals'[Accommodation 2 Grade]), 'ILC Evals'[Accommodation 2 Type] = "RE"))
+		formatString: 0.0
+		lineageTag: ae5b6000-08d9-4388-9203-27a78423156f
+
+		changedProperty = FormatString
+
+	measure 'Resi Average' = AVERAGEX('ILC Evals', CALCULATE(SUM('ILC Evals'[Accommodation 1 Grade]), 'ILC Evals'[Accommodation 1 Type] = "RE") + CALCULATE(SUM('ILC Evals'[Accommodation 2 Grade]), 'ILC Evals'[Accommodation 2 Type] = "RE"))
+		formatString: 0.0
+		lineageTag: bf34da13-502f-4343-86a7-83298a39defb
+
+		changedProperty = FormatString
+
+	measure 'HF Meals' = AVERAGEX('ILC Evals', (CALCULATE(SUM('ILC Evals'[Meal Grade Accommodation 1]), 'ILC Evals'[Accommodation 1 Type] = "HF") + CALCULATE(SUM('ILC Evals'[Meal Grade Accommodation 2]), 'ILC Evals'[Accommodation 2 Type] = "HF")))
+		lineageTag: 4eeb18a9-5fb6-45e1-be00-d2c1d8ab4b06
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Source.Name'
+		dataType: string
+		lineageTag: 00b79015-a768-45ae-b369-fd9c0c26df51
+		summarizeBy: none
+		sourceColumn: Source.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Eval No'
+		dataType: string
+		lineageTag: fb13d20e-e86f-4c37-bc58-2ee2115279ba
+		summarizeBy: none
+		sourceColumn: Eval No
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Student Name'
+		dataType: string
+		lineageTag: 1eae9c86-faae-46ae-8e7f-04add5d472e9
+		summarizeBy: none
+		sourceColumn: Student Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Student ID'
+		dataType: string
+		lineageTag: 413961b3-f79d-4c81-8239-0f285ffbaa2f
+		summarizeBy: none
+		sourceColumn: Student ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a4cb29f-fe3f-4864-bcce-61f0ea729146
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Destination
+		dataType: string
+		lineageTag: 4358588e-94d3-4f44-8163-41ee152641bc
+		summarizeBy: none
+		sourceColumn: Destination
+
+		annotation SummarizationSetBy = Automatic
+
+	column Market
+		dataType: string
+		lineageTag: 1a6b044b-a11a-446b-8120-0b17b9d5c489
+		summarizeBy: none
+		sourceColumn: Market
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nationality
+		dataType: string
+		lineageTag: b7d27251-ba31-4ef4-8ba2-3cd81efe5513
+		summarizeBy: none
+		sourceColumn: Nationality
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: 7ccd8031-37f2-49ab-a613-0d87bc10a5e9
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column Course
+		dataType: string
+		lineageTag: d2dad263-d848-42a1-ad60-cf87be42b6d8
+		summarizeBy: none
+		sourceColumn: Course
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4c887fe0-4def-4ad0-8146-c55002c4ab14
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: ff553642-b97c-425b-9f73-8119d8ae9fb9
+			defaultHierarchy: LocalDateTable_16a3ea67-2386-429c-ad5e-2329695d8e81.'Date Hierarchy'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Pre-Departure Information'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fb72c97-70ba-4e20-a74e-25d6aff5d191
+		summarizeBy: sum
+		sourceColumn: Pre-Departure Information
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Service from Sales Office'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f57cd28-1f15-495a-92ab-cd45f28cdc91
+		summarizeBy: sum
+		sourceColumn: Service from Sales Office
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Airport Transfer'
+		dataType: int64
+		formatString: 0
+		lineageTag: a540ff11-32cf-4797-9a8c-2ca08ec0a827
+		summarizeBy: sum
+		sourceColumn: Airport Transfer
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 1 Type'
+		dataType: string
+		lineageTag: 0f09942c-a83b-4a41-a41f-2ab5d144522c
+		summarizeBy: none
+		sourceColumn: Accommodation 1 Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 1 Supplier'
+		dataType: string
+		lineageTag: 920de31a-9122-487a-a6af-fbd1bcb3f154
+		summarizeBy: none
+		sourceColumn: Accommodation 1 Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 1 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: b92931f4-61f1-45ed-bb9b-32004e8de886
+		summarizeBy: sum
+		sourceColumn: Accommodation 1 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meal Grade Accommodation 1'
+		dataType: int64
+		formatString: 0
+		lineageTag: c0c978cb-29d8-4cde-9873-9b023930b56e
+		summarizeBy: sum
+		sourceColumn: Meal Grade Accommodation 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 2 Type'
+		dataType: string
+		lineageTag: dbbe06e6-c5f7-4ace-80a7-93b6245bbc7b
+		summarizeBy: none
+		sourceColumn: Accommodation 2 Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 2 Supplier'
+		dataType: string
+		lineageTag: f55a75a5-9a16-41d1-a3fb-a3645851efc8
+		summarizeBy: none
+		sourceColumn: Accommodation 2 Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Accommodation 2 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 09418010-a433-4248-bd93-1ec4c602ceef
+		summarizeBy: sum
+		sourceColumn: Accommodation 2 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meal Grade Accommodation 2'
+		dataType: int64
+		formatString: 0
+		lineageTag: b8684c93-cd81-475f-bca2-57bb99347d85
+		summarizeBy: sum
+		sourceColumn: Meal Grade Accommodation 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meals at Cafeteria Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b6f24da-39a5-4a21-98e5-10c299af3abe
+		summarizeBy: sum
+		sourceColumn: Meals at Cafeteria Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meals at Cafeteria 1 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: c3a4ec69-9cdb-41d8-aeaa-f092df6156d3
+		summarizeBy: sum
+		sourceColumn: Meals at Cafeteria 1 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Meals at Cafeteria 2 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 70ea5b89-88b6-46d9-8547-72f76b15f12a
+		summarizeBy: sum
+		sourceColumn: Meals at Cafeteria 2 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'All Teachers'
+		dataType: int64
+		formatString: 0
+		lineageTag: 559039f9-3816-47e9-ae04-1010fcc2d1e9
+		summarizeBy: sum
+		sourceColumn: All Teachers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 1 Supplier'
+		dataType: string
+		lineageTag: 52c2733b-9208-4d2c-b90a-45a7c802e3e1
+		summarizeBy: none
+		sourceColumn: Teacher 1 Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 1 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f43a32b-0755-4d03-bff3-6442d76e482a
+		summarizeBy: sum
+		sourceColumn: Teacher 1 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 2 Supplier'
+		dataType: string
+		lineageTag: ec0e4d28-cd39-455b-9f34-1161c474ca5b
+		summarizeBy: none
+		sourceColumn: Teacher 2 Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 2 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bca1aa6-de90-44e0-9c9f-d9deb8a63664
+		summarizeBy: sum
+		sourceColumn: Teacher 2 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 3 Supplier'
+		dataType: string
+		lineageTag: 10c6f8dd-5095-4498-8733-f34542196197
+		summarizeBy: none
+		sourceColumn: Teacher 3 Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teacher 3 Grade'
+		dataType: int64
+		formatString: 0
+		lineageTag: f638dd30-9a8f-4bb3-975b-b9fc7841100f
+		summarizeBy: sum
+		sourceColumn: Teacher 3 Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Language Classes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 43751ffe-0b80-4857-9b45-2f03e2c034f7
+		summarizeBy: sum
+		sourceColumn: Language Classes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SPIN Classes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 80bad4eb-3531-493e-bb27-0ef194e2452e
+		summarizeBy: sum
+		sourceColumn: SPIN Classes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Books & Materials'
+		dataType: int64
+		formatString: 0
+		lineageTag: f81a1c19-a49f-4895-baf5-da500545c6fd
+		summarizeBy: sum
+		sourceColumn: Books & Materials
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Language Improvement'
+		dataType: int64
+		formatString: 0
+		lineageTag: b207d61e-d25c-4b85-8d49-1778cbd110ab
+		summarizeBy: sum
+		sourceColumn: Language Improvement
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Academic Improvement'
+		dataType: string
+		lineageTag: 9af51d6a-eb9f-43d5-81db-5bd9b40268af
+		summarizeBy: none
+		sourceColumn: Academic Improvement
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Course Content'
+		dataType: string
+		lineageTag: b8b5aa00-96f6-4e22-b268-936f26bda06b
+		summarizeBy: none
+		sourceColumn: Course Content
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EF Class App'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d29514b-a183-492d-9d4f-9282c8d4499a
+		summarizeBy: sum
+		sourceColumn: EF Class App
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Efektra Project Sessions'
+		dataType: string
+		lineageTag: 18f946d5-6a7c-4ee4-8ad7-498bc67f5c18
+		summarizeBy: none
+		sourceColumn: Efektra Project Sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Language Modules'
+		dataType: string
+		lineageTag: 1365b88f-a912-447b-a995-4b3511a491c0
+		summarizeBy: none
+		sourceColumn: Language Modules
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Academic Modules'
+		dataType: string
+		lineageTag: 450b9439-8043-4534-80ea-0707c168ce3d
+		summarizeBy: none
+		sourceColumn: Academic Modules
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Research Modules'
+		dataType: string
+		lineageTag: f236ac5f-53ea-4859-a065-3166cc727ec7
+		summarizeBy: none
+		sourceColumn: Research Modules
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'University Placement Service'
+		dataType: string
+		lineageTag: 4492b586-6715-4a07-a1e3-55d5e4560c52
+		summarizeBy: none
+		sourceColumn: University Placement Service
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'School Staff'
+		dataType: int64
+		formatString: 0
+		lineageTag: a3c81801-21ea-4c5e-a8c4-a24f16bf6b4f
+		summarizeBy: sum
+		sourceColumn: School Staff
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'School Building'
+		dataType: int64
+		formatString: 0
+		lineageTag: 280a5159-9ddc-4d3e-917c-b24fdcec49d4
+		summarizeBy: sum
+		sourceColumn: School Building
+
+		annotation SummarizationSetBy = Automatic
+
+	column Classrooms
+		dataType: int64
+		formatString: 0
+		lineageTag: ef33f38d-c6c7-4b23-900b-a8ba1071e17b
+		summarizeBy: sum
+		sourceColumn: Classrooms
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EF Excursions & Events'
+		dataType: int64
+		formatString: 0
+		lineageTag: dd82eeae-6fa5-4c72-887e-5b7afb0736f7
+		summarizeBy: sum
+		sourceColumn: EF Excursions & Events
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Activities Staff & Service'
+		dataType: int64
+		formatString: 0
+		lineageTag: 31dc744c-b9ff-4d51-9f75-dc5a7e7e5528
+		summarizeBy: sum
+		sourceColumn: Activities Staff & Service
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Social Activities & Events'
+		dataType: string
+		lineageTag: 3c1bf468-ee86-4eca-8ec4-ec2644e410c3
+		summarizeBy: none
+		sourceColumn: Social Activities & Events
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Overall Experience'
+		dataType: int64
+		formatString: 0
+		lineageTag: aed7ce70-ae35-4e58-935f-90c214707d1f
+		summarizeBy: sum
+		sourceColumn: Overall Experience
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recommend
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c0d8f4c-9145-4de4-aacb-912e3f657ed5
+		summarizeBy: sum
+		sourceColumn: Recommend
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EF Ambassador'
+		dataType: string
+		lineageTag: b5bd6f6f-1211-4f3b-9660-a77eaf9e71eb
+		summarizeBy: none
+		sourceColumn: EF Ambassador
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Join Another EF Program'
+		dataType: string
+		lineageTag: da95b95f-78cd-4edc-bc32-9c8481a6011b
+		summarizeBy: none
+		sourceColumn: Join Another EF Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Program(s) interested in'
+		dataType: string
+		lineageTag: 0288a33f-6925-4acf-afc8-9fbdca35718f
+		summarizeBy: none
+		sourceColumn: Program(s) interested in
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Refer Family Member'
+		dataType: string
+		lineageTag: ad759126-011e-4d35-b444-e303ad0af90b
+		summarizeBy: none
+		sourceColumn: Refer Family Member
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Low Eval'
+		dataType: string
+		lineageTag: 1e298091-e1e8-44bd-b92b-6be376c60468
+		summarizeBy: none
+		sourceColumn: Low Eval
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comments
+		dataType: string
+		lineageTag: 25f1d452-a539-4a9f-92d0-2aaebd1111a4
+		summarizeBy: none
+		sourceColumn: Comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Input Method'
+		dataType: string
+		lineageTag: 532eb0fa-f55d-4493-83d0-12111f3d3f03
+		summarizeBy: none
+		sourceColumn: Input Method
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'ILC Evals-c419cd56-919b-493b-af02-5ef6950b3135' = m
+		mode: import
+		source = ```
+				let
+				    Source = SharePoint.Files("https://efcom.sharepoint.com/sites/EFGapYear990", [ApiVersion = 15]),
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Folder Path] = "https://efcom.sharepoint.com/sites/EFGapYear990/Shared Documents/Reports/Evals/ILC/Scheduled reports/")),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered Rows", each [Attributes]?[Hidden]? <> true),
+				    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File", each #"Transform File"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File", Table.ColumnNames(#"Transform File"(#"Sample File"))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"Eval No", type text}, {"Student Name", type text}, {"Student ID", type text}, {"Age", Int64.Type}, {"Destination", type text}, {"Market", type text}, {"Nationality", type text}, {"Program", type text}, {"Course", type any}, {"Date", type text}, {"Pre-Departure Information", Int64.Type}, {"Service from Sales Office", Int64.Type}, {"Airport Transfer", Int64.Type}, {"Accommodation 1 Type", type text}, {"Accommodation 1 Supplier", type text}, {"Accommodation 1 Grade", type text}, {"Meal Grade Accommodation 1", Int64.Type}, {"Accommodation 2 Type", type text}, {"Accommodation 2 Supplier", type text}, {"Accommodation 2 Grade", type text}, {"Meal Grade Accommodation 2", Int64.Type}, {"Meals at Cafeteria Grade", Int64.Type}, {"Meals at Cafeteria 1 Grade", type any}, {"Meals at Cafeteria 2 Grade", type any}, {"All Teachers", Int64.Type}, {"Teacher 1 Supplier", type text}, {"Teacher 1 Grade", Int64.Type}, {"Teacher 2 Supplier", type text}, {"Teacher 2 Grade", Int64.Type}, {"Teacher 3 Supplier", type text}, {"Teacher 3 Grade", Int64.Type}, {"Language Classes", Int64.Type}, {"SPIN Classes", Int64.Type}, {"Books & Materials", Int64.Type}, {"Language Improvement", Int64.Type}, {"Academic Improvement", type any}, {"Course Content", type any}, {"EF Class App", Int64.Type}, {"Efektra Project Sessions", type any}, {"Language Modules", type any}, {"Academic Modules", type any}, {"Research Modules", type any}, {"University Placement Service", type any}, {"School Staff", Int64.Type}, {"School Building", Int64.Type}, {"Classrooms", Int64.Type}, {"EF Excursions & Events", Int64.Type}, {"Activities Staff & Service", Int64.Type}, {"Social Activities & Events", type any}, {"Overall Experience", Int64.Type}, {"Recommend", Int64.Type}, {"Join Another EF Program", type text}, {"Program(s) interested in", type any}, {"Refer Family Member", type text}, {"Low Eval", type text}, {"Comments", type text}, {"Input Method", type text}}),
+				    
+				        #"Replaced Value" = Table.ReplaceValue(#"Changed Type","""","",Replacer.ReplaceText,{"Date", "Accommodation 1 Grade", "Accommodation 2 Grade", "Eval No", "Student ID", "Market", "Nationality", "Program", "Accommodation 1 Type", "Accommodation 1 Supplier", "Join Another EF Program", "Refer Family Member", "Low Eval", "Input Method"}),
+				
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Value",{{"Date", type date}}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Changed Type1","""","",Replacer.ReplaceText,{"Destination", "Student Name"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","ES-BAR","Barcelona",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","ES-MAA","Malaga",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","FR-NIC","Nice",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","FR-PAR","Paris",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","DE-BER","Berlin",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value7" = Table.ReplaceValue(#"Replaced Value6","JP-TYO","Tokyo",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value8" = Table.ReplaceValue(#"Replaced Value7","KR-SEL","Seoul",Replacer.ReplaceText,{"Destination"}),
+				    #"Replaced Value9" = Table.ReplaceValue(#"Replaced Value8","IT-ROM","Rome",Replacer.ReplaceValue,{"Destination"}),
+				    #"Replaced Value10" = Table.ReplaceValue(#"Replaced Value9","Excellent","5",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade"}),
+				    #"Replaced Value11" = Table.ReplaceValue(#"Replaced Value10","Very good","4",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade"}),
+				        #"Replaced Value12" = Table.ReplaceValue(#"Replaced Value11","Good","3",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade"}),
+				    #"Replaced Value13" = Table.ReplaceValue(#"Replaced Value12","Fair","2",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade"}),
+				    #"Replaced Value14" = Table.ReplaceValue(#"Replaced Value13","Poor","1",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade", "Eval No"}),
+				    #"Replaced Value15" = Table.ReplaceValue(#"Replaced Value14","Very Good","4",Replacer.ReplaceValue,{"Accommodation 1 Grade", "Accommodation 2 Grade"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value15",{{"Accommodation 1 Grade", Int64.Type}, {"Accommodation 2 Grade", Int64.Type}, {"Meals at Cafeteria 1 Grade", Int64.Type}, {"Meals at Cafeteria 2 Grade", Int64.Type}}),
+				    // Excluding Student IDs containing UST. They are not Gap Year
+				    #"Removing UST bookings" = Table.SelectRows(#"Changed Type2", each not Text.Contains([Student ID], "UST"))
+				in
+				    #"Removing UST bookings"
+				```
+
+	annotation PBI_ResultType = Table
+

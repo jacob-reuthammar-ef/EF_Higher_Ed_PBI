@@ -1,0 +1,132 @@
+table 'Quote and Enrollment'
+	lineageTag: 2368b817-906e-427e-aea9-e1f4d09789fb
+
+	measure Booked = CALCULATE(COUNTA('Quote and Enrollment'[Id]),'Quote and Enrollment'[Status] = "Booked")
+		formatString: 0
+		lineageTag: 64caa0bc-93cf-41b2-93f8-54add148dedd
+
+	measure 'Count Enrollments' = COUNTA('Quote and Enrollment'[Id])
+		formatString: 0
+		lineageTag: 46932014-f7c5-4c7c-a29b-d272f1ef2f6e
+
+	column Id
+		dataType: string
+		lineageTag: 03ef7cf1-f25e-4e96-9e13-e5f6d7e81c10
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountId
+		dataType: string
+		lineageTag: 91248e6a-7875-4d97-ba35-d5a85ba0ec6a
+		summarizeBy: none
+		sourceColumn: AccountId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 9e51a536-6042-4694-8ad2-bf554be9b52b
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Family__c
+		dataType: string
+		lineageTag: 1de05a85-4224-40df-b69a-c56446c534cb
+		summarizeBy: none
+		sourceColumn: Program_Family__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Name__c
+		dataType: string
+		lineageTag: 97935271-02fe-4767-b8eb-86137dd87926
+		summarizeBy: none
+		sourceColumn: Program_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Year__c
+		dataType: string
+		lineageTag: 33f6b936-ab15-4cdf-8d30-62de27bac794
+		summarizeBy: none
+		sourceColumn: Program_Year__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Name'
+		dataType: string
+		lineageTag: 3b51296c-bcd2-4388-b434-df69a1d8e4be
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		lineageTag: 0a001a33-ef2e-4dcf-9d31-2de95cbf9fac
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Name'
+		dataType: string
+		lineageTag: c9424b63-ab2e-4349-b96e-e97b7f7c9a89
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program_Departure_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d71ed82c-170f-4359-bcbe-6dd6048b4163
+		summarizeBy: none
+		sourceColumn: Program_Departure_Date__c
+
+		variation Variation
+			isDefault
+			relationship: 3096815e-550e-4fd1-ac8e-5a80429fc7ef
+			defaultHierarchy: LocalDateTable_67e043ec-b437-48d9-9dce-25ca67241a64.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Semester__c
+		dataType: string
+		lineageTag: acdcebea-b149-4cb0-ab4c-e7a440c3242c
+		summarizeBy: none
+		sourceColumn: Semester__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProgramID__c
+		dataType: string
+		lineageTag: 3b782a29-f8c0-4b48-92e4-76f54f22f23e
+		summarizeBy: none
+		sourceColumn: ProgramID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Quote and Enrollment-89d040a1-cb09-417f-9b70-e6e76f74a6ba' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Order = Source{[Name="Order"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Order,{"Id", "AccountId", "Status", "Program_Family__c", "Semester__c", "ProgramID__c", "Program_Departure_Date__c", "Program_Name__c", "Program_Year__c", "First_Name__c", "Last_Name__c"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"First_Name__c", "First Name"}, {"Last_Name__c", "Last Name"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Status] = "Booked") and ([Program_Name__c] <> "Compass Program: Tokyo - April 2022" and [Program_Name__c] <> "Compass Program: Tokyo - Fall 2021" and [Program_Name__c] <> "Compass Program: Tokyo - May 2022" and [Program_Name__c] <> "Gap Semester - Fall 2018" and [Program_Name__c] <> "Gap Year - 2018-2019" and [Program_Name__c] <> "Global Business Strategy in London - 2021")),
+				    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Full Name", each [First Name] & " " & [Last Name])
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,68 @@
+table 'Survey Version'
+	lineageTag: f1830372-e599-49f9-b1a8-4d6a09eb2cd0
+
+	measure SelectedSurvey = SELECTEDVALUE('Survey Version'[Survey Name], "All")
+		lineageTag: e5a878de-4453-4d02-9439-773f08cbd4a6
+
+	column Id
+		dataType: string
+		lineageTag: c25627e0-f5a5-4a40-bb4a-32e5921f4f9f
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyId
+		dataType: string
+		lineageTag: 8762d639-b687-4e73-8779-1e761b00eb48
+		summarizeBy: none
+		sourceColumn: SurveyId
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 62f5e6ea-6aba-42aa-8ebf-57e90abf5f9d
+		summarizeBy: sum
+		sourceColumn: VersionNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyStatus
+		dataType: string
+		lineageTag: b912c547-b5ce-47b1-baee-53d2c1297368
+		summarizeBy: none
+		sourceColumn: SurveyStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Survey Name'
+		dataType: string
+		lineageTag: 1db05a89-38b9-4569-936f-66c7006f4f75
+		summarizeBy: none
+		sourceColumn: Survey Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Survey Version-1395565b-fbcc-4df7-a41b-aa9fd4f08fa3' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyVersion = Source{[Name="SurveyVersion"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyVersion,{"Id", "Name", "SurveyId", "VersionNumber", "SurveyStatus"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([SurveyStatus] = "Active")),
+				    #"Replaced Value" = Table.ReplaceValue(#"Filtered Rows","Peru Year Service 2020","GY19-20 - Service in Peru",Replacer.ReplaceText,{"Name"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Service Fall 2019 - Module 1 - Thailand","GSF19 - Service in Thailand - Module 1",Replacer.ReplaceText,{"Name"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Replaced Value1", {"SurveyId"}, #"Survey name cleanup", {"SurveyId"}, "Survey name cleanup", JoinKind.LeftOuter),
+				    #"Expanded Survey name cleanup" = Table.ExpandTableColumn(#"Merged Queries", "Survey name cleanup", {"New Name"}, {"New Name"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Survey name cleanup", "Survey Name", each if [New Name] is null then [Name] else [New Name]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"New Name", "Name"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,64 @@
+table Account
+	lineageTag: 2289691c-a767-4d86-bd1f-6cf387444688
+
+	column Id
+		dataType: string
+		lineageTag: cc9e4afc-c4a1-4bb6-a38c-42b059228855
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: e9aa7b1a-b8a0-4a0e-b369-158f44bcf4ad
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		dataType: string
+		lineageTag: 75dffe71-efce-4661-9824-66a360e3188e
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cd8f63a1-ef0a-4679-a9b5-e18010960447
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: b108442e-1d60-419c-abcf-d312e4a3b28c
+			defaultHierarchy: LocalDateTable_c0c8f025-e5e7-4996-8518-a5cf8aee6152.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CX Advisor'
+		dataType: string
+		lineageTag: 626858b5-8879-4a24-b771-186cc927842a
+		summarizeBy: none
+		sourceColumn: CX Advisor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Account-839f84d4-4bf4-4c40-b1a1-45bb14a9f4b9 = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    Account1 = Source{[Name="Account"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Account1,{"Id", "Name", "Type", "CreatedDate", "CX_Advisor_FirstName__pc"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Type] = "Student")),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [CreatedDate] > #datetime(2019, 9, 30, 0, 0, 0)),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"CX_Advisor_FirstName__pc", "CX Advisor"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

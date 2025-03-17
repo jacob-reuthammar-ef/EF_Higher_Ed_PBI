@@ -1,0 +1,52 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Transform File from Query1'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Transform File from Query1\Helper Queries'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.124.1805.0 (23.12)
+
+annotation PBI_QueryOrder = ["Survey Question","Survey Question Response","Survey Response","Survey Question Choice","Survey Question Score","Survey Version","Quote and Enrollment","Account","Survey & Program","Survey name cleanup","Survey question cleanup","Score sentiment","ILC Evals","Sample File","Parameter1","Transform Sample File","Transform File","Entry-Exit Responses","G2PA Categories","Program"]
+
+annotation __TEdtr = 1
+
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"49d3593c-cfcd-43d6-934b-767ae4cc33ae","fromColumnLocalLineageTag":"ae399ace-afb3-4f61-883a-5897c0a8d150","toTableLocalLineageTag":"c3929504-dd22-4cb4-8645-ea756b6315f2","toColumnLocalLineageTag":"a423463f-0cda-4dc9-afdb-a002f2720a93"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"71c29caa-c053-429c-bc08-1e1d7789ca83","fromColumnLocalLineageTag":"4ee2aefb-25c6-429e-b258-1f2d018ccb87","toTableLocalLineageTag":"f1830372-e599-49f9-b1a8-4d6a09eb2cd0","toColumnLocalLineageTag":"c25627e0-f5a5-4a40-bb4a-32e5921f4f9f"}},"objectType":"Relationship"}]
+
+ref table DateTableTemplate_8092a3ff-c261-47de-ad20-eb41406a062c
+ref table 'Survey Question'
+ref table 'Survey Question Response'
+ref table LocalDateTable_fde67037-47e3-4524-ad6e-82027c38d0c0
+ref table 'Survey Response'
+ref table 'Survey Question Choice'
+ref table 'Survey Question Score'
+ref table LocalDateTable_2496eff8-41f5-486a-860f-93fa47d1eadb
+ref table 'Survey Version'
+ref table 'Quote and Enrollment'
+ref table Account
+ref table LocalDateTable_c0c8f025-e5e7-4996-8518-a5cf8aee6152
+ref table LocalDateTable_67e043ec-b437-48d9-9dce-25ca67241a64
+ref table LocalDateTable_0d5917b4-1746-4c04-8c2b-3af8ac91ee31
+ref table 'ILC Evals'
+ref table LocalDateTable_16a3ea67-2386-429c-ad5e-2329695d8e81
+ref table 'Entry-Exit Responses'
+ref table LocalDateTable_112a85c4-e29d-43c2-bf38-6eff2d4d0ebd
+ref table 'G2PA Categories'
+ref table Program
+ref table LocalDateTable_a0c05004-c13d-4a76-bacb-4ecf900f8694
+ref table LocalDateTable_519bddc2-cdd3-4556-8446-5aafc9aa9548
+
+ref cultureInfo en-US
+

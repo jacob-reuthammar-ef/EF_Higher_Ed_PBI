@@ -1,0 +1,108 @@
+table 'Survey Response'
+	lineageTag: 6994df99-8304-47d7-8586-33dbe3dd189b
+
+	column Id
+		dataType: string
+		lineageTag: dfd70d24-05c7-45ac-b912-68b1801962d8
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: c96c7608-21eb-4cb5-85f6-a73f0ac01b20
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvitationId
+		dataType: string
+		lineageTag: 955df10c-53c8-4695-b924-b98726aa0865
+		summarizeBy: none
+		sourceColumn: InvitationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: e8c6a3da-bdc5-4173-8028-28ebf78a5b9e
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyVersionId
+		dataType: string
+		lineageTag: f29a5ab1-62a1-477d-8c41-790918b73fa9
+		summarizeBy: none
+		sourceColumn: SurveyVersionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyId
+		dataType: string
+		lineageTag: 34b6db7f-6de1-4f53-b4ae-a3d332185757
+		summarizeBy: none
+		sourceColumn: SurveyId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubmitterId
+		dataType: string
+		lineageTag: 2c898cf9-4c76-468b-b163-73be34a32b45
+		summarizeBy: none
+		sourceColumn: SubmitterId
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountId
+		dataType: string
+		lineageTag: f40b1df5-5176-4f7e-9156-d424f76343d8
+		summarizeBy: none
+		sourceColumn: AccountId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 89215529-33f1-4cd6-a39b-e73ee05d0701
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: string
+		lineageTag: 2d7f06f0-6dee-4bd3-bfb7-459b9001d4d5
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column Responder
+		dataType: string
+		lineageTag: 3674e27c-6933-4c48-a35c-e7321036bea3
+		summarizeBy: none
+		sourceColumn: Responder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Survey Response-e5a727a7-a623-4dc7-9eeb-3102e98300dc' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyResponse = Source{[Name="SurveyResponse"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyResponse,{"Id", "Name", "InvitationId", "SubmitterId", "Status", "SurveyVersionId", "SurveyId", "Submitter"}),
+				    #"Expanded Submitter" = Table.ExpandRecordColumn(#"Removed Other Columns", "Submitter", {"AccountId", "Name"}, {"Submitter.AccountId", "Submitter.Name"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Submitter",{{"Submitter.AccountId", "AccountId"}, {"Submitter.Name", "Customer Name"}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns", "Index", 0, 1, Int64.Type),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Index",{{"Index", type text}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "Responder", each if [Name] = "Anonymous Response" then [Name] & [Index] else [Name])
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+

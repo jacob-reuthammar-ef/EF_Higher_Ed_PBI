@@ -1,0 +1,73 @@
+table 'Survey Question'
+	lineageTag: 71c29caa-c053-429c-bc08-1e1d7789ca83
+
+	column Id
+		dataType: string
+		lineageTag: b9849ac4-31cc-4b78-aa94-fd7795536011
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyVersionId
+		dataType: string
+		lineageTag: 4ee2aefb-25c6-429e-b258-1f2d018ccb87
+		summarizeBy: none
+		sourceColumn: SurveyVersionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyPageId
+		dataType: string
+		lineageTag: 6b41bbc6-95cd-4320-b223-f1dece00971c
+		summarizeBy: none
+		sourceColumn: SurveyPageId
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionType
+		dataType: string
+		lineageTag: f49b425d-db35-4464-9a19-6e9a963b2b66
+		summarizeBy: none
+		sourceColumn: QuestionType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Question
+		dataType: string
+		lineageTag: c164e9b6-28fb-4b8e-a3ee-b11b2b04fea0
+		summarizeBy: none
+		sourceColumn: Question
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionTypeNumber = RANKX('Survey Question', 'Survey Question'[QuestionType], ,ASC,Dense)
+		formatString: 0
+		lineageTag: d587109e-55f8-4cc2-a7da-8f055969ce56
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition 'Survey Question-cdaa7cdf-0ba3-407f-b018-3bd90aa3d4e4' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyQuestion = Source{[Name="SurveyQuestion"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyQuestion,{"Id", "Name", "SurveyVersionId", "SurveyPageId", "QuestionType", "QuestionName"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Other Columns"," ﻿ ","",Replacer.ReplaceText,{"Name"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value"," ﻿﻿ ","",Replacer.ReplaceText,{"Name"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Replaced Value1", {"QuestionName"}, #"Survey question cleanup", {"Old"}, "Survey question cleanup", JoinKind.LeftOuter),
+				    #"Expanded Survey question cleanup" = Table.ExpandTableColumn(#"Merged Queries", "Survey question cleanup", {"New"}, {"Survey question cleanup.New"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Survey question cleanup", "Question", each if [Survey question cleanup.New] is null then [QuestionName] else [Survey question cleanup.New]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"Survey question cleanup.New", "QuestionName", "Name"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Removed Columns","2. Please rate the following information sessions from 1 star (not useful) to 5 stars (very useful).#(00A0) ﻿ #(lf) Goal setting sessions","Please rate the following information sessions: Goal setting sessions",Replacer.ReplaceText,{"Question"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","3. Please rate the following activity from 1 star (not enjoyable) to 5 stars (very enjoyable).#(00A0) ﻿ #(lf) Sports Afternoon","Please rate the following activity: Sports Afternoon",Replacer.ReplaceText,{"Question"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","Please tell us why you chose that rating.","Please tell us why you rated your TD this way.",Replacer.ReplaceText,{"Question"})
+				in
+				    #"Replaced Value4"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

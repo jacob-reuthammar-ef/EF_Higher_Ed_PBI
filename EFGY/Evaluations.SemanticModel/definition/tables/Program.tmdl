@@ -1,0 +1,123 @@
+table Program
+	lineageTag: 4153b176-1cfc-456f-aae9-5adcc6a22c99
+
+	column Id
+		dataType: string
+		lineageTag: 73b0d55a-b1e8-4145-8548-b0370e68c329
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 296f8329-41e9-4aea-8517-e5277ffc4276
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 219fd67a-c6cb-4c2d-9cbf-9410c0012f28
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	column Family
+		dataType: string
+		lineageTag: 6e32ba28-7563-4925-9760-5957bb53e208
+		summarizeBy: none
+		sourceColumn: Family
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departure_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 20d94687-b7da-48f6-8f2f-484602f12879
+		summarizeBy: none
+		sourceColumn: Departure_Date__c
+
+		variation Variation
+			isDefault
+			relationship: df88c725-183d-43a9-bb19-f26b404c2833
+			defaultHierarchy: LocalDateTable_a0c05004-c13d-4a76-bacb-4ecf900f8694.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Start_Year__c
+		dataType: string
+		lineageTag: 399cd8ff-b202-415d-a32d-c450626ce873
+		summarizeBy: none
+		sourceColumn: Start_Year__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column End_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 67e72daa-e49c-49f3-bf11-3ff1485e1a35
+		summarizeBy: none
+		sourceColumn: End_Date__c
+
+		variation Variation
+			isDefault
+			relationship: ac064f2a-968a-4e17-835c-3a7dec2764e2
+			defaultHierarchy: LocalDateTable_519bddc2-cdd3-4556-8446-5aafc9aa9548.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Semester__c
+		dataType: string
+		lineageTag: b77c97b3-34d6-42d5-83bf-36a13032083f
+		summarizeBy: none
+		sourceColumn: Semester__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYear__c
+		dataType: string
+		lineageTag: cf56b4c6-78b7-4e8d-8672-e36b4d793327
+		summarizeBy: none
+		sourceColumn: FiscalYear__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Confirmed_Customers__c
+		dataType: double
+		lineageTag: c5b43b5b-d987-4fe6-9802-b55b3fcc6a8f
+		summarizeBy: sum
+		sourceColumn: Confirmed_Customers__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Booked = CALCULATE(COUNTA('Quote and Enrollment'[Id]))
+		formatString: 0
+		lineageTag: 60c69a80-d245-475e-a9f2-b99e2441fa32
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Program = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+				    Product2 = Source{[Name="Product2"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(Product2,{"Id", "Name", "IsActive", "Family", "Departure_Date__c", "Start_Year__c", "End_Date__c", "Confirmed_Customers__c", "Semester__c", "FiscalYear__c"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

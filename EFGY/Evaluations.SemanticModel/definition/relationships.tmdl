@@ -1,0 +1,108 @@
+relationship 2ff19914-f601-4e8f-b36a-bcf5364d931f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Survey Question Response'.DateValue
+	toColumn: LocalDateTable_fde67037-47e3-4524-ad6e-82027c38d0c0.Date
+
+relationship e9040354-06f8-40f8-8a34-8f7f86d83595
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Survey Question Score'.DateResponse
+	toColumn: LocalDateTable_2496eff8-41f5-486a-860f-93fa47d1eadb.Date
+
+relationship 68ee08d5-142a-4353-b522-accf06dcee9f
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Choice'.SurveyVersionId
+	toColumn: 'Survey Version'.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship f42c6d89-7ccf-489f-b449-86c1425ddaf3
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Score'.QuestionId
+	toColumn: 'Survey Question'.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship b108442e-1d60-419c-abcf-d312e4a3b28c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Account.CreatedDate
+	toColumn: LocalDateTable_c0c8f025-e5e7-4996-8518-a5cf8aee6152.Date
+
+relationship dcc90949-d85f-4414-9c8b-6fe6ff75eb55
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Quote and Enrollment'.AccountId
+	toColumn: Account.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 65e4bab5-e7b7-4e4c-82cb-1c27b48160e7
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Response'.'Response.Submitter.AccountId'
+	toColumn: Account.Id
+
+relationship 3096815e-550e-4fd1-ac8e-5a80429fc7ef
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Quote and Enrollment'.Program_Departure_Date__c
+	toColumn: LocalDateTable_67e043ec-b437-48d9-9dce-25ca67241a64.Date
+
+relationship 45f21bd7-2317-4506-9a77-a4a746376bde
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Survey Question Response'.CreatedDate
+	toColumn: LocalDateTable_0d5917b4-1746-4c04-8c2b-3af8ac91ee31.Date
+
+relationship ff553642-b97c-425b-9f73-8119d8ae9fb9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'ILC Evals'.Date
+	toColumn: LocalDateTable_16a3ea67-2386-429c-ad5e-2329695d8e81.Date
+
+relationship 7b1e8478-e8d9-4ae5-b859-7bdfb91fea39
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Entry-Exit Responses'.'Response Date'
+	toColumn: LocalDateTable_112a85c4-e29d-43c2-bf38-6eff2d4d0ebd.Date
+
+relationship a69cedf3-101f-4a93-a897-808164e6335a
+	isActive: false
+	fromColumn: 'Entry-Exit Responses'.'Account id'
+	toColumn: Account.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship df88c725-183d-43a9-bb19-f26b404c2833
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Program.Departure_Date__c
+	toColumn: LocalDateTable_a0c05004-c13d-4a76-bacb-4ecf900f8694.Date
+
+relationship ac064f2a-968a-4e17-835c-3a7dec2764e2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Program.End_Date__c
+	toColumn: LocalDateTable_519bddc2-cdd3-4556-8446-5aafc9aa9548.Date
+
+relationship 64c7043c-a873-42ff-bd14-bc3714ee8a39
+	isActive: false
+	fromColumn: 'Survey Question Score'.QuestionChoiceId
+	toColumn: 'Survey Question Choice'.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship ea22b742-176e-41f9-b98b-d4fae5e8098c
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Quote and Enrollment'.ProgramID__c
+	toColumn: Program.Id
+
+relationship b2a27f39-9d37-4932-8344-7ea45e4d43aa
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Response'.'Program Name'
+	toColumn: Program.Name
+
+relationship 80709a15-7b2f-4814-a597-d093f471ee0e
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Response'.SurveyVersionId
+	toColumn: 'Survey Version'.Id
+
+relationship 4a8d762c-226c-45ab-a70c-e36eaeea5ff3
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Survey Question Response'.QuestionId
+	toColumn: 'Survey Question'.Id
+
+	annotation PBI_IsFromSource = FS
+

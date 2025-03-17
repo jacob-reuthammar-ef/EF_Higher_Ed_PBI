@@ -1,0 +1,47 @@
+table 'Survey Question Choice'
+	lineageTag: c3929504-dd22-4cb4-8645-ea756b6315f2
+
+	column Id
+		dataType: string
+		lineageTag: a423463f-0cda-4dc9-afdb-a002f2720a93
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 3a8c4f31-0a94-4a79-8516-06676831dd4c
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuestionId
+		dataType: string
+		lineageTag: a2922ee8-25e6-4c0f-991c-fd25bea7f5f7
+		summarizeBy: none
+		sourceColumn: QuestionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyVersionId
+		dataType: string
+		lineageTag: 9d5741e9-3515-4b68-9aa0-04d2e8e5e8ad
+		summarizeBy: none
+		sourceColumn: SurveyVersionId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Survey Question Choice-43495d2c-3fc1-490e-8102-1d1c43ead2cd' = m
+		mode: import
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48, CreateNavigationProperties=true]),
+				    SurveyQuestionChoice = Source{[Name="SurveyQuestionChoice"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(SurveyQuestionChoice,{"Id", "Name", "QuestionId", "SurveyVersionId"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+
